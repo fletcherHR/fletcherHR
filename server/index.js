@@ -62,5 +62,21 @@ app.post('/zillow', (req, res) => {
   });
 });
 
+app.post('/signUp', (req, res) => {
+  const obj = {
+    userName: '  ',
+    allow: 1,
+  };
+  res.status(200).send(obj);
+});
+
+app.post('/login', (req, res) => {
+  const obj = {
+    userName: '  ',
+    allow: 1,
+  };
+  res.status(200).send(obj);
+});
+
 app.listen(app.get('port'));
 console.log('Listening on port 8080.')
