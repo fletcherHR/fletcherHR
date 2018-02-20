@@ -14,6 +14,7 @@ app.set('port', 8080);
 
 app.post('/zillow', (req, res) => {
   const inputZip = req.body.zip;
+  const workAddress = req.body.userAddress.split(' ').join('+');
   const url1 = `https://www.zipcodeapi.com/rest/XUdRusqAL97aO28KYyMzfhZmkBLzSl7Qs853mWwzTSlxLRktAmrNTfQ2kr9bd8BE/radius.json/${inputZip}/1/km`;
   console.log('this is url1', url1)
   console.log("this is req.body.zip", req.body.zip);
@@ -24,6 +25,9 @@ app.post('/zillow', (req, res) => {
     let prices = [];
     let addresses = [];
     let images = [];
+    let walking = [];
+    let driving = [];
+    let transit = [];
 
     const searchUrl = (i) => {
       request(urls[i], (err, resp, html) => {
@@ -51,12 +55,36 @@ app.post('/zillow', (req, res) => {
             return Number(y);
           });
 
-          const obj = {
-            prices,
-            addresses,
-            images,
+          const searchMaps = (homeAdd, x) => {
+            console.log('homeADD:', homeAdd);
+            const homeAddress = String(homeAdd).split(' ').join('+');
+            let mapsUrl = `https://maps.googleapis.com/maps/api/directions/json?origin=${workAddress}&destination=${homeAddress}&key=AIzaSyCxYMb0yg6OBzoXznjrSp2J7RQwFBViPtY&mode=walking`
+            request(mapsUrl, (mapErr, mapResp, mapHtml) => {
+              walking.push(JSON.parse(mapHtml).routes[0].legs[0].duration.text);
+              mapsUrl = `https://maps.googleapis.com/maps/api/directions/json?origin=${workAddress}&destination=${homeAddress}&key=AIzaSyCxYMb0yg6OBzoXznjrSp2J7RQwFBViPtY&mode=driving`
+              request(mapsUrl, (mapErr, mapResp, mapHtml) => {
+                driving.push(JSON.parse(mapHtml).routes[0].legs[0].duration.text);
+                mapsUrl = `https://maps.googleapis.com/maps/api/directions/json?origin=${workAddress}&destination=${homeAddress}&key=AIzaSyCxYMb0yg6OBzoXznjrSp2J7RQwFBViPtY&mode=transit`
+                request(mapsUrl, (mapErr, mapResp, mapHtml) => {
+                  transit.push(JSON.parse(mapHtml).routes[0].legs[0].duration.text);
+                  if (x < addresses.length - 1) {
+                    searchMaps(addresses[x + 1], x + 1);
+                  } else {
+                    const obj = {
+                      prices,
+                      addresses,
+                      images,
+                      walking,
+                      driving,
+                      transit,
+                    };
+                    res.status(200).send(obj);
+                  }
+                });
+              });
+            });
           };
-          res.status(200).send(obj);
+          searchMaps(addresses[0], 0);
         }
       });
     };
@@ -81,4 +109,4 @@ app.post('/login', (req, res) => {
 });
 
 app.listen(app.get('port'));
-console.log('Listening on port 8080.')
+console.log('Listening on port 8080.');
