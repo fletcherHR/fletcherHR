@@ -7,7 +7,7 @@ export default class Login extends React.Component {
       logIn: true,
       userName: '',
       password: '',
-      message : '',
+      message: '',
     };
     this.userChange = this.userChange.bind(this);
     this.passChange = this.passChange.bind(this);
@@ -18,9 +18,11 @@ export default class Login extends React.Component {
   userChange(e) {
     this.setState({ userName: e.target.value });
   }
+
   passChange(e) {
     this.setState({ password: e.target.value });
   }
+
   login() {
     if (this.state.logIn) {
       this.props.login(this.state.userName, this.state.password, (mes) => {
