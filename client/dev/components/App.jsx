@@ -22,6 +22,15 @@ export default class App extends React.Component {
     this.signUp = this.signUp.bind(this);
     this.packData = this.packData.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+
+
+    axios.post('/commute', { address: '200+Central+Park+South+NY' })
+      .then((res) => {
+        // make sure we are sending back data in an array
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
 
   packData({ prices, addresses, images }) {
