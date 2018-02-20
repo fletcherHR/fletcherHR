@@ -1,12 +1,11 @@
 import React from 'react';
-import Search from './Search.jsx'
+import Search from './Search.jsx';
 
-export default class App extends React.Component{
+export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
-    }
+    };
   }
 
   render() {
@@ -15,6 +14,6 @@ export default class App extends React.Component{
         <h1>Fletcher Greenfield Project: Job Search?</h1>
         <Search />
       </div>
-    )
+    );
   }
 }
