@@ -42,6 +42,7 @@ export default class App extends React.Component {
     console.log('this is zip', { zip, userAddress });
     axios.post('/zillow', { zip, userAddress })
       .then((res) => {
+        console.log(res.data);
         // make sure we are sending back data in an array
         this.setState({userInfo: {userAddress: userAddress, userCommute: userCommute, userRent: userRent}} , () => this.packData(res.data))
       })
