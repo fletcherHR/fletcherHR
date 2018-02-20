@@ -21,6 +21,15 @@ export default class App extends React.Component {
     this.signUp = this.signUp.bind(this);
     this.packData = this.packData.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+
+
+    axios.post('/commute', { address: '200+Central+Park+South+NY' })
+      .then((res) => {
+        // make sure we are sending back data in an array
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
 
   packData({ prices, addresses, images }) {
@@ -35,8 +44,8 @@ export default class App extends React.Component {
   handleSearch({ userAddress, userCommute, userRent }) {
     const userInfo = { userAddress, userCommute, userRent };
     const zip = (userInfo.userAddress.slice(userInfo.userAddress.length - 5, userInfo.userAddress.length));
-    console.log('this is zip', { zip:zip });
-    axios.post('/zillow', { zip:zip })
+    console.log('this is zip', { zip, userAddress });
+    axios.post('/zillow', { zip, userAddress })
       .then((res) => {
         // make sure we are sending back data in an array
         this.packData(res.data);
