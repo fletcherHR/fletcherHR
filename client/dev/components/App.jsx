@@ -2,7 +2,6 @@ import React from 'react';
 import Search from './Search.jsx';
 import GoogleMaps from './GoogleMaps.jsx'
 import Login from './Login.jsx';
-import GoogleMaps from './GoogleMaps.jsx';
 import ResultList from './ResultList.jsx';
 import axios from 'axios';
 
