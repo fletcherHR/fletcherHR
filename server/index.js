@@ -1,19 +1,20 @@
 const express = require('express');
-// const parse = require('body-parser'); Fix when we determine what kind of data API key gives
+const parser = require('body-parser');
 const mysql = require('mysql');
 const axios = require('axios');
 const request = require('request');
 const cheerio = require('cheerio');
 const db = require('../database/index.js');
-let app = express();
+const app = express();
 
-
+app.use(parser.json());
 app.use(express.static(__dirname + '/../client/dist'));
 
 app.set('port', 8080);
 
 app.get('/zillow', (req, res) => {
-  const url1 = 'https://www.zipcodeapi.com/rest/XUdRusqAL97aO28KYyMzfhZmkBLzSl7Qs853mWwzTSlxLRktAmrNTfQ2kr9bd8BE/radius.json/10019/1/km'
+  const inputZip = req.body.zip;
+  const url1 = `https://www.zipcodeapi.com/rest/XUdRusqAL97aO28KYyMzfhZmkBLzSl7Qs853mWwzTSlxLRktAmrNTfQ2kr9bd8BE/radius.json/${inputZip}/1/km`;
   request(url1, (error, response, dataa) => {
     const data = JSON.parse(dataa);
     const zipCodes = data.zip_codes.map(x => x.zip_code);
