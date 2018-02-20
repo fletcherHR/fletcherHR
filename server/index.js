@@ -12,7 +12,7 @@ app.use(express.static(__dirname + '/../client/dist'));
 
 app.set('port', 8080);
 
-app.get('/zillow', (req, res) => {
+app.post('/zillow', (req, res) => {
   const inputZip = req.body.zip;
   const url1 = `https://www.zipcodeapi.com/rest/XUdRusqAL97aO28KYyMzfhZmkBLzSl7Qs853mWwzTSlxLRktAmrNTfQ2kr9bd8BE/radius.json/${inputZip}/1/km`;
   request(url1, (error, response, dataa) => {
