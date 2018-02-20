@@ -9,9 +9,9 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      resultList: [{prices: 500, addresses: 'addresses', images: 'imageurl'}],
+      resultList: [{ prices: 500, addresses: 'addresses', images: 'imageurl' }],
       // default is HR right now
-      userInfo: {userAddress: 'myaddress', userCommute: '60', userRent: '5'},
+      userInfo: { userAddress: 'myaddress', userCommute: '60', userRent: '5' },
       latitude: 40.750611,
       longitude: -73.978641,
       userName: '',
@@ -39,12 +39,12 @@ export default class App extends React.Component {
   handleSearch({ userAddress, userCommute, userRent }) {
     const userInfo = { userAddress, userCommute, userRent };
     const zip = (userInfo.userAddress.slice(userInfo.userAddress.length - 5, userInfo.userAddress.length));
-    console.log('this is zip', { zip, userAddress });
-    axios.post('/zillow', { zip, userAddress })
+    console.log('this is zip', { zip:zip });
+    axios.post('/zillow', { zip:zip })
       .then((res) => {
         console.log(res.data);
         // make sure we are sending back data in an array
-        this.setState({userInfo: {userAddress: userAddress, userCommute: userCommute, userRent: userRent}} , () => this.packData(res.data))
+        this.setState({ userInfo: { userAddress: userAddress, userCommute: userCommute, userRent: userRent }} , () => this.packData(res.data))
       })
       .catch((err) => {
         console.log(err);
