@@ -11,6 +11,7 @@ export default class App extends React.Component {
     this.state = {
       resultList: [{prices: 500, addresses: 'addresses', images: 'imageurl'}],
       // default is HR right now
+      userInfo: {userAddress: 'myaddress', userCommute: '60', userRent: '5'},
       latitude: 40.750611,
       longitude: -73.978641,
       userName: '',
@@ -26,8 +27,11 @@ export default class App extends React.Component {
   packData({ prices, addresses, images }) {
     const temp = [];
     for (let i = 0; i < prices.length; i += 1) {
-      const obj = { prices: prices[i], addresses: addresses[i], images: images[i] };
-      temp.push(obj);
+      // Can add additional conditions to filter results
+      if (prices[i] < this.state.userInfo.userRent) {
+        const obj = { prices: prices[i], addresses: addresses[i], images: images[i] };
+        temp.push(obj);
+      }
     }
     this.setState({ resultList: temp }, () => console.log('this is the updated state: ', this.state));
   }
@@ -39,7 +43,7 @@ export default class App extends React.Component {
     axios.post('/zillow', { zip:zip })
       .then((res) => {
         // make sure we are sending back data in an array
-        this.packData(res.data);
+        this.setState({userInfo: {userAddress: userAddress, userCommute: userCommute, userRent: userRent}} , () => this.packData(res.data))
       })
       .catch((err) => {
         console.log(err);
