@@ -54,17 +54,29 @@ app.post('/zillow', (req, res) => {
           });
 
           const searchMaps = (homeAdd, x) => {
-            console.log('homeADD:', homeAdd);
             const homeAddress = String(homeAdd).split(' ').join('+');
             let mapsUrl = `https://maps.googleapis.com/maps/api/directions/json?origin=${workAddress}&destination=${homeAddress}&key=AIzaSyCxYMb0yg6OBzoXznjrSp2J7RQwFBViPtY&mode=walking`
-            request(mapsUrl, (mapErr, mapResp, mapHtml) => {
-              walking.push(JSON.parse(mapHtml).routes[0].legs[0].duration.text);
+            request(mapsUrl, (mapErr, mapResp, mapHtmlW) => {
+              if (JSON.parse(mapHtmlW).routes[0] !== undefined) {
+                walking.push(JSON.parse(mapHtmlW).routes[0].legs[0].duration.text);
+              } else {
+                walking.push('error');
+              }
               mapsUrl = `https://maps.googleapis.com/maps/api/directions/json?origin=${workAddress}&destination=${homeAddress}&key=AIzaSyCxYMb0yg6OBzoXznjrSp2J7RQwFBViPtY&mode=driving`
-              request(mapsUrl, (mapErr, mapResp, mapHtml) => {
-                driving.push(JSON.parse(mapHtml).routes[0].legs[0].duration.text);
+              request(mapsUrl, (mapErr, mapResp, mapHtmlD) => {
+                console.log(JSON.parse(mapHtmlD).routes);
+                if (JSON.parse(mapHtmlD).routes[0] !== undefined) {
+                  driving.push(JSON.parse(mapHtmlD).routes[0].legs[0].duration.text);
+                } else {
+                  driving.push('error');
+                }
                 mapsUrl = `https://maps.googleapis.com/maps/api/directions/json?origin=${workAddress}&destination=${homeAddress}&key=AIzaSyCxYMb0yg6OBzoXznjrSp2J7RQwFBViPtY&mode=transit`
-                request(mapsUrl, (mapErr, mapResp, mapHtml) => {
-                  transit.push(JSON.parse(mapHtml).routes[0].legs[0].duration.text);
+                request(mapsUrl, (mapErr, mapResp, mapHtmlT) => {
+                  if (JSON.parse(mapHtmlT).routes[0] !== undefined) {
+                    transit.push(JSON.parse(mapHtmlT).routes[0].legs[0].duration.text);
+                  } else {
+                    transit.push('error');
+                  }
                   if (x < addresses.length - 1) {
                     searchMaps(addresses[x + 1], x + 1);
                   } else {
