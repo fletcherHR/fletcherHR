@@ -33,6 +33,7 @@
     "react": "^15.6.2",
     "react-dom": "^15.6.2",
     "react-google-maps": "^9.4.5",
+    "react-stars": "^2.2.5",
     "request": "^2.81.0"
   }
 }
