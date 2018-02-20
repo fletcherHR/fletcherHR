@@ -6,8 +6,9 @@ export default class App extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
-      latitude:'-34.397',
-      longitude: '150.644'
+      // default is HR right now
+      latitude: 40.750611,
+      longitude: -73.978641
     }
   }
 
