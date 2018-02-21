@@ -15,7 +15,7 @@ export default class App extends React.Component {
       latitude: 40.750611,
       longitude: -73.978641,
       hLatLong: [{ lat: 40.750611, lng: -73.978641 }],
-      mapList: [{ addresses: 'addresses', prices: 2000, hLatLong: { lat: 40.750611, lng: -73.978641 } }],
+      mapList: [{id: 0, addresses: 'addresses', prices: 2000, hLatLong: { lat: 40.7484, lng: -73.9857 } }],
       userName: '',
       loggedIn: 0,
     };
@@ -29,6 +29,8 @@ export default class App extends React.Component {
 
   packData( { prices, addresses, images, transit, driving, walking, hLatLong }) {
     const temp = [];
+    const mapTemp = [];
+    mapTemp.push(this.state.mapList[0]);
     console.log('this is the res.data in packData\n', { prices, addresses, images, transit, driving, walking, hLatLong });
     for (let i = 0; i < prices.length; i += 1) {
       // Can add additional conditions to filter results
@@ -36,9 +38,11 @@ export default class App extends React.Component {
         // passing down "id" into resultList to make handling them easier
         const obj = { id: i, prices: prices[i], addresses: addresses[i], images: images[i], transit: transit[i], driving: driving[i], walking: walking[i], hLatLong: hLatLong[i] };
         temp.push(obj);
+        const mapObj = { id: i + 1, addresses: addresses[i], prices: prices[i], hLatLong: hLatLong[i] };
+        mapTemp.push(mapObj);
       }
     }
-    this.setState({ resultList: temp, hLatLong }, () => console.log('this is the updated state: ', this.state));
+    this.setState({ resultList: temp, hLatLong, mapList: mapTemp }, () => console.log('this is the updated state: ', this.state));
   }
 
   handleSearch({ userAddress, userCommute, userRent }) {
@@ -52,7 +56,7 @@ export default class App extends React.Component {
         this.setState(
           {
             userInfo: { userAddress, userCommute, userRent },
-            mapList: { addresses: userAddress, prices: 'this is your work', hLatLong: res.data.jLatLong },
+            mapList: [{ addresses: userAddress, prices: 'this is your work', hLatLong: res.data.jLatLong }],
           },
           () => this.packData(res.data)
         );
@@ -64,9 +68,14 @@ export default class App extends React.Component {
 
   // clicked list will render as a Marker on the google maps
   handleListClick({ addresses, prices, hLatLong }) {
-    const tempMapList = this.state.mapList;
-    tempMapList.push({ addresses, prices, hLatLong });
-    this.setState({ mapList: tempMapList }, () => console.log(this.state));
+    // const tempMapList = this.state.mapList;
+    // tempMapList.push({ addresses, prices, hLatLong });
+    this.setState({
+      mapList: [{
+        id: 0, addresses, prices, hLatLong
+      },
+      ],
+    }, () => console.log(this.state));
   }
 
 
