@@ -9,9 +9,9 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      resultList: [{prices: 500, addresses: 'addresses', images: 'imageurl'}],
-      // default is HR right now
-      userInfo: {userAddress: 'myaddress', userCommute: '60', userRent: '5'},
+      resultList: [{ prices: 500, addresses: 'addresses', images: 'imageurl' }],
+      // default is HR right now maybe add more later
+      userInfo: { userAddress: 'myaddress', userCommute: '60', userRent: '5' },
       latitude: 40.750611,
       longitude: -73.978641,
       userName: '',
@@ -24,12 +24,12 @@ export default class App extends React.Component {
     this.handleSearch = this.handleSearch.bind(this);
   }
 
-  packData({ prices, addresses, images }) {
+  packData({ prices, addresses, images, transit, driving, walking }) {
     const temp = [];
     for (let i = 0; i < prices.length; i += 1) {
       // Can add additional conditions to filter results
       if (prices[i] < this.state.userInfo.userRent) {
-        const obj = { prices: prices[i], addresses: addresses[i], images: images[i] };
+        const obj = { prices: prices[i], addresses: addresses[i], images: images[i], transit: transit[i], driving: driving[i], walking: walking[i] };
         temp.push(obj);
       }
     }
@@ -44,7 +44,7 @@ export default class App extends React.Component {
       .then((res) => {
         console.log(res.data);
         // make sure we are sending back data in an array
-        this.setState({userInfo: {userAddress: userAddress, userCommute: userCommute, userRent: userRent}} , () => this.packData(res.data))
+        this.setState({userInfo: { userAddress, userCommute, userRent } }, () => this.packData(res.data))
       })
       .catch((err) => {
         console.log(err);
