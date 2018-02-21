@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Icon } from 'semantic-ui-react';
+import axios from 'axios';
 
 export default class Result extends React.Component {
   constructor(props) {
@@ -13,13 +14,21 @@ export default class Result extends React.Component {
   handleButtonClick() {
     this.setState({
       active: !this.state.active,
+    }, () => {
+      if (this.state.active) {
+        // trigger save to saveToFavorites
+        console.log('button has been pressed for favs')
+        axios.post('/favs', {
+          address: this.props.result.addresses,
+          price: this.props.result.prices,
+          commuteTime: this.props.result.driving,
+          aptImageURL: this.props.result.images,
+          userName: this.props.userName
+        });
+      } else {
+        // trigger delete from favorites
+      }
     });
-    if (this.state.active) {
-      // trigger save to saveToFavorites
-    } else {
-      // trigger delete from favorites
-    }
-    console.log('this is the state: ', this.state.active);
   }
 
   render() {
