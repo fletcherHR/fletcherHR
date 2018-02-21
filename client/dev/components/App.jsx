@@ -40,7 +40,7 @@ export default class App extends React.Component {
       // Can add additional conditions to filter results
       if (prices[i] < this.state.userInfo.userRent) {
         // passing down "id" into resultList to make handling them easier
-        const obj = { id: i, prices: prices[i], addresses: addresses[i], images: images[i], transit: transit[i], driving: driving[i], walking: walking[i], hLatLong: hLatLong[i] };
+        const obj = { id: i, prices: prices[i], addresses: addresses[i], images: images[i], walking: walking[i], hLatLong: hLatLong[i] };
         temp.push(obj);
         const mapObj = { id: i + 1, addresses: addresses[i], prices: prices[i], hLatLong: hLatLong[i] };
         mapTemp.push(mapObj);
