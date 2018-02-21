@@ -7,7 +7,7 @@ export default class Login extends React.Component {
       logIn: true,
       userName: '',
       password: '',
-      message : '',
+      message: '',
     };
     this.userChange = this.userChange.bind(this);
     this.passChange = this.passChange.bind(this);

@@ -15,9 +15,9 @@ connection.connect((err) => {
   }
 });
 
-connection.query('SELECT * FROM users', (error, rows) => {
-  if (error) console.log('ERROR in connection.query: ', error);
-  else console.log('these are the results: ', JSON.parse(JSON.stringify(rows)));
-});
+// connection.query('SELECT * FROM users', (error, rows) => {
+//   if (error) console.log('ERROR in connection.query: ', error);
+//   else console.log('these are the results: ', JSON.parse(JSON.stringify(rows)));
+// });
 
 module.exports.connection = connection;
