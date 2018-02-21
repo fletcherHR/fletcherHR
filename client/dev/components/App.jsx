@@ -60,20 +60,27 @@ export default class App extends React.Component {
   }
 
   login(userName, password, cb) {
-    axios.post('/login', {
-      userName,
-      password,
-    })
-      .then((res) => {
-        if (res.data.allow) {
-          this.setState({
-            loggedIn: 1,
-            userName: res.data.userName,
-          });
-        } else {
-          cb('Inncorect Login Information');
-        }
+    if(userName === ''){
+      this.setState({
+        loggedIn: 1,
+        userName: '',
       });
+    } else {
+      axios.post('/login', {
+        userName,
+        password,
+      })
+        .then((res) => {
+          if (res.data.allow) {
+            this.setState({
+              loggedIn: 1,
+              userName: res.data.userName,
+            });
+          } else {
+            cb('Inncorect Login Information');
+          }
+        });
+    }
   }
 
   signUp(userName, password, cb) {
