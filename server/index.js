@@ -57,7 +57,6 @@ app.post('/zillow', (req, res) => {
           prices = prices.map((p) => {
             let start = false;
             let end = true;
-            //console.log('this is p: ', p);
             return p.split('').filter((c) => {
               if (c === '$') {
                 start = true;
@@ -112,6 +111,7 @@ app.post('/zillow', (req, res) => {
                   if (x < addresses.length - 1) {
                     searchMaps(addresses[x + 1], x + 1);
                   } else {
+                    console.log(prices.length);
                     console.log('done');
                     const obj = {
                       prices,
