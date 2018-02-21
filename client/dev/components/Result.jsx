@@ -28,10 +28,13 @@ export default class Result extends React.Component {
     return (
       <div style={{
           border: '1px solid black',
+          borderRadius: '2%',
           backgroundImage: `url(${imageURL})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           display: 'grid',
+          gridTemplateColumns: '4fr 1fr',
+          gridAutoRows: '30px',
           color: 'white',
           textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000',
         }}
@@ -41,14 +44,15 @@ export default class Result extends React.Component {
           onClick={this.handleButtonClick}
           toggle active={active}
           size="large"
+          style ={{ gridColumn: '2', gridRow: '1',}}
         />
-        <span>
-          ${this.props.result.prices}
+        <span style={{ gridColumn: '1', gridRow: '2', opacity: '0.8' }}>
+          - Price per Month: ${this.props.result.prices}
         </span>
-        <span>
-          - {this.props.result.addresses}
+        <span style={{ gridColumn: '1', gridRow: '3', opacity: '0.8' }}>
+          - Address: {this.props.result.addresses}
         </span>
-        <span>
+        <span style={{ gridColumn: '1/3', gridRow: '4/6', opacity: '0.8' }}>
           - Commute Times:<br/>
           Walking:({this.props.result.walking}) 
           Driving:({this.props.result.driving}) 

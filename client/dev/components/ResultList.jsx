@@ -11,11 +11,11 @@ export default class ResultList extends React.Component {
 
   render() {
     return (
-      <ul style={{ display: 'grid', gridAutoRows: '150px' }}>
-        {this.props.resultList.map((result, i) => (
-          <Result result={result} key={i} />
-        ))}
-      </ul>
+      <div style={{ gridRow: '2', gridColumn: '2', display: 'grid', gridAutoRows: '150px' }}>
+          {this.props.resultList.map((result, i) => (
+            <Result result={result} key={i} />
+          ))}
+      </div>
     );
   }
 }

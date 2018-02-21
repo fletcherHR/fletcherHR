@@ -9,7 +9,9 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      resultList: [{ prices: 2000, addresses: 'addresses', images: 'https://photos.zillowstatic.com/p_e/IS66k9fwkyagry0000000000.jpg' }],
+      resultList: [{ prices: 2000, addresses: 'addresses', images: 'https://photos.zillowstatic.com/p_e/IS66k9fwkyagry0000000000.jpg', walking: '5 minutes', driving: '3 minutes', transit: '4 minutes' },
+      { prices: 1500, addresses: 'addresses2', images: 'https://media.boingboing.net/wp-content/uploads/2015/04/chicken3.jpg', walking: '10 minutes', driving: '4 minutes', transit: '6 minutes' },
+      { prices: 1700, addresses: 'addresses3', images: 'https://media.boingboing.net/wp-content/uploads/2015/04/chicken3.jpg', walking: '15 minutes', driving: '6 minutes', transit: '8 minutes' }],
       // default is HR right now maybe add more later
       userInfo: { userAddress: 'myaddress', userCommute: '60', userRent: '5' },
       latitude: 40.750611,
@@ -40,7 +42,7 @@ export default class App extends React.Component {
     const userInfo = { userAddress, userCommute, userRent };
     const zip = (userInfo.userAddress.slice(userInfo.userAddress.length - 5, userInfo.userAddress.length));
     console.log('this is zip', { zip, userAddress });
-    axios.post('/zillow', { zip, userAddress })
+    axios.post('/zillow', { zip, userAddress, userRent })
       .then((res) => {
         console.log(res.data);
         // make sure we are sending back data in an array
@@ -95,20 +97,22 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <div style={{ fontFamily: 'sans-serif' }}>
         {
           this.state.loggedIn ?
             <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gridAutoRows: '150px'}}>
               <Search triggerSearch={this.handleSearch}/>
               <ResultList resultList={this.state.resultList} />
-              <GoogleMaps isMarkerShown
-                googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
-                loadingElement={<div style={{ height: `100%` }} />}
-                containerElement={<div style={{ height: `400px` }} />}
-                mapElement={<div style={{ height: `100%` }}/>}
-                latitude={this.state.latitude}
-                longitude={this.state.longitude}
-              />
+              <div style={{ gridRow: '2', gridColumn: '1' }}>
+                <GoogleMaps isMarkerShown
+                  googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
+                  loadingElement={<div style={{ height: `100%` }} />}
+                  containerElement={<div style={{ height: `400px` }} />}
+                  mapElement={<div style={{ height: `100%` }}/>}
+                  latitude={this.state.latitude}
+                  longitude={this.state.longitude}
+                />
+              </div>
             </div> :
             <Login signUp={this.signUp} login={this.login} />
         }
