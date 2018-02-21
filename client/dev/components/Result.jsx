@@ -32,6 +32,8 @@ export default class Result extends React.Component {
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           display: 'grid',
+          color: 'white',
+          textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000',
         }}
       >
         <Button
@@ -48,7 +50,10 @@ export default class Result extends React.Component {
           - {this.props.result.addresses}
         </span>
         <span>
-          - <a href={imageURL}>Property Image</a>
+          - Commute Times:<br/>
+          Walking:({this.props.result.walking}) 
+          Driving:({this.props.result.driving}) 
+          Transit:({this.props.result.transit})
         </span>
       </div>
     );
