@@ -8,7 +8,7 @@ exports.verifyExistingUserLogin = (username, cb) => {
 };
 
 exports.addNewUserSignUp = (username, password, cb) => {
-  db.query('INSERT INTO users (username, password) VALUES ("?", "?")', [username, password], (error, res) => {
+  db.query('INSERT INTO users (username, password) VALUES (?, ?)', [username, password], (error, res) => {
     if (error) cb(error, 0);
     else cb(res, 1);
   });
