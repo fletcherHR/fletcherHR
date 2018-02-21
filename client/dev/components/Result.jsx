@@ -9,7 +9,13 @@ export default function Result(props) {
   };
 
   return (
-    <div>
+    <div style={{
+      border: '1px solid black',
+      backgroundImage: `url(${imageURL})`,
+      backgroundSize: 'cover',
+      display: 'grid',
+      }}
+    >
       <ReactStars
         count={1}
         onChange={saveToFavorites}

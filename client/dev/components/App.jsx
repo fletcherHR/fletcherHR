@@ -9,7 +9,7 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      resultList: [{ prices: 500, addresses: 'addresses', images: 'imageurl' }],
+      resultList: [{ prices: 2000, addresses: 'addresses', images: 'https://photos.zillowstatic.com/p_e/IS66k9fwkyagry0000000000.jpg' }],
       // default is HR right now maybe add more later
       userInfo: { userAddress: 'myaddress', userCommute: '60', userRent: '5' },
       latitude: 40.750611,
@@ -93,8 +93,7 @@ export default class App extends React.Component {
       <div>
         {
           this.state.loggedIn ?
-            <div>
-              <h1>Fletcher Greenfield Project: Job Search?</h1>
+            <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gridAutoRows: '150px'}}>
               <Search triggerSearch={this.handleSearch}/>
               <ResultList resultList={this.state.resultList} />
               <GoogleMaps isMarkerShown
