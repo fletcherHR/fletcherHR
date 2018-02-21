@@ -35,6 +35,7 @@ export default class Result extends React.Component {
         }}
       >
         <Button
+          className="favorites"
           icon="star"
           onClick={this.handleButtonClick}
           toggle active={active}
@@ -53,42 +54,3 @@ export default class Result extends React.Component {
     );
   }
 }
-
-
-// import React from 'react';
-// import { Button, Icon } from 'semantic-ui-react';
-//
-// export default function Result(props) {
-//   const imageURL = props.result.images;
-//   let buttonState = false;
-//   const saveToFavorites = () => {
-//     console.log('clicked button');
-//     buttonState = !buttonState;
-//     console.log('button state: ', buttonState);
-//   };
-//   return (
-//     <div style={{
-//       border: '1px solid black',
-//       backgroundImage: `url(${imageURL})`,
-//       backgroundSize: 'cover',
-//       display: 'grid',
-//       }}
-//     >
-//       <Button
-//         icon="star"
-//         onClick={saveToFavorites}
-//         color="yellow"
-//         toggle active={true}
-//       />
-//       <span>
-//         ${props.result.prices}
-//       </span>
-//       <span>
-//         - {props.result.addresses}
-//       </span>
-//       <span>
-//         - <a href={imageURL}>Property Image</a>
-//       </span>
-//     </div>
-//   );
-// }
