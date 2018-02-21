@@ -140,16 +140,18 @@ export default class App extends React.Component {
             <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gridAutoRows: '150px' }}>
               <Search triggerSearch={this.handleSearch} />
               <ResultList resultList={this.state.resultList} />
-              <GoogleMaps
-                isMarkerShown
-                googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
-                loadingElement={<div style={{ height: `100%` }} />}
-                containerElement={<div style={{ height: `400px` }} />}
-                mapElement={<div style={{ height: `100%` }}/>}
-                mapList={this.state.mapList}
-                latitude={this.state.latitude}
-                longitude={this.state.longitude}
-              />
+              <div style={{ gridColumn: '1', gridRow: '2' }}>
+                <GoogleMaps
+                  isMarkerShown
+                  googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
+                  loadingElement={<div style={{ height: `100%` }} />}
+                  containerElement={<div style={{ height: `400px` }} />}
+                  mapElement={<div style={{ height: `100%` }}/>}
+                  mapList={this.state.mapList}
+                  latitude={this.state.latitude}
+                  longitude={this.state.longitude}
+                />
+              </div>
               <Loader
                 style={{ display: this.state.loading ? 'block' : 'none' }}
                 active inline="centered"
