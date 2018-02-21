@@ -1,18 +1,18 @@
-const db = require('./index.js');
+const db = require('./index.js').connection;
 
-const verifyExistingUserLogin = (username, cb) => {
+exports.verifyExistingUserLogin = (username, cb) => {
   db.query(`SELECT password FROM users WHERE username="${username}"`, (error, res) => {
-    if (error) console.log('ERROR in verifyExistingUser, error: ', error);
+    if (error) cb(error);
     else cb(JSON.parse(JSON.stringify(res)));
   });
 };
 
-const addNewUserLogin = (username, password, cb) => {
+exports.addNewUserSignUp = (username, password, cb) => {
   db.query('INSERT INTO users (username, password) VALUES ("?", "?")', [username, password], (error, res) => {
-    if (error) console.log('ERROR in addNewUserLogin: ', error);
-    else cb(res);
+    if (error) cb(error, 0);
+    else cb(res, 1);
   });
 };
 
-module.exports.verifyExistingUserLogin = verifyExistingUserLogin;
-module.exports.addNewUserLogin = addNewUserLogin;
+// module.exports.verifyExistingUserLogin = verifyExistingUserLogin;
+// module.exports.addNewUserLogin = addNewUserLogin;

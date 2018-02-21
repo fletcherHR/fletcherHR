@@ -4,7 +4,7 @@ const mysql = require('mysql');
 const axios = require('axios');
 const request = require('request');
 const cheerio = require('cheerio');
-const db = require('../database/index.js');
+const dbhelper = require('../database/dbhelpers.js');
 const app = express();
 
 app.use(parser.json());
@@ -107,7 +107,17 @@ app.post('/signUp', (req, res) => {
     userName: '  ',
     allow: 1,
   };
-  res.status(200).send(obj);
+  dbhelper.addNewUserSignUp(req.body.userName, req.body.password, function(result, allow) {
+    
+    if (allow === 0) {
+      obj.allow = 0;
+      res.status(400).send(obj);
+    } else {
+      obj.userName = req.body.userName
+      res.status(200).send(obj);
+    }
+  })
+  
 });
 
 app.post('/login', (req, res) => {
@@ -115,6 +125,10 @@ app.post('/login', (req, res) => {
     userName: '  ',
     allow: 1,
   };
+  dbhelper.verifyExistingUserLogin(req.body.userName, function(result) {
+
+  })
+
   res.status(200).send(obj);
 });
 
