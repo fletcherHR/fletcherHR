@@ -23,9 +23,11 @@ app.post('/zillow', (req, res) => {
     let prices = [];
     let addresses = [];
     let images = [];
-    let walking = [];
-    let driving = [];
-    let transit = [];
+    const walking = [];
+    const driving = [];
+    const transit = [];
+    let jLatLong;
+    const hLatLong = [];
 
     const searchUrl = (i) => {
       request(urls[i], (err, resp, html) => {
@@ -59,6 +61,10 @@ app.post('/zillow', (req, res) => {
             request(mapsUrl, (mapErr, mapResp, mapHtmlW) => {
               if (JSON.parse(mapHtmlW).routes[0] !== undefined) {
                 walking.push(JSON.parse(mapHtmlW).routes[0].legs[0].duration.text);
+                if (!jLatLong) {
+                  jLatLong = JSON.parse(mapHtmlW).routes[0].legs[0].start_location;
+                }
+                hLatLong.push(JSON.parse(mapHtmlW).routes[0].legs[0].end_location);
               } else {
                 walking.push('error');
               }
@@ -87,6 +93,8 @@ app.post('/zillow', (req, res) => {
                       walking,
                       driving,
                       transit,
+                      jLatLong,
+                      hLatLong,
                     };
                     res.status(200).send(obj);
                   }
@@ -107,17 +115,15 @@ app.post('/signUp', (req, res) => {
     userName: '  ',
     allow: 1,
   };
-  dbhelper.addNewUserSignUp(req.body.userName, req.body.password, function(result, allow) {
-    
+  dbhelper.addNewUserSignUp(req.body.userName, req.body.password, (result, allow) => {
     if (allow === 0) {
       obj.allow = 0;
       res.status(400).send(obj);
     } else {
-      obj.userName = req.body.userName
+      obj.userName = req.body.userName;
       res.status(200).send(obj);
     }
-  })
-  
+  });
 });
 
 app.post('/login', (req, res) => {
