@@ -14,7 +14,7 @@ const GoogleMaps = withScriptjs(withGoogleMap(props => (
   <GoogleMap
     defaultZoom={13}
     defaultCenter={{ lat: props.mapList[0].hLatLong.lat, lng: props.mapList[0].hLatLong.lng }}
-    center={{ lat: props.latitude, lng: props.longitude }}
+    center={{ lat: props.mapList[0].hLatLong.lat, lng: props.mapList[0].hLatLong.lng }}
   >
     {props.isMarkerShown && props.mapList.map(marker => (
       <Marker position={{ lat: marker.hLatLong.lat, lng: marker.hLatLong.lng }} key={marker.id} />
