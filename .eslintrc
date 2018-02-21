@@ -9,7 +9,6 @@
   },
   "rules": {
     "valid-jsdoc": ["error", {
-<<<<<<< HEAD
       "requireReturn": false,
       "requireReturnType": false,
       "requireParamDescription": false,
@@ -20,18 +19,6 @@
             "FunctionDeclaration": false,
             "MethodDefinition": false,
             "ClassDeclaration": false
-=======
-      "requireReturn": true,
-      "requireReturnType": true,
-      "requireParamDescription": true,
-      "requireReturnDescription": true
-    }],
-    "require-jsdoc": ["error", {
-        "require": {
-            "FunctionDeclaration": true,
-            "MethodDefinition": true,
-            "ClassDeclaration": true
->>>>>>> added linter file and dev dependencies to make linter work correclty
         }
     }]
   }
