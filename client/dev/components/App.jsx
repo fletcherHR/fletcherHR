@@ -4,6 +4,7 @@ import GoogleMaps from './GoogleMaps.jsx'
 import Login from './Login.jsx';
 import ResultList from './ResultList.jsx';
 import axios from 'axios';
+import { Dimmer, Loader, Image, Segment } from 'semantic-ui-react';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -16,6 +17,7 @@ export default class App extends React.Component {
       longitude: -73.978641,
       userName: '',
       loggedIn: 0,
+      loading: false,
     };
 
     this.login = this.login.bind(this);
@@ -40,17 +42,22 @@ export default class App extends React.Component {
     const userInfo = { userAddress, userCommute, userRent };
     const zip = (userInfo.userAddress.slice(userInfo.userAddress.length - 5, userInfo.userAddress.length));
     console.log('this is zip', { zip, userAddress });
+    this.setState({
+      loading: true,
+    });
     axios.post('/zillow', { zip, userAddress })
       .then((res) => {
         console.log(res.data);
         // make sure we are sending back data in an array
-        this.setState({userInfo: { userAddress, userCommute, userRent } }, () => this.packData(res.data))
+        this.setState({
+          userInfo: { userAddress, userCommute, userRent },
+          loading: false,
+        }, () => this.packData(res.data));
       })
       .catch((err) => {
         console.log(err);
-      })
+      });
   }
-
 
   login(userName, password, cb) {
     axios.post('/login', {
@@ -81,6 +88,7 @@ export default class App extends React.Component {
             userName: res.data.userName,
           });
         } else {
+          console.log('User Name Taken');
           cb('User Name Taken');
         }
       });
@@ -91,17 +99,24 @@ export default class App extends React.Component {
       <div>
         {
           this.state.loggedIn ?
-            <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gridAutoRows: '150px'}}>
-              <Search triggerSearch={this.handleSearch}/>
+            <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gridAutoRows: '150px' }}>
+              <Search triggerSearch={this.handleSearch} />
               <ResultList resultList={this.state.resultList} />
-              <GoogleMaps isMarkerShown
+              <GoogleMaps
+                isMarkerShown
                 googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
-                loadingElement={<div style={{ height: `100%` }} />}
-                containerElement={<div style={{ height: `400px` }} />}
-                mapElement={<div style={{ height: `100%` }}/>}
+                loadingElement={<div style={{ height: '100%' }} />}
+                containerElement={<div style={{ height: '400px' }} />}
+                mapElement={<div style={{ height: '100%' }} />}
                 latitude={this.state.latitude}
                 longitude={this.state.longitude}
               />
+              <Loader
+                style={{ display: this.state.loading ? 'block' : 'none' }}
+                active inline="centered"
+                size="large"
+              >Loading
+              </Loader>
             </div> :
             <Login signUp={this.signUp} login={this.login} />
         }
