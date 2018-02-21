@@ -15,7 +15,7 @@ app.set('port', 8080);
 app.post('/zillow', (req, res) => {
   const inputZip = req.body.zip;
   const workAddress = req.body.userAddress.split(' ').join('+');
-  const url1 = `https://www.zipcodeapi.com/rest/XUdRusqAL97aO28KYyMzfhZmkBLzSl7Qs853mWwzTSlxLRktAmrNTfQ2kr9bd8BE/radius.json/${inputZip}/1/km`;
+  const url1 = `https://www.zipcodeapi.com/rest/czexOxX0CAzdZx8C6k3rzwTXMsnphwXuZP6FJ2t2x8nau3tw3eaxrX77aayNeDsh/radius.json/${inputZip}/1/km`;
   request(url1, (error, response, dataa) => {
     const data = JSON.parse(dataa);
     const zipCodes = data.zip_codes.map(x => x.zip_code);
