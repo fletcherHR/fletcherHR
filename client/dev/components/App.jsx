@@ -32,7 +32,7 @@ export default class App extends React.Component {
     const mapTemp = [];
     mapTemp.push(this.state.mapList[0]);
     console.log('this is the res.data in packData\n', { prices, addresses, images, transit, driving, walking, hLatLong });
-    for (let i = 0; i < prices.length; i += 1) {
+    for (let i = 0; i < hLatLong.length; i += 1) {
       // Can add additional conditions to filter results
       if (prices[i] < this.state.userInfo.userRent) {
         // passing down "id" into resultList to make handling them easier
