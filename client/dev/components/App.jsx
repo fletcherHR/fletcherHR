@@ -66,6 +66,7 @@ export default class App extends React.Component {
   handleListClick({ addresses, prices, hLatLong }) {
     const tempMapList = this.state.mapList;
     tempMapList.push({ addresses, prices, hLatLong });
+    this.setState({ mapList: tempMapList }, () => console.log(this.state));
   }
 
 
@@ -118,6 +119,7 @@ export default class App extends React.Component {
                 loadingElement={<div style={{ height: `100%` }} />}
                 containerElement={<div style={{ height: `400px` }} />}
                 mapElement={<div style={{ height: `100%` }}/>}
+                mapList={this.state.mapList}
                 latitude={this.state.latitude}
                 longitude={this.state.longitude}
               />
