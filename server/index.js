@@ -16,7 +16,7 @@ app.post('/zillow', (req, res) => {
   const inputZip = req.body.zip;
   const userRent = Number(req.body.userRent);
   const workAddress = req.body.userAddress.split(' ').join('+');
-  const url1 = `https://www.zipcodeapi.com/rest/czexOxX0CAzdZx8C6k3rzwTXMsnphwXuZP6FJ2t2x8nau3tw3eaxrX77aayNeDsh/radius.json/${inputZip}/0.5/km`;
+  const url1 = `https://www.zipcodeapi.com/rest/czexOxX0CAzdZx8C6k3rzwTXMsnphwXuZP6FJ2t2x8nau3tw3eaxrX77aayNeDsh/radius.json/${inputZip}/1/km`;
   request(url1, (error, response, dataa) => {
     const data = JSON.parse(dataa);
     const zipCodes = data.zip_codes.map(x => x.zip_code);
@@ -88,16 +88,16 @@ app.post('/zillow', (req, res) => {
 
           const searchMaps = (homeAdd, x) => {
             const homeAddress = String(homeAdd).split(' ').join('+');
-            let mapsUrl = `https://maps.googleapis.com/maps/api/directions/json?origin=${workAddress}&destination=${homeAddress}&key=AIzaSyD5SmRKpjDZNvGcjg5c1J-keD75Bnto5Us&mode=walking`
+            let mapsUrl = `https://maps.googleapis.com/maps/api/directions/json?origin=${workAddress}&destination=${homeAddress}&key=AIzaSyD5SmRKpjDZNvGcjg5c1J-keD75Bnto5Us&mode=driving`
             request(mapsUrl, (mapErr, mapResp, mapHtmlW) => {
               if (JSON.parse(mapHtmlW).routes[0] !== undefined) {
-                walking.push(JSON.parse(mapHtmlW).routes[0].legs[0].duration.text);
+                driving.push(JSON.parse(mapHtmlW).routes[0].legs[0].duration.text);
                 if (!jLatLong) {
                   jLatLong = JSON.parse(mapHtmlW).routes[0].legs[0].start_location;
                 }
                 hLatLong.push(JSON.parse(mapHtmlW).routes[0].legs[0].end_location);
               } else {
-                walking.push('error');
+                driving.push('error');
                 hLatLong.push('error');
               }
               if (x < addresses.length - 1) {
@@ -110,8 +110,8 @@ app.post('/zillow', (req, res) => {
                   prices,
                   addresses,
                   images,
-                  walking,
-                  //driving,
+                  //walking,
+                  driving,
                  // transit,
                   jLatLong,
                   hLatLong,
