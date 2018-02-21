@@ -3,6 +3,7 @@ import { Button, Icon } from 'semantic-ui-react';
 
 export default function Result(props) {
   console.log('these are props within Result.jsx: ', props);
+  console.log('this is to log changes')
   const imageURL = props.result.images;
   let starred = false;
   let iconState = 'empty star';
