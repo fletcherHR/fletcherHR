@@ -137,15 +137,15 @@ export default class App extends React.Component {
       <div style={{ fontFamily: 'sans-serif' }}>
         {
           this.state.loggedIn ?
-            <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gridAutoRows: '150px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gridTemplateRows: '16.66vh 16.66vh 16.66vh 16.66vh 16.66vh 16.66vh' }}>
               <Search triggerSearch={this.handleSearch} />
               <ResultList resultList={this.state.resultList} />
-              <div style={{ gridColumn: '1', gridRow: '2' }}>
+              <div style={{ gridColumn: '1', gridRow: '2/7' }}>
                 <GoogleMaps
                   isMarkerShown
                   googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
                   loadingElement={<div style={{ height: `100%` }} />}
-                  containerElement={<div style={{ height: `400px` }} />}
+                  containerElement={<div style={{ height: `83.33vh` }} />}
                   mapElement={<div style={{ height: `100%` }}/>}
                   mapList={this.state.mapList}
                   latitude={this.state.latitude}

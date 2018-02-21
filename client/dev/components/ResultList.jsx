@@ -11,7 +11,7 @@ export default class ResultList extends React.Component {
 
   render() {
     return (
-      <div style={{ gridRow: '2', gridColumn: '2', display: 'grid', gridAutoRows: '150px' }}>
+      <div style={{ gridRow: '2/7', gridColumn: '2', display: 'grid', gridAutoRows: '150px', overflowY: 'auto' }}>
           {this.props.resultList.map((result, i) => (
             <Result result={result} key={i} />
           ))}
