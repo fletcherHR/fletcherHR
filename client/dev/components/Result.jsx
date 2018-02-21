@@ -17,7 +17,13 @@ export default function Result(props) {
     }
   };
   return (
-    <div>
+    <div style={{
+      border: '1px solid black',
+      backgroundImage: `url(${imageURL})`,
+      backgroundSize: 'cover',
+      display: 'grid',
+      }}
+    >
       <Button
         icon={iconState}
         onClick={saveToFavorites}
