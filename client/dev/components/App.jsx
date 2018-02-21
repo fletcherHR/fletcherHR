@@ -10,7 +10,7 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       resultList: [{ prices: 500, addresses: 'addresses', images: 'imageurl' }],
-      // default is HR right now
+      // default is HR right now maybe add more later
       userInfo: { userAddress: 'myaddress', userCommute: '60', userRent: '5' },
       latitude: 40.750611,
       longitude: -73.978641,
