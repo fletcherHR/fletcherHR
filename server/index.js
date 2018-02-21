@@ -14,6 +14,7 @@ app.set('port', 8080);
 
 app.post('/zillow', (req, res) => {
   const inputZip = req.body.zip;
+  const userRent = Number(req.body.userRent);
   const workAddress = req.body.userAddress.split(' ').join('+');
   const url1 = `https://www.zipcodeapi.com/rest/czexOxX0CAzdZx8C6k3rzwTXMsnphwXuZP6FJ2t2x8nau3tw3eaxrX77aayNeDsh/radius.json/${inputZip}/1/km`;
   request(url1, (error, response, dataa) => {
@@ -77,9 +78,13 @@ app.post('/zillow', (req, res) => {
 
 
           const addr = addresses.slice();
-          addresses = addresses.filter((x, z) => addr.indexOf(addr[z]) === z && prices[z] !== 0);
-          images = images.filter((x, z) => addr.indexOf(addr[z]) === z && prices[z] !== 0);
-          prices = prices.filter((x, z) => addr.indexOf(addr[z]) === z && x !== 0);
+          addresses = addresses.filter((x, z) => addr.indexOf(addr[z]) === z && prices[z] !== 0 && prices[z] <= userRent);
+          images = images.filter((x, z) => addr.indexOf(addr[z]) === z && prices[z] !== 0 && prices[z] <= userRent);
+          prices = prices.filter((x, z) => addr.indexOf(addr[z]) === z && x !== 0 && x <= userRent);
+          addresses = addresses.slice(0,5);
+          images = images.slice(0,5);
+          prices = prices.slice(0,5);
+
 
           const searchMaps = (homeAdd, x) => {
             const homeAddress = String(homeAdd).split(' ').join('+');
@@ -93,40 +98,60 @@ app.post('/zillow', (req, res) => {
                 hLatLong.push(JSON.parse(mapHtmlW).routes[0].legs[0].end_location);
               } else {
                 walking.push('error');
+                hLatLong.push('error');
               }
-              mapsUrl = `https://maps.googleapis.com/maps/api/directions/json?origin=${workAddress}&destination=${homeAddress}&key=AIzaSyCxYMb0yg6OBzoXznjrSp2J7RQwFBViPtY&mode=driving`
-              request(mapsUrl, (mapErr, mapResp, mapHtmlD) => {
-                if (JSON.parse(mapHtmlD).routes[0] !== undefined) {
-                  driving.push(JSON.parse(mapHtmlD).routes[0].legs[0].duration.text);
-                } else {
-                  driving.push('error');
-                }
-                mapsUrl = `https://maps.googleapis.com/maps/api/directions/json?origin=${workAddress}&destination=${homeAddress}&key=AIzaSyCxYMb0yg6OBzoXznjrSp2J7RQwFBViPtY&mode=transit`
-                request(mapsUrl, (mapErr, mapResp, mapHtmlT) => {
-                  if (JSON.parse(mapHtmlT).routes[0] !== undefined) {
-                    transit.push(JSON.parse(mapHtmlT).routes[0].legs[0].duration.text);
-                  } else {
-                    transit.push('error');
-                  }
-                  if (x < addresses.length - 1) {
-                    searchMaps(addresses[x + 1], x + 1);
-                  } else {
-                    console.log(prices.length);
-                    console.log('done');
-                    const obj = {
-                      prices,
-                      addresses,
-                      images,
-                      walking,
-                      driving,
-                      transit,
-                      jLatLong,
-                      hLatLong,
-                    };
-                    res.status(200).send(obj);
-                  }
-                });
-              });
+              if (x < addresses.length - 1) {
+                searchMaps(addresses[x + 1], x + 1);
+              } else {
+                console.log(prices.length);
+                console.log('done');
+                console.log(walking);
+                const obj = {
+                  prices,
+                  addresses,
+                  images,
+                  walking,
+                  //driving,
+                 // transit,
+                  jLatLong,
+                  hLatLong,
+                };
+                res.status(200).send(obj);
+              }
+              // mapsUrl = `https://maps.googleapis.com/maps/api/directions/json?origin=${workAddress}&destination=${homeAddress}&key=AIzaSyCxYMb0yg6OBzoXznjrSp2J7RQwFBViPtY&mode=driving`
+              // request(mapsUrl, (mapErr, mapResp, mapHtmlD) => {
+              //   if (JSON.parse(mapHtmlD).routes[0] !== undefined) {
+              //     driving.push(JSON.parse(mapHtmlD).routes[0].legs[0].duration.text);
+              //   } else {
+              //     driving.push('error');
+              //   }
+              //   mapsUrl = `https://maps.googleapis.com/maps/api/directions/json?origin=${workAddress}&destination=${homeAddress}&key=AIzaSyCxYMb0yg6OBzoXznjrSp2J7RQwFBViPtY&mode=transit`
+              //   request(mapsUrl, (mapErr, mapResp, mapHtmlT) => {
+              //     if (JSON.parse(mapHtmlT).routes[0] !== undefined) {
+              //       transit.push(JSON.parse(mapHtmlT).routes[0].legs[0].duration.text);
+              //     } else {
+              //       transit.push('error');
+              //     }
+                  // if (x < addresses.length - 1) {
+                  //   searchMaps(addresses[x + 1], x + 1);
+                  // } else {
+                  //   console.log(prices.length);
+                  //   console.log('done');
+                  //   console.log(walking);
+                  //   const obj = {
+                  //     prices,
+                  //     addresses,
+                  //     images,
+                  //     walking,
+                  //     driving,
+                  //     transit,
+                  //     jLatLong,
+                  //     hLatLong,
+                  //   };
+                  //   res.status(200).send(obj);
+                  // }
+              //   });
+              // });
             });
           };
           searchMaps(addresses[0], 0);
