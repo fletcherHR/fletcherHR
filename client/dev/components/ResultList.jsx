@@ -13,7 +13,7 @@ export default class ResultList extends React.Component {
     return (
       <div style={{ gridRow: '2', gridColumn: '2', display: 'grid', gridAutoRows: '150px' }}>
           {this.props.resultList.map((result, i) => (
-            <Result result={result} key={i} />
+            <Result onClick={this.props.handleListClick()} result={result} key={i} />
           ))}
       </div>
     );

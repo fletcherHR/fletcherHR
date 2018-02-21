@@ -22,6 +22,8 @@ export default class Result extends React.Component {
     console.log('this is the state: ', this.state.active);
   }
 
+
+
   render() {
     const imageURL = this.props.result.images;
     const { active } = this.state;
@@ -55,8 +57,8 @@ export default class Result extends React.Component {
         </span>
         <span style={{ gridColumn: '1/3', gridRow: '4/6', opacity: '0.8' }}>
           - Commute Times:<br/>
-          Walking:({this.props.result.walking}) 
-          Driving:({this.props.result.driving}) 
+          Walking:({this.props.result.walking})
+          Driving:({this.props.result.driving})
           Transit:({this.props.result.transit})
         </span>
       </div>

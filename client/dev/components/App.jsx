@@ -10,7 +10,7 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      resultList: [{ prices: 2000, addresses: 'addresses', images: 'https://photos.zillowstatic.com/p_e/IS66k9fwkyagry0000000000.jpg', walking: '5 minutes', driving: '3 minutes', transit: '4 minutes' },
+      resultList: [{ prices: 2000, addresses: 'addresses', images: 'https://media.boingboing.net/wp-content/uploads/2015/04/chicken3.jpg', walking: '5 minutes', driving: '3 minutes', transit: '4 minutes' },
       { prices: 1500, addresses: 'addresses2', images: 'https://media.boingboing.net/wp-content/uploads/2015/04/chicken3.jpg', walking: '10 minutes', driving: '4 minutes', transit: '6 minutes' },
       { prices: 1700, addresses: 'addresses3', images: 'https://media.boingboing.net/wp-content/uploads/2015/04/chicken3.jpg', walking: '15 minutes', driving: '6 minutes', transit: '8 minutes' }],
       // default is HR right now maybe add more later
@@ -88,6 +88,9 @@ export default class App extends React.Component {
     }, () => console.log(this.state));
   }
 
+  toggleVisibility(index) {
+
+  }
 
 
   login(userName, password, cb) {
@@ -139,7 +142,7 @@ export default class App extends React.Component {
           this.state.loggedIn ?
             <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gridAutoRows: '150px' }}>
               <Search triggerSearch={this.handleSearch} />
-              <ResultList resultList={this.state.resultList} />
+              <ResultList resultList={this.state.resultList} handleListClick={this.handleListClick}/>
               <div style={{ gridColumn: '1', gridRow: '2' }}>
                 <GoogleMaps
                   isMarkerShown
