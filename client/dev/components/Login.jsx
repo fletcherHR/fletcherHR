@@ -60,8 +60,8 @@ export default class Login extends React.Component {
           onChange={this.passChange}
         />
         <br />
-        <button onClick={this.login}>{this.state.logIn ? 'Login' : 'Sign Up'}</button>
-        <button onClick={this.signChange}>{this.state.logIn ? 'Sign Up Now' : 'Back to Login'}</button>
+        <div><button onClick={this.login}>{this.state.logIn ? 'Login' : 'Sign Up'}</button></div>
+        <div><button onClick={this.signChange}>{this.state.logIn ? 'Sign Up Now' : 'Back to Login'}</button></div>
         <p>{this.state.message}</p>
       </div>
     );

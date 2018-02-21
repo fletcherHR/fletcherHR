@@ -158,11 +158,14 @@ app.post('/login', (req, res) => {
     userName: '  ',
     allow: 1,
   };
-  dbhelper.verifyExistingUserLogin(req.body.userName, function(result) {
-    console.log(result, 'RESULT FROM VERIFY');
-  })
-
-  res.status(200).send(obj);
+  dbhelper.verifyExistingUserLogin(req.body.userName, (result) => {
+    if (req.body.password === result[0].password) {
+      res.status(200).send(obj);
+    } else {
+      obj.allow = 0;
+      res.status(400).send(obj);
+    }
+  });
 });
 
 app.listen(app.get('port'));
