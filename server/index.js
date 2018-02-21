@@ -105,7 +105,7 @@ app.post('/zillow', (req, res) => {
               } else {
                 console.log(prices.length);
                 console.log('done');
-                console.log(walking);
+
                 const obj = {
                   prices,
                   addresses,
