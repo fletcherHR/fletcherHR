@@ -140,16 +140,13 @@ export default class App extends React.Component {
             <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gridAutoRows: '150px' }}>
               <Search triggerSearch={this.handleSearch} />
               <ResultList resultList={this.state.resultList} />
-<<<<<<< HEAD
               <GoogleMaps
                 isMarkerShown
                 googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
-
                 loadingElement={<div style={{ height: `100%` }} />}
                 containerElement={<div style={{ height: `400px` }} />}
                 mapElement={<div style={{ height: `100%` }}/>}
                 mapList={this.state.mapList}
-
                 latitude={this.state.latitude}
                 longitude={this.state.longitude}
               />
@@ -159,18 +156,7 @@ export default class App extends React.Component {
                 size="large"
               >Loading
               </Loader>
-=======
-              <div style={{ gridRow: '2', gridColumn: '1' }}>
-                <GoogleMaps isMarkerShown
-                  googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
-                  loadingElement={<div style={{ height: `100%` }} />}
-                  containerElement={<div style={{ height: `400px` }} />}
-                  mapElement={<div style={{ height: `100%` }}/>}
-                  latitude={this.state.latitude}
-                  longitude={this.state.longitude}
-                />
-              </div>
->>>>>>> fbranch
+
             </div> :
             <Login signUp={this.signUp} login={this.login} />
         }
