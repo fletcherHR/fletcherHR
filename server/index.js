@@ -159,7 +159,7 @@ app.post('/login', (req, res) => {
     allow: 1,
   };
   dbhelper.verifyExistingUserLogin(req.body.userName, function(result) {
-
+    console.log(result, 'RESULT FROM VERIFY');
   })
 
   res.status(200).send(obj);

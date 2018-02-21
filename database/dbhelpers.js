@@ -2,6 +2,7 @@ const db = require('./index.js').connection;
 
 exports.verifyExistingUserLogin = (username, cb) => {
   db.query(`SELECT password FROM users WHERE username="${username}"`, (error, res) => {
+    console.log(res, 'query res');
     if (error) cb(error);
     else cb(JSON.parse(JSON.stringify(res)));
   });

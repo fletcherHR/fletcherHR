@@ -75,14 +75,12 @@ export default class App extends React.Component {
       password,
     })
       .then((res) => {
-        console.log(res.data, 'signup databack');
         if (res.data.allow) {
           this.setState({
             loggedIn: 1,
             userName: res.data.userName,
           });
         } else {
-          console.log('User Name Taken')
           cb('User Name Taken');
         }
       });
