@@ -6,12 +6,20 @@ import style from '../styles/styles2.css';
 export default class Result extends React.Component {
   constructor(props) {
     super(props);
+    console.log('within constructor, this.props: ', this.props);
     this.state = {
       active: this.props.favorite,
     };
     this.handleButtonClick = this.handleButtonClick.bind(this);
     this.showMarkerClick = this.showMarkerClick.bind(this);
   }
+
+  // componentDidMount() {
+  //   console.log('MOUNTING COMPONENT')
+  //   this.setState({
+  //     active: this.props.favorite,
+  //   })
+  // }
 
   handleButtonClick() {
     this.setState({
@@ -41,6 +49,8 @@ export default class Result extends React.Component {
   }
 
   render() {
+    console.log('this is the props object in Result, props: ', this.props);
+    console.log('within render of Result, this.state.active: ', this.state.active);
     const imageURL = this.props.result.images;
     return (
       <div

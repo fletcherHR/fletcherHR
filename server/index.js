@@ -25,6 +25,7 @@ app.post('/checkfavs', (req, res) => {
         }
       }
     }
+    console.log('end of checkFavs, listings: ', listings);
     res.status(200).send(listings);
   });
 });

@@ -30,7 +30,7 @@ export default class App extends React.Component {
         driving: '4 minutes',
         transit: '6 minutes',
         markerVis: false,
-        favorite: true,
+        favorite: false,
       },
       {
         prices: 1700,
@@ -104,13 +104,18 @@ export default class App extends React.Component {
       .then((res) => {
         console.log('this is res.data within /checkfavs, res.data: ', res.data);
         this.setState({
-          resultList: res.data, hLatLong,
-        });
-      })
-      .catch((err) => {
-        console.log('ERROR in POST to /checkfavs, error: ', err);
+          resultList: [],
+        }, () => {
+          this.setState({
+            resultList: res.data,
+          }, () => {
+            console.log('the new state of result list after checking faves: ', this.state.resultList);
+          });
+        })
+          .catch((err) => {
+            console.log('ERROR in POST to /checkfavs, error: ', err);
+          });
       });
-
   }
 
   handleSearch({ userAddress }) {
