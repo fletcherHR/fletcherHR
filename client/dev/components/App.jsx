@@ -45,6 +45,7 @@ export default class App extends React.Component {
       // adding a list to show user's favorites
       favList: [],
       // setting state to show fav list vs result list
+      fMapList: [],
       showFavs: false,
       // default is HR right now maybe add more later
       latitude: 40.750611,
@@ -67,7 +68,6 @@ export default class App extends React.Component {
     this.handleRent = this.handleRent.bind(this);
     this.handleSearchList = this.handleSearchList.bind(this);
     this.handleFavList = this.handleFavList.bind(this);
-    // this.toggleVisibility = this.toggleVisibility.bind(this);
   }
 
   check() {
@@ -230,11 +230,46 @@ export default class App extends React.Component {
   }
 
   handleSearchList() {
-
+    console.log('handleSearch being called', this.state.showFavs);
+    this.setState(
+      { showFavs: false },
+      () => console.log('this is after setting the state', this.state.showFavs)
+    );
   }
 
   handleFavList() {
-
+    const usernameObject = {
+      username: this.state.userName,
+    };
+    console.log('this is usernameObject', usernameObject);
+    console.log('handleFav being called', this.state.showFavs);
+    axios.post('/getFavs', usernameObject)
+      .then((res) => {
+        console.log('this is res.data inside axios call', res.data)
+        const tempFavList = [];
+        for (var q = 0; q < res.data.length; q += 1) {
+          const tempFavObj = {
+          prices: res.data[q].price,
+          addresses: res.data[q].address,
+          images: res.data[q].image,
+          transit: res.data[q].transit,
+          driving: res.data[q].driving,
+          hLatLong:{ lat: res.data[q].lat, lng: res.data[q].lng },
+          markerVis: false,
+          favorite: true
+          }
+        tempFavList.push(tempFavObj)
+       }
+        this.setState({
+          favList: tempFavList,
+          fMapList: tempFavList
+        },
+        () => this.setState({ showFavs: true }
+        ))
+      })
+      .catch((err)=> {
+        console.log(err)
+      })
   }
 
   render() {
@@ -269,7 +304,7 @@ export default class App extends React.Component {
               </div>
 
               <ResultControl sortData={this.sortData} loading={this.state.loading} handleSearchList={this.handleSearchList} handleFavList={this.handleFavList}/>
-              <ResultList handleFavorites={this.resetFavoriteState} maxCom={this.state.userCommute} maxRent={this.state.userRent} resultList={this.state.resultList} userName={this.state.userName} handleListClick={this.handleListClick} />
+              <ResultList handleFavorites={this.resetFavoriteState} maxCom={this.state.userCommute} maxRent={this.state.userRent} resultList={this.state.showFavs ? this.state.favList : this.state.resultList} userName={this.state.userName} handleListClick={this.handleListClick} />
 
               <div className={style.map}>
                 <GoogleMaps
@@ -279,7 +314,7 @@ export default class App extends React.Component {
                   loadingElement={<div style={{ height: `100%` }} />}
                   containerElement={<div style={{ height: `83.33vh` }} />}
                   mapElement={<div style={{ height: `100%` }}/>}
-                  mapList={this.state.mapList}
+                  mapList={this.state.showFavs ? this.state.favList : this.state.mapList}
                   latitude={this.state.latitude}
                   longitude={this.state.longitude}
                 />
