@@ -1,6 +1,6 @@
 import React from 'react';
 import Search from './Search.jsx';
-import GoogleMaps from './GoogleMaps.jsx'
+import GoogleMaps from './GoogleMaps.jsx';
 import Login from './Login.jsx';
 import ResultList from './ResultList.jsx';
 import ResultControl from './ResultControl.jsx';
@@ -36,6 +36,11 @@ export default class App extends React.Component {
     this.handleCommute = this.handleCommute.bind(this);
     this.handleRent = this.handleRent.bind(this);
     // this.toggleVisibility = this.toggleVisibility.bind(this);
+    // this.resetFavoriteState = this.resetFavoriteState.bind(this);
+  }
+
+  resetFavoriteState() {
+    console.log('something someting: ', this.state);
   }
 
   packData( { prices, addresses, images, transit, driving, walking, hLatLong }) {
@@ -50,7 +55,7 @@ export default class App extends React.Component {
       // mapTemp.push(mapObj);
       //}
     }
-    this.setState({ resultList: temp, hLatLong });
+    this.setState({ resultList: temp, hLatLong }, );
   }
 
   handleSearch({ userAddress }) {
@@ -67,7 +72,10 @@ export default class App extends React.Component {
             loading: false,
             mapList: temppArray,
           },
-          () => this.packData(res.data),
+          () => {
+            this.packData(res.data);
+            this.resetFavoriteState();
+          },
         );
       })
       .catch((err) => {
@@ -168,6 +176,7 @@ export default class App extends React.Component {
           this.state.loggedIn ?
             <div className={style.logged}>
               <Search triggerSearch={this.handleSearch} />
+<<<<<<< HEAD
               <div>
                 <div className={style.comRent}>
                   <h4>commute: {this.state.userCommute}</h4>
@@ -193,6 +202,15 @@ export default class App extends React.Component {
               </div>
               <ResultControl sortData={this.sortData} loading={this.state.loading} />
               <ResultList maxCom={this.state.userCommute} maxRent={this.state.userRent} resultList={this.state.resultList} userName={this.state.userName} handleListClick={this.handleListClick}/>
+=======
+              <ResultControl />
+              <ResultList
+                handleFavorites={this.resetFavoriteState}
+                resultList={this.state.resultList}
+                userName={this.state.userName}
+                handleListClick={this.handleListClick}
+              />
+>>>>>>> added dbhelper to checkfavs, still working on favorites functionality
               <div className={style.map}>
                 <GoogleMaps
                   isMarkerShown
@@ -206,6 +224,16 @@ export default class App extends React.Component {
                   longitude={this.state.longitude}
                 />
               </div>
+<<<<<<< HEAD
+=======
+              <Loader
+                style={{ display: this.state.loading ? 'block' : 'none' }}
+                active
+                inline="centered"
+                size="large"
+              >Loading
+              </Loader>
+>>>>>>> added dbhelper to checkfavs, still working on favorites functionality
             </div> :
             <Login signUp={this.signUp} login={this.login} />
         }
