@@ -3,6 +3,7 @@ import Search from './Search.jsx';
 import GoogleMaps from './GoogleMaps.jsx'
 import Login from './Login.jsx';
 import ResultList from './ResultList.jsx';
+import ResultControl from './ResultControl.jsx';
 import axios from 'axios';
 import { Dimmer, Loader, Image, Segment } from 'semantic-ui-react';
 import style from '../styles/styles2.css';
@@ -141,6 +142,7 @@ export default class App extends React.Component {
           this.state.loggedIn ?
             <div className={style.logged}>
               <Search triggerSearch={this.handleSearch} />
+              <ResultControl />
               <ResultList resultList={this.state.resultList} userName={this.state.userName}/>
               <div className={style.map}>
                 <GoogleMaps
