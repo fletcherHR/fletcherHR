@@ -1,3 +1,15 @@
+body {
+  font-family: 'sans-serif';
+}
+
+.logged {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 16.66vh 16.66vh 16.66vh 16.66vh 16.66vh 16.66vh;
+  color: black;
+}
+
+
 .favorites {
   background: yellow !important;
 }

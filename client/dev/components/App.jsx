@@ -5,6 +5,7 @@ import Login from './Login.jsx';
 import ResultList from './ResultList.jsx';
 import axios from 'axios';
 import { Dimmer, Loader, Image, Segment } from 'semantic-ui-react';
+import style from '../styles/styles2.css';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -135,13 +136,13 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <div style={{ fontFamily: 'sans-serif' }}>
+      <div>
         {
           this.state.loggedIn ?
-            <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gridTemplateRows: '16.66vh 16.66vh 16.66vh 16.66vh 16.66vh 16.66vh' }}>
+            <div className={style.logged}>
               <Search triggerSearch={this.handleSearch} />
               <ResultList resultList={this.state.resultList} userName={this.state.userName}/>
-              <div style={{ gridColumn: '1', gridRow: '2/7' }}>
+              <div className={style.map}>
                 <GoogleMaps
                   isMarkerShown
                   googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
