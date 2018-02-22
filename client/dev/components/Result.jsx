@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Icon } from 'semantic-ui-react';
+import style from '../styles/styles2.css';
 
 export default class Result extends React.Component {
   constructor(props) {
@@ -26,19 +27,7 @@ export default class Result extends React.Component {
     const imageURL = this.props.result.images;
     const { active } = this.state;
     return (
-      <div style={{
-          border: '1px solid black',
-          borderRadius: '2%',
-          backgroundImage: `url(${imageURL})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          display: 'grid',
-          gridTemplateColumns: '4fr 1fr',
-          gridAutoRows: '30px',
-          color: 'white',
-          textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000',
-        }}
-      >
+      <div className={style.result} style={{ backgroundImage: `url(${imageURL})` }}>
         <Button
           className="favorites"
           icon="star"

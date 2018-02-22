@@ -1,5 +1,6 @@
 import React from 'react';
 import Result from './Result.jsx';
+import style from '../styles/styles2.css';
 
 export default class ResultList extends React.Component {
   constructor(props) {
@@ -11,7 +12,7 @@ export default class ResultList extends React.Component {
 
   render() {
     return (
-      <div style={{ gridRow: '2/7', gridColumn: '2', display: 'grid', gridAutoRows: '150px', overflowY: 'auto' }}>
+      <div className={style.resultList}>
           {this.props.resultList.map((result, i) => (
             <Result result={result} key={i} />
           ))}
