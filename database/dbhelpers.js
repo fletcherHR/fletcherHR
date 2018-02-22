@@ -30,3 +30,14 @@ exports.deleteFavs = (address, userName, cb) => {
   });
 };
 
+exports.checkFavs = (userName, cb) => {
+  // checkFavs of user by address and userID
+  const queryString = 'SELECT address FROM favorites WHERE user_ID = (SELECT id FROM users WHERE username = ?)';
+  db.query(queryString, [userName], (error, res) => {
+    console.log('these are the results: ', JSON.parse(JSON.stringify(res)));
+    // results is an array of objects with key address: saved favorite address, tied to the favorites of the user
+    // what do to with these results?
+    // we want to check
+    cb(JSON.parse(JSON.stringify(res)));
+  });
+};
