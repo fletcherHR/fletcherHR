@@ -102,6 +102,7 @@ export default class App extends React.Component {
       username: this.state.userName,
     })
       .then((res) => {
+        console.log('this is res.data within /checkfavs, res.data: ', res.data);
         this.setState({
           resultList: res.data, hLatLong,
         });
@@ -228,7 +229,7 @@ export default class App extends React.Component {
   }
 
   handleFavList() {
-    
+
   }
 
   render() {

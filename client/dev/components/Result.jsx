@@ -25,7 +25,7 @@ export default class Result extends React.Component {
           transit: this.props.result.transit,
           driving: this.props.result.driving,
           hLatLong: this.props.result.hLatLong,
-          userName: this.props.userName
+          userName: this.props.userName,
         });
       } else {
         axios.post('/dfavs', {
@@ -42,7 +42,6 @@ export default class Result extends React.Component {
 
   render() {
     const imageURL = this.props.result.images;
-    const { active } = this.state;
     return (
       <div
         className={style.result}
@@ -60,7 +59,7 @@ export default class Result extends React.Component {
           className="favorites"
           icon="star"
           onClick={this.handleButtonClick}
-          active={active}
+          active={this.state.active}
           size="small"
           style={{ gridColumn: '3', gridRow: '1/4' }}
         />
