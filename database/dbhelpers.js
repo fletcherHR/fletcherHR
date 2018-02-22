@@ -32,7 +32,7 @@ exports.deleteFavs = (address, userName, cb) => {
 };
 
 exports.checkFavs = (userName, cb) => {
-  const queryString = 'SELECT address FROM favorites WHERE user_ID = (SELECT id FROM users WHERE username = ?)';
+  const queryString = 'SELECT * FROM favorites WHERE user_ID = (SELECT id FROM users WHERE username = ?)';
   db.query(queryString, [userName], (error, res) => {
     console.log('checking for faves on list render, res: ', JSON.parse(JSON.stringify(res)));
     cb(JSON.parse(JSON.stringify(res)));

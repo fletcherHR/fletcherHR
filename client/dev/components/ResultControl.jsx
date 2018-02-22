@@ -9,7 +9,7 @@ export default class ResultControl extends React.Component {
       activeResult: 1,
       activeSort: 0,
     };
-    
+
     this.changeSort1 = this.changeSort1.bind(this);
     this.changeSort2 = this.changeSort2.bind(this);
     this.changeSort3 = this.changeSort3.bind(this);
@@ -39,14 +39,14 @@ export default class ResultControl extends React.Component {
 
   handleSearchList() {
     this.setState({
-      activeResult: this.state.activeResult === 1 ? 2 : 1,
+      activeResult: this.state.activeResult === 1,
     });
     this.props.handleSearchList();
   }
 
   handleFavList() {
     this.setState({
-      activeResult: this.state.activeResult === 1 ? 2 : 1,
+      activeResult: this.state.activeResult === 2,
     });
     this.props.handleFavList();
   }

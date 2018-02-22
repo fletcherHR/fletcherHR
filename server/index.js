@@ -221,6 +221,15 @@ app.post('/login', (req, res) => {
   });
 });
 
+
+app.post('/getFavs', (req, res) => {
+  console.log('this is req.body in app.get', req.body.username);
+  dbhelper.checkFavs(req.body.username, (results) => {
+    console.log('this is results in /favs after dbhelper', results);
+    res.send(results)
+  });
+})
+
 app.post('/favs', (req, res) => {
   // const price = req.body.price;
   // const address = req.body.address;
