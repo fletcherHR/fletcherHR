@@ -12,6 +12,21 @@ app.use(express.static(__dirname + '/../client/dist'));
 
 app.set('port', 8080);
 
+app.post('/checkfavs', (req, res) => {
+  const listings = req.body.data;
+  const username = req.body.username;
+  dbhelper.checkFavs(username, (faves) => {
+    for (let i = 0; i < listings.length; i += 1) {
+      for (let j = 0; j < faves.length; j += 1) {
+        if (listings[i].addresses === faves[j].address) {
+          listings[i].favorite = true;
+        }
+      }
+    }
+    res.status(200).send(listings);
+  });
+});
+
 app.post('/zillow', (req, res) => {
   const inputZip = req.body.zip;
   const workAddress = req.body.userAddress.split(' ').join('+');
@@ -108,60 +123,61 @@ app.post('/zillow', (req, res) => {
                 driving.push('error');
                 hLatLong.push('error');
               }
-              if (x < addresses.length - 1) {
-                searchMaps(addresses[x + 1], x + 1);
-              } else {
-                console.log(prices.length);
-                console.log('done');
-                console.log(addresses);
-
-                const obj = {
-                  prices,
-                  addresses,
-                  images,
-                  //walking,
-                  driving,
-                 // transit,
-                  jLatLong,
-                  hLatLong,
-                };
-                res.status(200).send(obj);
-              }
-              // mapsUrl = `https://maps.googleapis.com/maps/api/directions/json?origin=${workAddress}&destination=${homeAddress}&key=AIzaSyCxYMb0yg6OBzoXznjrSp2J7RQwFBViPtY&mode=driving`
-              // request(mapsUrl, (mapErr, mapResp, mapHtmlD) => {
-              //   if (JSON.parse(mapHtmlD).routes[0] !== undefined) {
-              //     driving.push(JSON.parse(mapHtmlD).routes[0].legs[0].duration.text);
-              //   } else {
-              //     driving.push('error');
-              //   }
-              //   mapsUrl = `https://maps.googleapis.com/maps/api/directions/json?origin=${workAddress}&destination=${homeAddress}&key=AIzaSyCxYMb0yg6OBzoXznjrSp2J7RQwFBViPtY&mode=transit`
-              //   request(mapsUrl, (mapErr, mapResp, mapHtmlT) => {
-              //     if (JSON.parse(mapHtmlT).routes[0] !== undefined) {
-              //       transit.push(JSON.parse(mapHtmlT).routes[0].legs[0].duration.text);
-              //     } else {
-              //       transit.push('error');
-              //     }
-                  // if (x < addresses.length - 1) {
-                  //   searchMaps(addresses[x + 1], x + 1);
-                  // } else {
-                  //   console.log(prices.length);
-                  //   console.log('done');
-                  //   console.log(walking);
-                  //   const obj = {
-                  //     prices,
-                  //     addresses,
-                  //     images,
-                  //     walking,
-                  //     driving,
-                  //     transit,
-                  //     jLatLong,
-                  //     hLatLong,
-                  //   };
-                  //   res.status(200).send(obj);
-                  // }
-              //   });
-              // });
+              mapsUrl = `https://maps.googleapis.com/maps/api/directions/json?origin=${workAddress}&destination=${homeAddress}&key=AIzaSyCxYMb0yg6OBzoXznjrSp2J7RQwFBViPtY&mode=transit`
+              request(mapsUrl, (mapErr, mapResp, mapHtmlD) => {
+                if (JSON.parse(mapHtmlD).routes[0] !== undefined) {
+                  transit.push(JSON.parse(mapHtmlD).routes[0].legs[0].duration.text);
+                } else {
+                  transit.push('error');
+                }
+                if (x < addresses.length - 1) {
+                  searchMaps(addresses[x + 1], x + 1);
+                } else {
+                  console.log(prices.length);
+                  console.log('done');
+                  console.log(addresses);
+  
+                  const obj = {
+                    prices,
+                    addresses,
+                    images,
+                    //walking,
+                    driving,
+                    transit,
+                    jLatLong,
+                    hLatLong,
+                  };
+                  res.status(200).send(obj);
+                }
+              });
             });
+            //   mapsUrl = `https://maps.googleapis.com/maps/api/directions/json?origin=${workAddress}&destination=${homeAddress}&key=AIzaSyCxYMb0yg6OBzoXznjrSp2J7RQwFBViPtY&mode=transit`
+            //   request(mapsUrl, (mapErr, mapResp, mapHtmlT) => {
+            //     if (JSON.parse(mapHtmlT).routes[0] !== undefined) {
+            //       transit.push(JSON.parse(mapHtmlT).routes[0].legs[0].duration.text);
+            //     } else {
+            //       transit.push('error');
+            //     }
+            // if (x < addresses.length - 1) {
+            //   searchMaps(addresses[x + 1], x + 1);
+            // } else {
+            //   console.log(prices.length);
+            //   console.log('done');
+            //   console.log(walking);
+            //   const obj = {
+            //     prices,
+            //     addresses,
+            //     images,
+            //     walking,
+            //     driving,
+            //     transit,
+            //     jLatLong,
+            //     hLatLong,
+            //   };
+            //   res.status(200).send(obj);
+            // }
+            //   });
+            // });
           };
           searchMaps(addresses[0], 0);
         }
