@@ -15,6 +15,11 @@ export default class App extends React.Component {
       resultList: [{ prices: 2000, addresses: 'addresses', images: 'https://media.boingboing.net/wp-content/uploads/2015/04/chicken3.jpg', walking: '5 minutes', driving: '3 minutes', transit: '4 minutes', markerVis: false },
       { prices: 1500, addresses: 'addresses2', images: 'https://media.boingboing.net/wp-content/uploads/2015/04/chicken3.jpg', walking: '10 minutes', driving: '4 minutes', transit: '6 minutes', markerVis: false },
       { prices: 1700, addresses: 'addresses3', images: 'https://media.boingboing.net/wp-content/uploads/2015/04/chicken3.jpg', walking: '15 minutes', driving: '6 minutes', transit: '8 minutes', markerVis: false }],
+
+      // adding a list to show user's favorites
+      favList: [],
+      // setting state to show fav list vs result list
+      showFavs: false,
       // default is HR right now maybe add more later
       userInfo: { userAddress: 'myaddress', userCommute: '60', userRent: '5' },
       latitude: 40.750611,
@@ -31,6 +36,8 @@ export default class App extends React.Component {
     this.packData = this.packData.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleListClick = this.handleListClick.bind(this);
+    this.handleSearchList = this.handleSearchList.bind(this);
+    this.handleFavList = this.handleFavList.bind(this);
     // this.toggleVisibility = this.toggleVisibility.bind(this);
   }
 
@@ -94,8 +101,25 @@ export default class App extends React.Component {
 
     this.setState({ mapList: anotherTempArray });
   }
-  //
 
+  // conditionally render result list or favorite list
+  handleSearchList() {
+    this.setState({
+      showFavs: false
+    })
+  }
+
+  handleFavList() {
+    this.setState({
+      showFavs: true
+    })
+    // make call to the database to render fav list
+
+    axios.get('/getfavs')
+    .then((res) => {
+      
+    })
+  }
 
 
   login(userName, password, cb) {
@@ -148,7 +172,7 @@ export default class App extends React.Component {
           this.state.loggedIn ?
             <div className={style.logged}>
               <Search triggerSearch={this.handleSearch} />
-              <ResultControl />
+              <ResultControl handleSearchList={this.handleSearchList} handleFavList={this.handleFavList}/>
               <ResultList resultList={this.state.resultList} userName={this.state.userName} handleListClick={this.handleListClick}/>
               <div className={style.map}>
                 <GoogleMaps

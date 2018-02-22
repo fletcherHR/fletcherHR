@@ -8,6 +8,17 @@ export default class ResultControl extends React.Component {
     this.state = {
       yoyo: 'yo',
     };
+
+    this.handleFavList = this.handleFavList.bind(this);
+    this.handleSearchList = this.handleSearchList.bind(this);
+  }
+
+  handleSearchList() {
+    this.props.handleSearchList();
+  }
+
+  handleFavList() {
+    this.props.handleFavList();
   }
 
   render() {
@@ -19,8 +30,8 @@ export default class ResultControl extends React.Component {
           size="big"
           className={[style.searchFav, style.control].join(' ')}
         >
-          <Button>Search Results</Button>
-          <Button>My Favorites</Button>
+          <Button onClick={this.handleSearchList}>Search Results</Button>
+          <Button onClick={this.handleFavList}>My Favorites</Button>
         </Button.Group>
         <Button.Group
           fluid
