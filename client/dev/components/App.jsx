@@ -71,7 +71,7 @@ export default class App extends React.Component {
     this.setState({ loading: true });
     axios.post('/zillow', { zip, userAddress })
       .then((res) => {
-        const mapListObj = { addresses: userAddress, prices: 'this is your work', hLatLong: res.data.jLatLong, vis: false };
+        const mapListObj = { driving:  addresses: userAddress, prices: 'this is your work', hLatLong: res.data.jLatLong, vis: false };
         const temppArray = [];
         temppArray.push(mapListObj);
         // make sure we are sending back data in an array

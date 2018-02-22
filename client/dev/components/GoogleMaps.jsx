@@ -12,12 +12,12 @@ const GoogleMaps = withScriptjs(withGoogleMap(props => (
       <MarkerWithLabel
         position={{ lat: marker.hLatLong.lat, lng: marker.hLatLong.lng }}
         labelAnchor={new google.maps.Point(0, 0)}
-        labelStyle={{ backgroundColor: 'yellow', fontSize: '14px', padding: '16px' }}
+        labelStyle={{ backgroundColor: 'white', fontSize: '8px', padding: '16px' }}
         labelVisible={marker.vis}
         onClick={() => props.handleMarkerClick(i)}
         key={i}
       >
-        <div>{marker.prices} <br /> {marker.driving} </div>
+        <div>Price: {marker.prices} Drive: {marker.driving} </div>
       </MarkerWithLabel>
     ))}
   </GoogleMap>
