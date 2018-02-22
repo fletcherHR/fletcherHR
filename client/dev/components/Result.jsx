@@ -17,7 +17,6 @@ export default class Result extends React.Component {
     }, () => {
       if (this.state.active) {
         // trigger save to saveToFavorites
-        console.log('button has been pressed for favs')
         axios.post('/favs', {
           address: this.props.result.addresses,
           price: this.props.result.prices,
@@ -64,8 +63,8 @@ export default class Result extends React.Component {
         </span>
         <span style={{ gridColumn: '1/3', gridRow: '4/6', opacity: '0.8' }}>
           - Commute Times:<br/>
-          Walking:({this.props.result.walking}) 
-          Driving:({this.props.result.driving}) 
+          Walking:({this.props.result.walking})
+          Driving:({this.props.result.driving})
           Transit:({this.props.result.transit})
         </span>
       </div>
