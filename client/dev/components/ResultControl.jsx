@@ -14,7 +14,8 @@ export default class ResultControl extends React.Component {
     return (
       <div>
         <Button.Group
-          fluid="true"
+          fluid
+          widths="2"
           size="big"
           className={[style.searchFav, style.control].join(' ')}
         >
@@ -22,7 +23,8 @@ export default class ResultControl extends React.Component {
           <Button>My Favorites</Button>
         </Button.Group>
         <Button.Group
-          fluid="true"
+          fluid
+          widths="4"
           size="small"
           className={[style.filter, style.control].join(' ')}
         >
