@@ -233,6 +233,9 @@ export default class App extends React.Component {
           console.log('User Name Taken');
           cb('User Name Taken');
         }
+      })
+      .catch((err) => {
+        console.log(err)
       });
   }
 
