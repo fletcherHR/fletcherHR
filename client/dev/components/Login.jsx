@@ -113,7 +113,7 @@ export default class Login extends React.Component {
                 color: 'teal'
               }}
               color="teal"
-              >Login
+              >{this.state.logIn ? 'Login' : 'Sign Up'}
             </Button>
             <Divider horizontal>Or</Divider>
             <Button
@@ -121,7 +121,7 @@ export default class Login extends React.Component {
               secondary
               fluid
               onClick={this.signChange}
-              >Sign Up Now
+              >{this.state.logIn ? 'Sign Up Now' : 'Back To Login'}
             </Button>
           </Segment>
         </Container>
