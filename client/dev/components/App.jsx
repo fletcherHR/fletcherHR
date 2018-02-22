@@ -80,9 +80,7 @@ export default class App extends React.Component {
       // Can add additional conditions to filter results
       //if (prices[i] < 20000) {
       // passing down "id" into resultList to make handling them easier
-<<<<<<< HEAD
-      const obj = { id: i, prices: prices[i], addresses: addresses[i], images: images[i], driving: driving[i], transit: transit[i], hLatLong: hLatLong[i] };
-=======
+
       const obj = {
         id: i,
         prices: prices[i],
@@ -92,15 +90,13 @@ export default class App extends React.Component {
         hLatLong: hLatLong[i],
         favorite: false,
       };
->>>>>>> finished favorites rendering based on user
+
       temp.push(obj);
       // const mapObj = { id: i + 1, addresses: addresses[i], prices: prices[i], hLatLong: hLatLong[i] };
       // mapTemp.push(mapObj);
       //}
     }
-<<<<<<< HEAD
-    this.setState({ resultList: temp, hLatLong });
-=======
+
     axios.post('/checkfavs', {
       data: temp,
       username: this.state.userName,
@@ -113,7 +109,7 @@ export default class App extends React.Component {
       .catch((err) => {
         console.log('ERROR in POST to /checkfavs, error: ', err);
       });
->>>>>>> finished favorites rendering based on user
+
   }
 
   handleSearch({ userAddress }) {
@@ -227,6 +223,14 @@ export default class App extends React.Component {
     this.setState({ userCommute: e.target.value });
   }
 
+  handleSearchList() {
+
+  }
+
+  handleFavList() {
+    
+  }
+
   render() {
     return (
       <div>
@@ -257,10 +261,10 @@ export default class App extends React.Component {
                   />
                 </div>
               </div>
-<<<<<<< HEAD
-              <ResultControl sortData={this.sortData} loading={this.state.loading} />
+
+              <ResultControl sortData={this.sortData} loading={this.state.loading} handleSearchList={this.handleSearchList} handleFavList={this.handleFavList}/>
               <ResultList handleFavorites={this.resetFavoriteState} maxCom={this.state.userCommute} maxRent={this.state.userRent} resultList={this.state.resultList} userName={this.state.userName} handleListClick={this.handleListClick} />
-=======
+
               <ResultControl
                 sortData={this.sortData}
                 loading={this.state.loading}
@@ -272,13 +276,14 @@ export default class App extends React.Component {
                 userName={this.state.userName}
                 handleListClick={this.handleListClick}
               />
+
               <ResultControl />
               <ResultList
                 resultList={this.state.resultList}
                 userName={this.state.userName}
                 handleListClick={this.handleListClick}
               />
->>>>>>> finished favorites rendering based on user
+
               <div className={style.map}>
                 <GoogleMaps
                   isMarkerShown

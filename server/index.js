@@ -226,7 +226,7 @@ app.post('/favs', (req, res) => {
   const aptImageURL = req.body.aptImageURL;
   const userName = req.body.userName;
 
-  dbhelper.saveFavs(price, address, image, transit, driving, walking, hLatLong, userName, (result) => {
+  dbhelper.saveFavs(price, address, image, transit, driving, hLatLong, userName, (result) => {
     res.send(result);
   });
 });
