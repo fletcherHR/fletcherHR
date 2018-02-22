@@ -1,9 +1,5 @@
 import React from 'react';
-<<<<<<< HEAD
-import { Input, Button } from 'semantic-ui-react';
-=======
 import { Input, Header, Button, Container, Segment, Divider } from 'semantic-ui-react';
->>>>>>> changed
 
 export default class Search extends React.Component {
   constructor(props) {
