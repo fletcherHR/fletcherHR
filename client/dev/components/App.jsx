@@ -176,7 +176,6 @@ export default class App extends React.Component {
           this.state.loggedIn ?
             <div className={style.logged}>
               <Search triggerSearch={this.handleSearch} />
-<<<<<<< HEAD
               <div>
                 <div className={style.comRent}>
                   <h4>commute: {this.state.userCommute}</h4>
@@ -202,7 +201,6 @@ export default class App extends React.Component {
               </div>
               <ResultControl sortData={this.sortData} loading={this.state.loading} />
               <ResultList maxCom={this.state.userCommute} maxRent={this.state.userRent} resultList={this.state.resultList} userName={this.state.userName} handleListClick={this.handleListClick}/>
-=======
               <ResultControl />
               <ResultList
                 handleFavorites={this.resetFavoriteState}
@@ -210,7 +208,6 @@ export default class App extends React.Component {
                 userName={this.state.userName}
                 handleListClick={this.handleListClick}
               />
->>>>>>> added dbhelper to checkfavs, still working on favorites functionality
               <div className={style.map}>
                 <GoogleMaps
                   isMarkerShown
@@ -224,8 +221,6 @@ export default class App extends React.Component {
                   longitude={this.state.longitude}
                 />
               </div>
-<<<<<<< HEAD
-=======
               <Loader
                 style={{ display: this.state.loading ? 'block' : 'none' }}
                 active
@@ -233,7 +228,6 @@ export default class App extends React.Component {
                 size="large"
               >Loading
               </Loader>
->>>>>>> added dbhelper to checkfavs, still working on favorites functionality
             </div> :
             <Login signUp={this.signUp} login={this.login} />
         }
