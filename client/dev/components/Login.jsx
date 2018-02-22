@@ -1,5 +1,6 @@
 import React from 'react';
 import { Input, Header, Button, Container, Segment, Divider } from 'semantic-ui-react';
+import style from '../styles/styles2.css';
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -68,7 +69,7 @@ export default class Login extends React.Component {
           as="h1"
           color="teal"
           textAlign="center"
-          >Fletcher Group Project Name - Landing Page
+        >Fletcher Group Project Name - Landing Page
         </Header>
         <Container>
           <Input
@@ -105,6 +106,7 @@ export default class Login extends React.Component {
         <Container>
           <Segment padded>
             <Button
+              class="ui color1 button"
               disabled={false}
               onClick={this.login}
               fluid

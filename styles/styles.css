@@ -9,6 +9,10 @@ body {
   color: black;
 }
 
+.ui.color1.button {
+  background-color: #734322 !important;
+  color: #fff !important;
+}
 
 .favorites {
   background: yellow !important;

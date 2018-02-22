@@ -10,7 +10,7 @@ body {
 
 .map {
   grid-column: 1;
-  grid-row: 2/7; 
+  grid-row: 2/7;
 }
 
 .resultList {
@@ -19,7 +19,7 @@ body {
   display: grid;
   grid-auto-rows: 150px;
   grid-row-gap: 5px;
-  overflow-y: auto; 
+  overflow-y: auto;
 }
 
 .result {
