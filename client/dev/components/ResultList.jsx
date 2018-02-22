@@ -8,13 +8,18 @@ export default class ResultList extends React.Component {
     this.state = {
       placeholder: 'placeholder'
     };
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(result) {
+    this.props.handleListClick(result);
   }
 
   render() {
     return (
       <div className={style.resultList}>
-          {this.props.resultList.map((result, i) => (
-            <Result result={result} key={i} userName={this.props.userName}/>
+        {this.props.resultList.map((result, i) => (
+          <Result result={result} key={i} userName={this.props.userName} showMarkerClick={this.handleClick} />
           ))}
       </div>
     );

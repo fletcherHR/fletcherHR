@@ -16,18 +16,13 @@ const GoogleMaps = withScriptjs(withGoogleMap(props => (
     defaultCenter={{ lat: props.mapList[0].hLatLong.lat, lng: props.mapList[0].hLatLong.lng }}
     center={{ lat: props.mapList[0].hLatLong.lat, lng: props.mapList[0].hLatLong.lng }}
   >
-    {props.isMarkerShown && props.mapList.map(marker => (
-      <Marker position={{ lat: marker.hLatLong.lat, lng: marker.hLatLong.lng }} key={marker.id} />
+    {props.isMarkerShown && props.mapList.map((marker, i) => (
+      <Marker position={{ lat: marker.hLatLong.lat, lng: marker.hLatLong.lng }} key={i} />
     ))}
-
   </GoogleMap>
 
 )));
 
 export default GoogleMaps
-// {props.isMarkerShown && <Marker position={{ lat: props.mapList[0].hLatLong.lat, lng: props.mapList[0].hLatLong.lng }} />}
 
-
-    {/* {this.props.resultList.map((result, i) => (
-      <Result result={result} key={i} />
-    ))} */}
+//
