@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Icon } from 'semantic-ui-react';
+import { Button, Card, Icon, Image } from 'semantic-ui-react'
 import axios from 'axios';
 import style from '../styles/styles2.css';
 
@@ -51,7 +51,7 @@ export default class Result extends React.Component {
           icon="location arrow"
           onClick={this.showMarkerClick}
           value={this.props.result}
-          style={{ gridColumn: '1', gridRow: '1' }}
+          style={{ gridColumn: '2', gridRow: '1' }}
         />
         <Button
           className="favorites"
@@ -59,21 +59,21 @@ export default class Result extends React.Component {
           onClick={this.handleButtonClick}
           toggle active={active}
           size="large"
-          style={{ gridColumn: '2', gridRow: '1' }}
+          style={{ gridColumn: '3', gridRow: '1' }}
         />
-        <span style={{ gridColumn: '1', gridRow: '2', opacity: '0.8' }}>
+        <span style={{ gridColumn: '1/4', gridRow: '3', opacity: '0.9' }}>
           - Price per Month: ${this.props.result.prices}
         </span>
-        <span style={{ gridColumn: '1', gridRow: '3', opacity: '0.8' }}>
+        <span style={{ gridColumn: '1/4', gridRow: '4', opacity: '0.9' }}>
           - Address: {this.props.result.addresses}
         </span>
-        <span style={{ gridColumn: '1/3', gridRow: '4/6', opacity: '0.8' }}>
-          - Commute Times:<br />
-          Walking:({this.props.result.walking})
+        <span style={{ gridColumn: '1/4', gridRow: '5', opacity: '0.9' }}>
+          - Commute Times:
           Driving:({this.props.result.driving})
-          Transit:({this.props.result.transit})
         </span>
       </div>
     );
   }
 }
+// Transit:({this.props.result.transit})
+// Walking:({this.props.result.walking})
