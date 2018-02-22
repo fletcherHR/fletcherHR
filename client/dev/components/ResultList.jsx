@@ -14,7 +14,7 @@ export default class ResultList extends React.Component {
     return (
       <div className={style.resultList}>
           {this.props.resultList.map((result, i) => (
-            <Result result={result} key={i} />
+            <Result result={result} key={i} userName={this.props.userName}/>
           ))}
       </div>
     );

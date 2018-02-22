@@ -14,5 +14,11 @@ exports.addNewUserSignUp = (username, password, cb) => {
   });
 };
 
-// module.exports.verifyExistingUserLogin = verifyExistingUserLogin;
-// module.exports.addNewUserLogin = addNewUserLogin;
+exports.saveFavs = (address, price, commuteTime, aptImageURL, userName, cb) => {
+  const queryString = 'INSERT INTO favorites (address, price, commuteTime, aptImageURL, user_ID) VALUES (?, ?, ?, ?, (select id from users where username = ? limit 1))';
+  db.query(queryString, [address, price, commuteTime, aptImageURL, userName], (error, res) => {
+    if (error) cb(error);
+    else cb(res);
+  });
+};
+

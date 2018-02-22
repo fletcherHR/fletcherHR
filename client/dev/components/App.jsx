@@ -104,6 +104,7 @@ export default class App extends React.Component {
       })
         .then((res) => {
           if (res.data.allow) {
+            console.log(res.data, 'res.data')
             this.setState({
               loggedIn: 1,
               userName: res.data.userName,
@@ -140,7 +141,7 @@ export default class App extends React.Component {
           this.state.loggedIn ?
             <div className={style.logged}>
               <Search triggerSearch={this.handleSearch} />
-              <ResultList resultList={this.state.resultList} />
+              <ResultList resultList={this.state.resultList} userName={this.state.userName}/>
               <div className={style.map}>
                 <GoogleMaps
                   isMarkerShown

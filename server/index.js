@@ -185,11 +185,25 @@ app.post('/login', (req, res) => {
   };
   dbhelper.verifyExistingUserLogin(req.body.userName, (result) => {
     if (req.body.password === result[0].password) {
+      obj.userName = req.body.userName;
       res.status(200).send(obj);
     } else {
       obj.allow = 0;
       res.status(400).send(obj);
     }
+  });
+});
+
+app.post('/favs', (req, res) => {
+  const address = req.body.address;
+  const price = req.body.price;
+  const commuteTime = req.body.commuteTime;
+  const aptImageURL = req.body.aptImageURL;
+  const userName = req.body.userName;
+
+  dbhelper.saveFavs(address, price, commuteTime, aptImageURL, userName, (result) => {
+    console.log(result, 'got back to the server');
+    res.send(result);
   });
 });
 
