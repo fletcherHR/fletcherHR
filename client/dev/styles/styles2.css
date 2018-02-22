@@ -31,10 +31,22 @@ body {
   grid-template-columns: 4fr 1fr;
   grid-auto-rows: 30px;
   color: white;
-  text-shadow: -1px -1px 0 #000,
-    1px -1px 0 #000,
-    -1px 1px 0 #000,
-    1px 1px 0 #000,
+  text-shadow: -1px -1px 0 #000;
+  text-shadow: 1px -1px 0 #000;
+  text-shadow: -1px 1px 0 #000;
+  text-shadow: 1px 1px 0 #000;
+}
+
+.searchFav {
+  height: 60%;
+}
+
+.control Button {
+  border: 1px solid black !important;
+}
+
+.filter {
+  height: 40%;
 }
 
 .favorites {
