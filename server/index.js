@@ -12,6 +12,21 @@ app.use(express.static(__dirname + '/../client/dist'));
 
 app.set('port', 8080);
 
+app.post('/checkfavs', (req, res) => {
+  const listings = req.body.data;
+  const username = req.body.username;
+  dbhelper.checkFavs(username, (faves) => {
+    for (let i = 0; i < listings.length; i += 1) {
+      for (let j = 0; j < faves.length; j += 1) {
+        if (listings[i].addresses === faves[j].address) {
+          listings[i].favorite = true;
+        }
+      }
+    }
+    res.status(200).send(listings);
+  });
+});
+
 app.post('/zillow', (req, res) => {
   const inputZip = req.body.zip;
   const workAddress = req.body.userAddress.split(' ').join('+');
