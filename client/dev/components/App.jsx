@@ -40,8 +40,9 @@ export default class App extends React.Component {
     this.sortData = this.sortData.bind(this);
     this.handleCommute = this.handleCommute.bind(this);
     this.handleRent = this.handleRent.bind(this);
-    this.handleSearchList = this.handleSearchList.bind(this);
-    this.handleFavList = this.handleFavList.bind(this);
+    this.handleMarkerClick = this.handleMarkerClick.bind(this);
+    //this.handleSearchList = this.handleSearchList.bind(this);
+    //this.handleFavList = this.handleFavList.bind(this);
     // this.toggleVisibility = this.toggleVisibility.bind(this);
     // this.resetFavoriteState = this.resetFavoriteState.bind(this);
   }
@@ -70,7 +71,7 @@ export default class App extends React.Component {
     this.setState({ loading: true });
     axios.post('/zillow', { zip, userAddress })
       .then((res) => {
-        const mapListObj = { addresses: userAddress, prices: 'this is your work', hLatLong: res.data.jLatLong };
+        const mapListObj = { addresses: userAddress, prices: 'this is your work', hLatLong: res.data.jLatLong, vis: false };
         const temppArray = [];
         temppArray.push(mapListObj);
         // make sure we are sending back data in an array
@@ -93,7 +94,7 @@ export default class App extends React.Component {
 
   // clicked list will render as a Marker on the google maps
   handleListClick({ addresses, prices, hLatLong }) {
-    const tempObj = { addresses, prices, hLatLong };
+    const tempObj = { addresses, prices, hLatLong, vis: false };
     const anotherTempArray = this.state.mapList;
     const found = { exist: false, index: null };
     for (let i = 0; i < this.state.mapList.length; i += 1) {
@@ -109,6 +110,13 @@ export default class App extends React.Component {
     }
 
     this.setState({ mapList: anotherTempArray });
+  }
+
+  handleMarkerClick(i) {
+    console.log('here');
+    const tempArray = this.state.mapList;
+    tempArray[i].vis = !tempArray[i].vis;
+    this.setState({ mapList: tempArray });
   }
 
   login(userName, password, cb) {
@@ -213,6 +221,7 @@ export default class App extends React.Component {
                 <GoogleMaps
                   isMarkerShown
                   resultList={this.state.resultList}
+                  handleMarkerClick={this.handleMarkerClick}
                   googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
                   loadingElement={<div style={{ height: `100%` }} />}
                   containerElement={<div style={{ height: `83.33vh` }} />}
