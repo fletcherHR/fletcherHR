@@ -207,13 +207,15 @@ app.post('/login', (req, res) => {
 });
 
 app.post('/favs', (req, res) => {
-  const address = req.body.address;
   const price = req.body.price;
-  const commuteTime = req.body.commuteTime;
-  const aptImageURL = req.body.aptImageURL;
+  const address = req.body.address;
+  const image = req.body.image;
+  const transit = req.body.transit;
+  const driving = req.body.driving;
+  const hLatLong = req.body.hLatLong;
   const userName = req.body.userName;
 
-  dbhelper.saveFavs(price, address, image, transit, driving, walking, hLatLong, userName, (result) => {
+  dbhelper.saveFavs(price, address, image, transit, driving, hLatLong, userName, (result) => {
     res.send(result);
   });
 });
