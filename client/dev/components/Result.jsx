@@ -27,6 +27,7 @@ export default class Result extends React.Component {
           transit: this.props.result.driving,
           driving: this.props.result.driving,
           walking: this.props.result.driving,
+          hLatLong: this.
           userName: this.props.userName
         });
       } else {

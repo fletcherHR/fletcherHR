@@ -176,6 +176,14 @@ export default class App extends React.Component {
     this.setState({ userCommute: e.target.value });
   }
 
+  handleSearchList() {
+
+  }
+
+  handleFavList() {
+    
+  }
+
   render() {
     return (
       <div>
@@ -206,7 +214,7 @@ export default class App extends React.Component {
                   />
                 </div>
               </div>
-              <ResultControl sortData={this.sortData} loading={this.state.loading} handleSearchList={this.handleSearchList} handleFavList={this.handleFavList}/>
+              <ResultControl sortData={this.sortData} loading={this.state.loading} handleSearchList={this.handleSearchList} handleFavList={this.handleFavList} />
               <ResultList maxCom={this.state.userCommute} maxRent={this.state.userRent} resultList={this.state.resultList} userName={this.state.userName} handleListClick={this.handleListClick}/>
               <ResultControl />
               <ResultList
