@@ -6,12 +6,20 @@ import style from '../styles/styles2.css';
 export default class Result extends React.Component {
   constructor(props) {
     super(props);
+    console.log('within constructor, this.props: ', this.props);
     this.state = {
       active: this.props.favorite,
     };
     this.handleButtonClick = this.handleButtonClick.bind(this);
     this.showMarkerClick = this.showMarkerClick.bind(this);
   }
+
+  // componentDidMount() {
+  //   console.log('MOUNTING COMPONENT')
+  //   this.setState({
+  //     active: this.props.favorite,
+  //   })
+  // }
 
   handleButtonClick() {
     this.setState({
@@ -25,7 +33,7 @@ export default class Result extends React.Component {
           transit: this.props.result.transit,
           driving: this.props.result.driving,
           hLatLong: this.props.result.hLatLong,
-          userName: this.props.userName
+          userName: this.props.userName,
         });
       } else {
         axios.post('/dfavs', {
@@ -41,8 +49,9 @@ export default class Result extends React.Component {
   }
 
   render() {
+    console.log('this is the props object in Result, props: ', this.props);
+    console.log('within render of Result, this.state.active: ', this.state.active);
     const imageURL = this.props.result.images;
-    const { active } = this.state;
     return (
       <div
         className={style.result}
@@ -61,7 +70,7 @@ export default class Result extends React.Component {
           className="favorites"
           icon="star"
           onClick={this.handleButtonClick}
-          active={active}
+          active={this.state.active}
           size="small"
           style={{ gridColumn: '3', gridRow: '1/4' }}
         />

@@ -24,7 +24,9 @@ export default class ResultList extends React.Component {
     console.log(this.props.resultList);
     return (
       <div className={style.resultList}>
-        {this.props.resultList.map((result, i) => (
+        {this.props.resultList.map((result, i) => {
+          console.log('this is result within map function: ', result);
+          return (
           result.prices <= this.props.maxRent && parseInt(result.driving, 10) <= this.props.maxCom ?
             <Result
               result={result}
@@ -33,7 +35,8 @@ export default class ResultList extends React.Component {
               showMarkerClick={this.handleClick}
               favorite={result.favorite}
             /> : ''
-          ))}
+          )}
+        )}
       </div>
     );
   }

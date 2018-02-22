@@ -16,6 +16,8 @@ app.post('/checkfavs', (req, res) => {
   const listings = req.body.data;
   const username = req.body.username;
   dbhelper.checkFavs(username, (faves) => {
+    // console.log('these are the listings: ', listings);
+    // console.log('these are the faves: ', faves);
     for (let i = 0; i < listings.length; i += 1) {
       for (let j = 0; j < faves.length; j += 1) {
         if (listings[i].addresses === faves[j].address) {
@@ -23,6 +25,7 @@ app.post('/checkfavs', (req, res) => {
         }
       }
     }
+    console.log('end of checkFavs, listings: ', listings);
     res.status(200).send(listings);
   });
 });
@@ -136,7 +139,7 @@ app.post('/zillow', (req, res) => {
                   console.log(prices.length);
                   console.log('done');
                   console.log(addresses);
-  
+
                   const obj = {
                     prices,
                     addresses,
@@ -220,13 +223,17 @@ app.post('/login', (req, res) => {
 });
 
 app.post('/favs', (req, res) => {
-  const price = req.body.price;
-  const address = req.body.address;
-  const image = req.body.image;
-  const transit = req.body.transit;
-  const driving = req.body.driving;
-  const hLatLong = req.body.hLatLong;
-  const userName = req.body.userName;
+  // const price = req.body.price;
+  // const address = req.body.address;
+  // const image = req.body.image;
+  // const transit = req.body.transit;
+  // const driving = req.body.driving;
+  // const hLatLong = req.body.hLatLong;
+  // const userName = req.body.userName;
+
+  const {
+    price, address, image, transit, driving, hLatLong, userName,
+  } = req.body;
 
   dbhelper.saveFavs(price, address, image, transit, driving, hLatLong, userName, (result) => {
     res.send(result);
