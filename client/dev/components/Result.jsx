@@ -49,6 +49,7 @@ export default class Result extends React.Component {
         style={{ backgroundImage: `url(${imageURL})` }}
       >
         <Button
+          toggle
           className="showMarker"
           icon="location arrow"
           onClick={this.showMarkerClick}
