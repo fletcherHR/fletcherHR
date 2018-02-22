@@ -58,7 +58,7 @@ export default class Result extends React.Component {
           icon="location arrow"
           onClick={this.showMarkerClick}
           value={this.props.result}
-          style={{ gridColumn: '2', gridRow: '1' }}
+          style={{ gridColumn: '2', gridRow: '1/4' }}
         />
         <Button
           toggle
@@ -67,17 +67,18 @@ export default class Result extends React.Component {
           onClick={this.handleButtonClick}
           active={active}
           size="small"
-          style={{ gridColumn: '3', gridRow: '1' }}
+          style={{ gridColumn: '3', gridRow: '1/4' }}
         />
-        <span style={{ gridColumn: '1/4', gridRow: '3', opacity: '0.9' }}>
+        <span style={{ gridColumn: '1/4', gridRow: '11', opacity: '0.9' }}>
           - Price per Month: ${this.props.result.prices}
         </span>
-        <span style={{ gridColumn: '1/4', gridRow: '4', opacity: '0.9' }}>
+        <span style={{ gridColumn: '1/4', gridRow: '13', opacity: '0.9' }}>
           - Address: {this.props.result.addresses}
         </span>
-        <span style={{ gridColumn: '1/4', gridRow: '5', opacity: '0.9' }}>
+        <span style={{ gridColumn: '1/4', gridRow: '15', opacity: '0.9' }}>
           - Commute Times:
           Driving:({this.props.result.driving})
+          Transit:({this.props.result.transit})
         </span>
       </div>
     );

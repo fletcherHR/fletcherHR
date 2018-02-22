@@ -4,7 +4,7 @@ body {
 
 .logged {
   display: grid;
-  grid-template-columns: 3fr 1fr 2fr;
+  grid-template-columns: 6.5fr 1.5fr 4fr;
   grid-template-rows: 16.66vh 16.66vh 16.66vh 16.66vh 16.66vh 16.66vh;
 }
 
@@ -29,14 +29,26 @@ body {
   background-position: center;
   display: grid;
   grid-template-columns: 4fr 1fr 1fr;
-  grid-auto-rows: 30px;
+  grid-auto-rows: 10px;
   color: white;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
   line-height: 0px;
 }
 
-.comRent {
-  float: right;
+.comRentCont {
+  border-left: 5px solid black;
+  display: grid;
+  grid-template-columns: 1fr 5fr 1fr;
+  grid-template-rows: 8.33vh 8.33vh;
+}
+
+.com {
+  grid-row: 1;
+  grid-column: 2;
+}
+.rent {
+  grid-row: 2;
+  grid-column: 2;
 }
 
 .resultControl {
