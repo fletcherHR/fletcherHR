@@ -10,6 +10,7 @@ export default class Result extends React.Component {
       active: false,
     };
     this.handleButtonClick = this.handleButtonClick.bind(this);
+    this.showMarkerClick = this.showMarkerClick.bind(this);
   }
 
   handleButtonClick() {
@@ -35,18 +36,30 @@ export default class Result extends React.Component {
     });
   }
 
+  showMarkerClick() {
+    this.props.showMarkerClick(this.props.result);
+  }
+
+
   render() {
     const imageURL = this.props.result.images;
     const { active } = this.state;
     return (
       <div className={style.result} style={{ backgroundImage: `url(${imageURL})` }}>
         <Button
+          className="showMarker"
+          icon="location arrow"
+          onClick={this.showMarkerClick}
+          value={this.props.result}
+          style={{ gridColumn: '1', gridRow: '1' }}
+        />
+        <Button
           className="favorites"
           icon="star"
           onClick={this.handleButtonClick}
           toggle active={active}
           size="large"
-          style ={{ gridColumn: '2', gridRow: '1',}}
+          style={{ gridColumn: '2', gridRow: '1' }}
         />
         <span style={{ gridColumn: '1', gridRow: '2', opacity: '0.8' }}>
           - Price per Month: ${this.props.result.prices}
@@ -55,7 +68,7 @@ export default class Result extends React.Component {
           - Address: {this.props.result.addresses}
         </span>
         <span style={{ gridColumn: '1/3', gridRow: '4/6', opacity: '0.8' }}>
-          - Commute Times:<br/>
+          - Commute Times:<br />
           Walking:({this.props.result.walking})
           Driving:({this.props.result.driving})
           Transit:({this.props.result.transit})
