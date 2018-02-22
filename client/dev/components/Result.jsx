@@ -54,11 +54,12 @@ export default class Result extends React.Component {
           style={{ gridColumn: '2', gridRow: '1' }}
         />
         <Button
+          toggle
           className="favorites"
           icon="star"
           onClick={this.handleButtonClick}
-          toggle active={active}
-          size="large"
+          active={active}
+          size="small"
           style={{ gridColumn: '3', gridRow: '1' }}
         />
         <span style={{ gridColumn: '1/4', gridRow: '3', opacity: '0.9' }}>
