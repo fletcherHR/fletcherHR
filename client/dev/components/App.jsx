@@ -23,8 +23,8 @@ export default class App extends React.Component {
       userName: '',
       loggedIn: 0,
       loading: false,
-      userCommute: 0,
-      userRent: 0,
+      userCommute: 40,
+      userRent: 4000,
     };
 
     this.login = this.login.bind(this);
@@ -49,13 +49,13 @@ export default class App extends React.Component {
       // Can add additional conditions to filter results
       //if (prices[i] < 20000) {
       // passing down "id" into resultList to make handling them easier
-      const obj = { id: i, prices: prices[i], addresses: addresses[i], images: images[i], driving: driving[i], hLatLong: hLatLong[i] };
+      const obj = { id: i, prices: prices[i], addresses: addresses[i], images: images[i], driving: driving[i], transit: transit[i], hLatLong: hLatLong[i] };
       temp.push(obj);
       // const mapObj = { id: i + 1, addresses: addresses[i], prices: prices[i], hLatLong: hLatLong[i] };
       // mapTemp.push(mapObj);
       //}
     }
-    this.setState({ resultList: temp, hLatLong }, );
+    this.setState({ resultList: temp, hLatLong });
   }
 
   handleSearch({ userAddress }) {
@@ -67,6 +67,7 @@ export default class App extends React.Component {
         const temppArray = [];
         temppArray.push(mapListObj);
         // make sure we are sending back data in an array
+        console.log(res.data);
         this.setState(
           {
             loading: false,
@@ -149,7 +150,7 @@ export default class App extends React.Component {
   sortData(type) {
     if (type === 1) {
       this.setState({
-        resultList: this.state.resultList.sort((a, b) => a.prices - b.prices ),
+        resultList: this.state.resultList.sort((a, b) => a.prices - b.prices),
       });
     } else if (type === 2) {
       this.setState({
@@ -176,8 +177,8 @@ export default class App extends React.Component {
           this.state.loggedIn ?
             <div className={style.logged}>
               <Search triggerSearch={this.handleSearch} />
-              <div>
-                <div className={style.comRent}>
+              <div className={style.comRentCont}>
+                <div className={style.com}>
                   <h4>commute: {this.state.userCommute}</h4>
                   <input
                     type="range"
@@ -187,12 +188,12 @@ export default class App extends React.Component {
                     onChange={this.handleCommute}
                   />
                 </div>
-                <div className={style.comRent}>
+                <div className={style.rent}>
                   <h4>rent: {this.state.userRent}</h4>
                   <input
                     type="range"
                     min="0"
-                    max="4000"
+                    max="6000"
                     step="100"
                     value={this.state.userRent}
                     onChange={this.handleRent}
@@ -200,14 +201,7 @@ export default class App extends React.Component {
                 </div>
               </div>
               <ResultControl sortData={this.sortData} loading={this.state.loading} />
-              <ResultList maxCom={this.state.userCommute} maxRent={this.state.userRent} resultList={this.state.resultList} userName={this.state.userName} handleListClick={this.handleListClick}/>
-              <ResultControl />
-              <ResultList
-                handleFavorites={this.resetFavoriteState}
-                resultList={this.state.resultList}
-                userName={this.state.userName}
-                handleListClick={this.handleListClick}
-              />
+              <ResultList handleFavorites={this.resetFavoriteState} maxCom={this.state.userCommute} maxRent={this.state.userRent} resultList={this.state.resultList} userName={this.state.userName} handleListClick={this.handleListClick} />
               <div className={style.map}>
                 <GoogleMaps
                   isMarkerShown
@@ -221,13 +215,6 @@ export default class App extends React.Component {
                   longitude={this.state.longitude}
                 />
               </div>
-              <Loader
-                style={{ display: this.state.loading ? 'block' : 'none' }}
-                active
-                inline="centered"
-                size="large"
-              >Loading
-              </Loader>
             </div> :
             <Login signUp={this.signUp} login={this.login} />
         }
