@@ -14,9 +14,9 @@ exports.addNewUserSignUp = (username, password, cb) => {
   });
 };
 
-exports.saveFavs = (price, address, image, transit, driving, walking, hLatLong, userName, cb) => {
-  const queryString = 'INSERT INTO favorites (price, address, image, transit, driving, walking, hLatLong, user_ID) VALUES (?, ?, ?, ?, ?, ?, ?, (SELECT id FROM users WHERE username = ? limit 1))';
-  db.query(queryString, [price, address, image, transit, driving, walking, hLatLong, userName], (error, res) => {
+exports.saveFavs = (price, address, image, transit, driving, hLatLong, userName, cb) => {
+  const queryString = 'INSERT INTO favorites (price, address, image, transit, driving, hLatLong, user_ID) VALUES (?, ?, ?, ?, ?, ?, (SELECT id FROM users WHERE username = ? limit 1))';
+  db.query(queryString, [price, address, image, transit, driving, hLatLong, userName], (error, res) => {
     if (error) cb(error);
     else cb(res);
   });
@@ -31,13 +31,8 @@ exports.deleteFavs = (address, userName, cb) => {
 };
 
 exports.checkFavs = (userName, cb) => {
-  // checkFavs of user by address and userID
   const queryString = 'SELECT address FROM favorites WHERE user_ID = (SELECT id FROM users WHERE username = ?)';
   db.query(queryString, [userName], (error, res) => {
-    console.log('these are the results: ', JSON.parse(JSON.stringify(res)));
-    // results is an array of objects with key address: saved favorite address, tied to the favorites of the user
-    // what do to with these results?
-    // we want to check
     cb(JSON.parse(JSON.stringify(res)));
   });
 };

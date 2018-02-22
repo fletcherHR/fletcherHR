@@ -12,10 +12,36 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      resultList: [{ prices: 2000, addresses: 'addresses', images: 'https://media.boingboing.net/wp-content/uploads/2015/04/chicken3.jpg', walking: '5 minutes', driving: '3 minutes', transit: '4 minutes', markerVis: false },
-      { prices: 1500, addresses: 'addresses2', images: 'https://media.boingboing.net/wp-content/uploads/2015/04/chicken3.jpg', walking: '10 minutes', driving: '4 minutes', transit: '6 minutes', markerVis: false },
-      { prices: 1700, addresses: 'addresses3', images: 'https://media.boingboing.net/wp-content/uploads/2015/04/chicken3.jpg', walking: '15 minutes', driving: '6 minutes', transit: '8 minutes', markerVis: false }],
-
+      resultList: [{
+        prices: 2000,
+        addresses: 'addresses',
+        images: 'https://media.boingboing.net/wp-content/uploads/2015/04/chicken3.jpg',
+        walking: '5 minutes',
+        driving: '3 minutes',
+        transit: '4 minutes',
+        markerVis: false,
+        favorite: false,
+      },
+      {
+        prices: 1500,
+        addresses: 'addresses2',
+        images: 'https://media.boingboing.net/wp-content/uploads/2015/04/chicken3.jpg',
+        walking: '10 minutes',
+        driving: '4 minutes',
+        transit: '6 minutes',
+        markerVis: false,
+        favorite: true,
+      },
+      {
+        prices: 1700,
+        addresses: 'addresses3',
+        images: 'https://media.boingboing.net/wp-content/uploads/2015/04/chicken3.jpg',
+        walking: '15 minutes',
+        driving: '6 minutes',
+        transit: '8 minutes',
+        markerVis: false,
+        favorite: false,
+      }],
       // adding a list to show user's favorites
       favList: [],
       // setting state to show fav list vs result list
@@ -31,7 +57,6 @@ export default class App extends React.Component {
       userCommute: 40,
       userRent: 4000,
     };
-
     this.login = this.login.bind(this);
     this.signUp = this.signUp.bind(this);
     this.packData = this.packData.bind(this);
@@ -44,10 +69,9 @@ export default class App extends React.Component {
     //this.handleSearchList = this.handleSearchList.bind(this);
     //this.handleFavList = this.handleFavList.bind(this);
     // this.toggleVisibility = this.toggleVisibility.bind(this);
-    // this.resetFavoriteState = this.resetFavoriteState.bind(this);
   }
 
-  resetFavoriteState() {
+  check() {
     console.log('something someting: ', this.state);
   }
 
@@ -57,13 +81,36 @@ export default class App extends React.Component {
       // Can add additional conditions to filter results
       //if (prices[i] < 20000) {
       // passing down "id" into resultList to make handling them easier
-      const obj = { id: i, prices: prices[i], addresses: addresses[i], images: images[i], driving: driving[i], transit: transit[i], hLatLong: hLatLong[i] };
+
+      const obj = {
+        id: i,
+        prices: prices[i],
+        addresses: addresses[i],
+        images: images[i],
+        driving: driving[i],
+        hLatLong: hLatLong[i],
+        favorite: false,
+      };
+
       temp.push(obj);
       // const mapObj = { id: i + 1, addresses: addresses[i], prices: prices[i], hLatLong: hLatLong[i] };
       // mapTemp.push(mapObj);
       //}
     }
-    this.setState({ resultList: temp, hLatLong });
+
+    axios.post('/checkfavs', {
+      data: temp,
+      username: this.state.userName,
+    })
+      .then((res) => {
+        this.setState({
+          resultList: res.data, hLatLong,
+        });
+      })
+      .catch((err) => {
+        console.log('ERROR in POST to /checkfavs, error: ', err);
+      });
+
   }
 
   handleSearch({ userAddress }) {
@@ -83,7 +130,6 @@ export default class App extends React.Component {
           },
           () => {
             this.packData(res.data);
-            this.resetFavoriteState();
           },
         );
       })
@@ -185,6 +231,14 @@ export default class App extends React.Component {
     this.setState({ userCommute: e.target.value });
   }
 
+  handleSearchList() {
+
+  }
+
+  handleFavList() {
+    
+  }
+
   render() {
     return (
       <div>
@@ -215,8 +269,10 @@ export default class App extends React.Component {
                   />
                 </div>
               </div>
-              <ResultControl sortData={this.sortData} loading={this.state.loading} />
+
+              <ResultControl sortData={this.sortData} loading={this.state.loading} handleSearchList={this.handleSearchList} handleFavList={this.handleFavList}/>
               <ResultList handleFavorites={this.resetFavoriteState} maxCom={this.state.userCommute} maxRent={this.state.userRent} resultList={this.state.resultList} userName={this.state.userName} handleListClick={this.handleListClick} />
+
               <div className={style.map}>
                 <GoogleMaps
                   isMarkerShown

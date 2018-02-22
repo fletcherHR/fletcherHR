@@ -12,6 +12,21 @@ app.use(express.static(__dirname + '/../client/dist'));
 
 app.set('port', 8080);
 
+app.post('/checkfavs', (req, res) => {
+  const listings = req.body.data;
+  const username = req.body.username;
+  dbhelper.checkFavs(username, (faves) => {
+    for (let i = 0; i < listings.length; i += 1) {
+      for (let j = 0; j < faves.length; j += 1) {
+        if (listings[i].addresses === faves[j].address) {
+          listings[i].favorite = true;
+        }
+      }
+    }
+    res.status(200).send(listings);
+  });
+});
+
 app.post('/zillow', (req, res) => {
   const inputZip = req.body.zip;
   const workAddress = req.body.userAddress.split(' ').join('+');
@@ -205,13 +220,15 @@ app.post('/login', (req, res) => {
 });
 
 app.post('/favs', (req, res) => {
-  const address = req.body.address;
   const price = req.body.price;
-  const commuteTime = req.body.commuteTime;
-  const aptImageURL = req.body.aptImageURL;
+  const address = req.body.address;
+  const image = req.body.image;
+  const transit = req.body.transit;
+  const driving = req.body.driving;
+  const hLatLong = req.body.hLatLong;
   const userName = req.body.userName;
 
-  dbhelper.saveFavs(price, address, image, transit, driving, walking, hLatLong, userName, (result) => {
+  dbhelper.saveFavs(price, address, image, transit, driving, hLatLong, userName, (result) => {
     res.send(result);
   });
 });
