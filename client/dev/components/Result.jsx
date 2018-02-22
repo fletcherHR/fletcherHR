@@ -7,7 +7,7 @@ export default class Result extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      active: false,
+      active: this.props.favorite,
     };
     this.handleButtonClick = this.handleButtonClick.bind(this);
     this.showMarkerClick = this.showMarkerClick.bind(this);
@@ -18,8 +18,6 @@ export default class Result extends React.Component {
       active: !this.state.active,
     }, () => {
       if (this.state.active) {
-        // trigger save to saveToFavorites
-        console.log('POST to /favs');
         axios.post('/favs', {
           price: this.props.result.prices,
           address: this.props.result.addresses,
@@ -30,8 +28,6 @@ export default class Result extends React.Component {
           userName: this.props.userName
         });
       } else {
-        // trigger delete from favorites
-        console.log('POST to /dfavs');
         axios.post('/dfavs', {
           address: this.props.result.addresses,
           userName: this.props.userName,
@@ -43,7 +39,6 @@ export default class Result extends React.Component {
   showMarkerClick() {
     this.props.showMarkerClick(this.props.result);
   }
-
 
   render() {
     const imageURL = this.props.result.images;
