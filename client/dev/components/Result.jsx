@@ -8,6 +8,7 @@ export default class Result extends React.Component {
       active: false,
     };
     this.handleButtonClick = this.handleButtonClick.bind(this);
+    this.showMarkerClick = this.showMarkerClick.bind(this);
   }
 
   handleButtonClick() {
@@ -22,6 +23,9 @@ export default class Result extends React.Component {
     console.log('this is the state: ', this.state.active);
   }
 
+  showMarkerClick() {
+    this.props.showMarkerClick(this.props.result);
+  }
 
 
   render() {
@@ -41,6 +45,13 @@ export default class Result extends React.Component {
           textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000',
         }}
       >
+        <Button
+          className="showMarker"
+          icon="location arrow"
+          onClick={this.showMarkerClick}
+          value={this.props.result}
+          style={{ gridColumn: '1', gridRow: '1' }}
+        />
         <Button
           className="favorites"
           icon="star"
