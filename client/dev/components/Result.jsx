@@ -17,7 +17,6 @@ export default class Result extends React.Component {
     }, () => {
       if (this.state.active) {
         // trigger save to saveToFavorites
-        console.log('button has been pressed for favs')
         axios.post('/favs', {
           address: this.props.result.addresses,
           price: this.props.result.prices,
@@ -27,6 +26,10 @@ export default class Result extends React.Component {
         });
       } else {
         // trigger delete from favorites
+        axios.post('dfavs', {
+          address: this.props.result.addresses,
+          userName: this.props.userName
+        });
       }
     });
   }

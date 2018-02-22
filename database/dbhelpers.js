@@ -15,8 +15,16 @@ exports.addNewUserSignUp = (username, password, cb) => {
 };
 
 exports.saveFavs = (address, price, commuteTime, aptImageURL, userName, cb) => {
-  const queryString = 'INSERT INTO favorites (address, price, commuteTime, aptImageURL, user_ID) VALUES (?, ?, ?, ?, (select id from users where username = ? limit 1))';
+  const queryString = 'INSERT INTO favorites (address, price, commuteTime, aptImageURL, user_ID) VALUES (?, ?, ?, ?, (SELECT id FROM users WHERE username = ? limit 1))';
   db.query(queryString, [address, price, commuteTime, aptImageURL, userName], (error, res) => {
+    if (error) cb(error);
+    else cb(res);
+  });
+};
+
+exports.deleteFavs = (address, userName, cb) => {
+  const queryString = 'DELETE FROM favorites WHERE address = ? and user_ID = (SELECT id FROM users WHERE username = ? limit 1)';
+  db.query(queryString, [address, userName], (error, res) => {
     if (error) cb(error);
     else cb(res);
   });
