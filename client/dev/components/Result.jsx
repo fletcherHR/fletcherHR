@@ -13,13 +13,10 @@ export default class Result extends React.Component {
   handleButtonClick() {
     this.setState({
       active: !this.state.active,
+    }, () => {
+      console.log('this is the async state: ', this.state.active);
     });
-    if (this.state.active) {
-      // trigger save to saveToFavorites
-    } else {
-      // trigger delete from favorites
-    }
-    console.log('this is the state: ', this.state.active);
+    console.log('this is the sync state: ', this.state.active);
   }
 
   render() {
@@ -55,8 +52,8 @@ export default class Result extends React.Component {
         </span>
         <span style={{ gridColumn: '1/3', gridRow: '4/6', opacity: '0.8' }}>
           - Commute Times:<br/>
-          Walking:({this.props.result.walking}) 
-          Driving:({this.props.result.driving}) 
+          Walking:({this.props.result.walking})
+          Driving:({this.props.result.driving})
           Transit:({this.props.result.transit})
         </span>
       </div>
