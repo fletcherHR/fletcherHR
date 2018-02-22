@@ -265,25 +265,6 @@ export default class App extends React.Component {
               <ResultControl sortData={this.sortData} loading={this.state.loading} handleSearchList={this.handleSearchList} handleFavList={this.handleFavList}/>
               <ResultList handleFavorites={this.resetFavoriteState} maxCom={this.state.userCommute} maxRent={this.state.userRent} resultList={this.state.resultList} userName={this.state.userName} handleListClick={this.handleListClick} />
 
-              <ResultControl
-                sortData={this.sortData}
-                loading={this.state.loading}
-              />
-              <ResultList
-                maxCom={this.state.userCommute}
-                maxRent={this.state.userRent}
-                resultList={this.state.resultList}
-                userName={this.state.userName}
-                handleListClick={this.handleListClick}
-              />
-
-              <ResultControl />
-              <ResultList
-                resultList={this.state.resultList}
-                userName={this.state.userName}
-                handleListClick={this.handleListClick}
-              />
-
               <div className={style.map}>
                 <GoogleMaps
                   isMarkerShown

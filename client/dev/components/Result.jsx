@@ -22,10 +22,9 @@ export default class Result extends React.Component {
           price: this.props.result.prices,
           address: this.props.result.addresses,
           image: this.props.result.images,
-          transit: this.props.result.driving,
+          transit: this.props.result.transit,
           driving: this.props.result.driving,
-          walking: this.props.result.driving,
-          hLatLong: this.
+          hLatLong: this.props.result.hLatLong,
           userName: this.props.userName
         });
       } else {
