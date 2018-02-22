@@ -202,7 +202,12 @@ app.post('/favs', (req, res) => {
   const userName = req.body.userName;
 
   dbhelper.saveFavs(address, price, commuteTime, aptImageURL, userName, (result) => {
-    console.log(result, 'got back to the server');
+    res.send(result);
+  });
+});
+
+app.post('/dfavs', (req, res) => {
+  dbhelper.deleteFavs(req.body.address, req.body.userName, (result) => {
     res.send(result);
   });
 });

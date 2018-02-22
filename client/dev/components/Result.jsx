@@ -27,6 +27,10 @@ export default class Result extends React.Component {
         });
       } else {
         // trigger delete from favorites
+        axios.post('dfavs', {
+          address: this.props.result.addresses,
+          userName: this.props.userName
+        });
       }
     });
   }
