@@ -103,6 +103,7 @@ export default class App extends React.Component {
       })
         .then((res) => {
           if (res.data.allow) {
+            console.log(res.data, 'res.data')
             this.setState({
               loggedIn: 1,
               userName: res.data.userName,
@@ -139,7 +140,7 @@ export default class App extends React.Component {
           this.state.loggedIn ?
             <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gridTemplateRows: '16.66vh 16.66vh 16.66vh 16.66vh 16.66vh 16.66vh' }}>
               <Search triggerSearch={this.handleSearch} />
-              <ResultList resultList={this.state.resultList} />
+              <ResultList resultList={this.state.resultList} userName={this.state.userName}/>
               <div style={{ gridColumn: '1', gridRow: '2/7' }}>
                 <GoogleMaps
                   isMarkerShown
