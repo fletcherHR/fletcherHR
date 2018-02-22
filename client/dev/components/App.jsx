@@ -13,8 +13,13 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       resultList: [{ prices: 2000, addresses: 'addresses', images: 'https://media.boingboing.net/wp-content/uploads/2015/04/chicken3.jpg', walking: '5 minutes', driving: '3 minutes', transit: '4 minutes', markerVis: false },
-        { prices: 1500, addresses: 'addresses2', images: 'https://media.boingboing.net/wp-content/uploads/2015/04/chicken3.jpg', walking: '10 minutes', driving: '4 minutes', transit: '6 minutes', markerVis: false },
-        { prices: 1700, addresses: 'addresses3', images: 'https://media.boingboing.net/wp-content/uploads/2015/04/chicken3.jpg', walking: '15 minutes', driving: '6 minutes', transit: '8 minutes', markerVis: false }],
+      { prices: 1500, addresses: 'addresses2', images: 'https://media.boingboing.net/wp-content/uploads/2015/04/chicken3.jpg', walking: '10 minutes', driving: '4 minutes', transit: '6 minutes', markerVis: false },
+      { prices: 1700, addresses: 'addresses3', images: 'https://media.boingboing.net/wp-content/uploads/2015/04/chicken3.jpg', walking: '15 minutes', driving: '6 minutes', transit: '8 minutes', markerVis: false }],
+
+      // adding a list to show user's favorites
+      favList: [],
+      // setting state to show fav list vs result list
+      showFavs: false,
       // default is HR right now maybe add more later
       latitude: 40.750611,
       longitude: -73.978641,
@@ -35,6 +40,8 @@ export default class App extends React.Component {
     this.sortData = this.sortData.bind(this);
     this.handleCommute = this.handleCommute.bind(this);
     this.handleRent = this.handleRent.bind(this);
+    this.handleSearchList = this.handleSearchList.bind(this);
+    this.handleFavList = this.handleFavList.bind(this);
     // this.toggleVisibility = this.toggleVisibility.bind(this);
     // this.resetFavoriteState = this.resetFavoriteState.bind(this);
   }
@@ -199,7 +206,7 @@ export default class App extends React.Component {
                   />
                 </div>
               </div>
-              <ResultControl sortData={this.sortData} loading={this.state.loading} />
+              <ResultControl sortData={this.sortData} loading={this.state.loading} handleSearchList={this.handleSearchList} handleFavList={this.handleFavList}/>
               <ResultList maxCom={this.state.userCommute} maxRent={this.state.userRent} resultList={this.state.resultList} userName={this.state.userName} handleListClick={this.handleListClick}/>
               <ResultControl />
               <ResultList

@@ -14,9 +14,9 @@ exports.addNewUserSignUp = (username, password, cb) => {
   });
 };
 
-exports.saveFavs = (address, price, commuteTime, aptImageURL, userName, cb) => {
-  const queryString = 'INSERT INTO favorites (address, price, commuteTime, aptImageURL, user_ID) VALUES (?, ?, ?, ?, (SELECT id FROM users WHERE username = ? limit 1))';
-  db.query(queryString, [address, price, commuteTime, aptImageURL, userName], (error, res) => {
+exports.saveFavs = (price, address, image, transit, driving, walking, hLatLong, userName, cb) => {
+  const queryString = 'INSERT INTO favorites (price, address, image, transit, driving, walking, hLatLong, user_ID) VALUES (?, ?, ?, ?, ?, ?, ?, (SELECT id FROM users WHERE username = ? limit 1))';
+  db.query(queryString, [price, address, image, transit, driving, walking, hLatLong, userName], (error, res) => {
     if (error) cb(error);
     else cb(res);
   });
