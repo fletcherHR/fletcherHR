@@ -1,6 +1,6 @@
 import React from 'react';
 import Search from './Search.jsx';
-import GoogleMaps from './GoogleMaps.jsx'
+import GoogleMaps from './GoogleMaps.jsx';
 import Login from './Login.jsx';
 import ResultList from './ResultList.jsx';
 import ResultControl from './ResultControl.jsx';
@@ -32,6 +32,11 @@ export default class App extends React.Component {
     this.handleSearch = this.handleSearch.bind(this);
     this.handleListClick = this.handleListClick.bind(this);
     // this.toggleVisibility = this.toggleVisibility.bind(this);
+    // this.resetFavoriteState = this.resetFavoriteState.bind(this);
+  }
+
+  resetFavoriteState() {
+    console.log('something someting: ', this.state);
   }
 
   packData( { prices, addresses, images, transit, driving, walking, hLatLong }) {
@@ -46,8 +51,9 @@ export default class App extends React.Component {
         // mapTemp.push(mapObj);
       }
     }
-    this.setState({ resultList: temp, hLatLong });
+    this.setState({ resultList: temp, hLatLong }, );
   }
+
 
   handleSearch({ userAddress, userCommute, userRent }) {
     const userInfo = { userAddress, userCommute, userRent };
@@ -65,15 +71,16 @@ export default class App extends React.Component {
             loading: false,
             mapList: temppArray,
           },
-          () => this.packData(res.data),
+          () => {
+            this.packData(res.data);
+            this.resetFavoriteState();
+          },
         );
       })
       .catch((err) => {
         console.log(err);
       });
   }
-
-
 
   // clicked list will render as a Marker on the google maps
   handleListClick({ addresses, prices, hLatLong }) {
@@ -94,12 +101,9 @@ export default class App extends React.Component {
 
     this.setState({ mapList: anotherTempArray });
   }
-  //
-
-
 
   login(userName, password, cb) {
-    if(userName === ''){
+    if (userName === '') {
       this.setState({
         loggedIn: 1,
         userName: '',
@@ -149,7 +153,12 @@ export default class App extends React.Component {
             <div className={style.logged}>
               <Search triggerSearch={this.handleSearch} />
               <ResultControl />
-              <ResultList resultList={this.state.resultList} userName={this.state.userName} handleListClick={this.handleListClick}/>
+              <ResultList
+                handleFavorites={this.resetFavoriteState}
+                resultList={this.state.resultList}
+                userName={this.state.userName}
+                handleListClick={this.handleListClick}
+              />
               <div className={style.map}>
                 <GoogleMaps
                   isMarkerShown
@@ -165,7 +174,8 @@ export default class App extends React.Component {
               </div>
               <Loader
                 style={{ display: this.state.loading ? 'block' : 'none' }}
-                active inline="centered"
+                active
+                inline="centered"
                 size="large"
               >Loading
               </Loader>
