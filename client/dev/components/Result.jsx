@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Card, Icon, Image } from 'semantic-ui-react'
+import { Button, Card, Icon, Image } from 'semantic-ui-react';
 import axios from 'axios';
 import style from '../styles/styles2.css';
 
@@ -21,11 +21,13 @@ export default class Result extends React.Component {
         // trigger save to saveToFavorites
         console.log('POST to /favs');
         axios.post('/favs', {
-          address: this.props.result.addresses,
           price: this.props.result.prices,
-          commuteTime: this.props.result.driving,
-          aptImageURL: this.props.result.images,
-          userName: this.props.userName,
+          address: this.props.result.addresses,
+          image: this.props.result.images,
+          transit: this.props.result.driving,
+          driving: this.props.result.driving,
+          walking: this.props.result.driving,
+          userName: this.props.userName
         });
       } else {
         // trigger delete from favorites

@@ -204,13 +204,13 @@ app.post('/login', (req, res) => {
 });
 
 app.post('/favs', (req, res) => {
-  const {
-    address, price, commuteTime, aptImageURL, userName,
-  } = req.body;
-  dbhelper.saveFavs(address, price, commuteTime, aptImageURL, userName, (result) => {
-    dbhelper.checkFavs(userName, (res1) => {
-      console.log('this is the result from within POST to /favs: ', res1);
-    });
+  const address = req.body.address;
+  const price = req.body.price;
+  const commuteTime = req.body.commuteTime;
+  const aptImageURL = req.body.aptImageURL;
+  const userName = req.body.userName;
+
+  dbhelper.saveFavs(price, address, image, transit, driving, walking, hLatLong, userName, (result) => {
     res.send(result);
   });
 });

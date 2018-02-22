@@ -9,16 +9,12 @@ export default class ResultControl extends React.Component {
       activeResult: 1,
       activeSort: 0,
     };
-    this.changeResult = this.changeResult.bind(this);
+    
     this.changeSort1 = this.changeSort1.bind(this);
     this.changeSort2 = this.changeSort2.bind(this);
     this.changeSort3 = this.changeSort3.bind(this);
-  }
-
-  changeResult() {
-    this.setState({
-      activeResult: this.state.activeResult === 1 ? 2 : 1,
-    });
+    this.handleSearchList = this.handleSearchList.bind(this);
+    this.handleFavList = this.handleFavList.bind(this);
   }
 
   changeSort1() {
@@ -38,6 +34,21 @@ export default class ResultControl extends React.Component {
       activeSort: 3,
     });
     this.props.sortData(3);
+
+  }
+
+  handleSearchList() {
+    this.setState({
+      activeResult: this.state.activeResult === 1 ? 2 : 1,
+    });
+    this.props.handleSearchList();
+  }
+
+  handleFavList() {
+    this.setState({
+      activeResult: this.state.activeResult === 1 ? 2 : 1,
+    });
+    this.props.handleFavList();
   }
 
   render() {
@@ -51,14 +62,14 @@ export default class ResultControl extends React.Component {
         >
           <Button
             active={this.state.activeResult === 1}
-            onClick={this.changeResult}
+            onClick={this.handleSearchList}
             loading={this.props.loading}
           >
             Search Results
           </Button>
           <Button
             active={this.state.activeResult === 2}
-            onClick={this.changeResult}
+            onClick={this.handleFavList}
           >
             My Favorites
           </Button>
