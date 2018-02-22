@@ -5,29 +5,19 @@ export default class Search extends React.Component {
     super(props);
     this.state = {
       userAddress: '',
-      userCommute: 30,
-      userRent: 2000
     };
     this.handleAddress = this.handleAddress.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleCommute = this.handleCommute.bind(this);
-    this.handleRent = this.handleRent.bind(this);
   }
 
   handleAddress(e) {
     this.setState({ userAddress: e.target.value });
   }
-  handleRent(e) {
-    this.setState({ userRent: e.target.value });
-  }
-  handleCommute(e) {
-    this.setState({ userCommute: e.target.value });
-  }
   handleSubmit(e) {
     this.setState({
-      userInput: e.target.value
+      userInput: e.target.value,
     }, () => {
-      this.props.triggerSearch(this.state)
+      this.props.triggerSearch(this.state);
     });
   }
   render() {
@@ -47,26 +37,6 @@ export default class Search extends React.Component {
             value={this.state.userAddress}
           >Search
           </button>
-        </div>
-        <div>
-          <h4>commute: {this.state.userCommute}</h4>
-          <input
-            type="range"
-            min="0"
-            max="60"
-            value={this.state.userCommute}
-            onChange={this.handleCommute}
-          />
-        </div>
-        <div>
-          <h4>rent: {this.state.userRent}</h4>
-          <input
-            type="range"
-            min="0"
-            max="4000"
-            value={this.state.userRent}
-            onChange={this.handleRent}
-          />
         </div>
       </div>
     );

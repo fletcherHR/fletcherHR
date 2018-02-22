@@ -13,10 +13,9 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       resultList: [{ prices: 2000, addresses: 'addresses', images: 'https://media.boingboing.net/wp-content/uploads/2015/04/chicken3.jpg', walking: '5 minutes', driving: '3 minutes', transit: '4 minutes', markerVis: false },
-      { prices: 1500, addresses: 'addresses2', images: 'https://media.boingboing.net/wp-content/uploads/2015/04/chicken3.jpg', walking: '10 minutes', driving: '4 minutes', transit: '6 minutes', markerVis: false },
-      { prices: 1700, addresses: 'addresses3', images: 'https://media.boingboing.net/wp-content/uploads/2015/04/chicken3.jpg', walking: '15 minutes', driving: '6 minutes', transit: '8 minutes', markerVis: false }],
+        { prices: 1500, addresses: 'addresses2', images: 'https://media.boingboing.net/wp-content/uploads/2015/04/chicken3.jpg', walking: '10 minutes', driving: '4 minutes', transit: '6 minutes', markerVis: false },
+        { prices: 1700, addresses: 'addresses3', images: 'https://media.boingboing.net/wp-content/uploads/2015/04/chicken3.jpg', walking: '15 minutes', driving: '6 minutes', transit: '8 minutes', markerVis: false }],
       // default is HR right now maybe add more later
-      userInfo: { userAddress: 'myaddress', userCommute: '60', userRent: '5' },
       latitude: 40.750611,
       longitude: -73.978641,
       hLatLong: [{ lat: 40.750611, lng: -73.978641 }],
@@ -24,6 +23,8 @@ export default class App extends React.Component {
       userName: '',
       loggedIn: 0,
       loading: false,
+      userCommute: 0,
+      userRent: 0,
     };
 
     this.login = this.login.bind(this);
@@ -31,6 +32,9 @@ export default class App extends React.Component {
     this.packData = this.packData.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleListClick = this.handleListClick.bind(this);
+    this.sortData = this.sortData.bind(this);
+    this.handleCommute = this.handleCommute.bind(this);
+    this.handleRent = this.handleRent.bind(this);
     // this.toggleVisibility = this.toggleVisibility.bind(this);
   }
 
@@ -38,22 +42,21 @@ export default class App extends React.Component {
     const temp = [];
     for (let i = 0; i < hLatLong.length; i += 1) {
       // Can add additional conditions to filter results
-      if (prices[i] < this.state.userInfo.userRent) {
-        // passing down "id" into resultList to make handling them easier
-        const obj = { id: i, prices: prices[i], addresses: addresses[i], images: images[i], driving: driving[i], hLatLong: hLatLong[i] };
-        temp.push(obj);
-        // const mapObj = { id: i + 1, addresses: addresses[i], prices: prices[i], hLatLong: hLatLong[i] };
-        // mapTemp.push(mapObj);
-      }
+      //if (prices[i] < 20000) {
+      // passing down "id" into resultList to make handling them easier
+      const obj = { id: i, prices: prices[i], addresses: addresses[i], images: images[i], driving: driving[i], hLatLong: hLatLong[i] };
+      temp.push(obj);
+      // const mapObj = { id: i + 1, addresses: addresses[i], prices: prices[i], hLatLong: hLatLong[i] };
+      // mapTemp.push(mapObj);
+      //}
     }
     this.setState({ resultList: temp, hLatLong });
   }
 
-  handleSearch({ userAddress, userCommute, userRent }) {
-    const userInfo = { userAddress, userCommute, userRent };
-    const zip = (userInfo.userAddress.slice(userInfo.userAddress.length - 5, userInfo.userAddress.length));
+  handleSearch({ userAddress }) {
+    const zip = (userAddress.slice(userAddress.length - 5, userAddress.length));
     this.setState({ loading: true });
-    axios.post('/zillow', { zip, userAddress, userRent })
+    axios.post('/zillow', { zip, userAddress })
       .then((res) => {
         const mapListObj = { addresses: userAddress, prices: 'this is your work', hLatLong: res.data.jLatLong };
         const temppArray = [];
@@ -61,7 +64,6 @@ export default class App extends React.Component {
         // make sure we are sending back data in an array
         this.setState(
           {
-            userInfo: { userAddress, userCommute, userRent },
             loading: false,
             mapList: temppArray,
           },
@@ -72,8 +74,6 @@ export default class App extends React.Component {
         console.log(err);
       });
   }
-
-
 
   // clicked list will render as a Marker on the google maps
   handleListClick({ addresses, prices, hLatLong }) {
@@ -94,12 +94,9 @@ export default class App extends React.Component {
 
     this.setState({ mapList: anotherTempArray });
   }
-  //
-
-
 
   login(userName, password, cb) {
-    if(userName === ''){
+    if (userName === '') {
       this.setState({
         loggedIn: 1,
         userName: '',
@@ -141,6 +138,29 @@ export default class App extends React.Component {
       });
   }
 
+  sortData(type) {
+    if (type === 1) {
+      this.setState({
+        resultList: this.state.resultList.sort((a, b) => a.prices - b.prices ),
+      });
+    } else if (type === 2) {
+      this.setState({
+        resultList: this.state.resultList.sort((a, b) => parseInt(a.transit, 10) - parseInt(b.transit, 10)),
+      });
+    } else if (type === 3) {
+      this.setState({
+        resultList: this.state.resultList.sort((a, b) => parseInt(a.driving, 10) - parseInt(b.driving, 10)),
+      });
+    }
+  }
+
+  handleRent(e) {
+    this.setState({ userRent: e.target.value });
+  }
+  handleCommute(e) {
+    this.setState({ userCommute: e.target.value });
+  }
+
   render() {
     return (
       <div>
@@ -148,8 +168,31 @@ export default class App extends React.Component {
           this.state.loggedIn ?
             <div className={style.logged}>
               <Search triggerSearch={this.handleSearch} />
-              <ResultControl />
-              <ResultList resultList={this.state.resultList} userName={this.state.userName} handleListClick={this.handleListClick}/>
+              <div>
+                <div className={style.comRent}>
+                  <h4>commute: {this.state.userCommute}</h4>
+                  <input
+                    type="range"
+                    min="0"
+                    max="60"
+                    value={this.state.userCommute}
+                    onChange={this.handleCommute}
+                  />
+                </div>
+                <div className={style.comRent}>
+                  <h4>rent: {this.state.userRent}</h4>
+                  <input
+                    type="range"
+                    min="0"
+                    max="4000"
+                    step="100"
+                    value={this.state.userRent}
+                    onChange={this.handleRent}
+                  />
+                </div>
+              </div>
+              <ResultControl sortData={this.sortData} loading={this.state.loading} />
+              <ResultList maxCom={this.state.userCommute} maxRent={this.state.userRent} resultList={this.state.resultList} userName={this.state.userName} handleListClick={this.handleListClick}/>
               <div className={style.map}>
                 <GoogleMaps
                   isMarkerShown
@@ -163,12 +206,6 @@ export default class App extends React.Component {
                   longitude={this.state.longitude}
                 />
               </div>
-              <Loader
-                style={{ display: this.state.loading ? 'block' : 'none' }}
-                active inline="centered"
-                size="large"
-              >Loading
-              </Loader>
             </div> :
             <Login signUp={this.signUp} login={this.login} />
         }
