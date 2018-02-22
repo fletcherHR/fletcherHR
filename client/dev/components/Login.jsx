@@ -106,7 +106,6 @@ export default class Login extends React.Component {
         <Container>
           <Segment padded>
             <Button
-              class="ui color1 button"
               disabled={false}
               onClick={this.login}
               fluid

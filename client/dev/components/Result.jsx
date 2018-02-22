@@ -19,18 +19,20 @@ export default class Result extends React.Component {
     }, () => {
       if (this.state.active) {
         // trigger save to saveToFavorites
+        console.log('POST to /favs');
         axios.post('/favs', {
           address: this.props.result.addresses,
           price: this.props.result.prices,
           commuteTime: this.props.result.driving,
           aptImageURL: this.props.result.images,
-          userName: this.props.userName
+          userName: this.props.userName,
         });
       } else {
         // trigger delete from favorites
-        axios.post('dfavs', {
+        console.log('POST to /dfavs');
+        axios.post('/dfavs', {
           address: this.props.result.addresses,
-          userName: this.props.userName
+          userName: this.props.userName,
         });
       }
     });
@@ -45,7 +47,10 @@ export default class Result extends React.Component {
     const imageURL = this.props.result.images;
     const { active } = this.state;
     return (
-      <div className={style.result} style={{ backgroundImage: `url(${imageURL})` }}>
+      <div
+        className={style.result}
+        style={{ backgroundImage: `url(${imageURL})` }}
+      >
         <Button
           className="showMarker"
           icon="location arrow"

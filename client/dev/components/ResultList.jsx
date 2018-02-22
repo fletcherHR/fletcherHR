@@ -15,6 +15,10 @@ export default class ResultList extends React.Component {
     this.props.handleListClick(result);
   }
 
+  handleFavoritesReset() {
+    this.props.handleFavorites();
+  }
+
   render() {
     console.log(this.props.resultList.length);
     console.log(this.props.resultList);
