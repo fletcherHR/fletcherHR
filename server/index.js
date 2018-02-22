@@ -76,14 +76,25 @@ app.post('/zillow', (req, res) => {
           });
           prices = prices.map(p => Number(p));
 
+          addresses = addresses.map((a) => {
+            return a.split(' ').map((x) => {
+              let q = x.split('');
+              if (q.indexOf('-') !== -1) {
+                q = q.slice(0, q.indexOf('-'));
+              }
+              return q.join('');
+            }).join(' ');
+          });
+
 
           const addr = addresses.slice();
-          addresses = addresses.filter((x, z) => addr.indexOf(addr[z]) === z && prices[z] !== 0 && prices[z] <= userRent);
-          images = images.filter((x, z) => addr.indexOf(addr[z]) === z && prices[z] !== 0 && prices[z] <= userRent);
-          prices = prices.filter((x, z) => addr.indexOf(addr[z]) === z && x !== 0 && x <= userRent);
-          addresses = addresses.slice(0,5);
-          images = images.slice(0,5);
-          prices = prices.slice(0,5);
+          addresses = addresses.filter((x, z) => addr.indexOf(addr[z]) === z && prices[z] !== 0 && prices[z] <= userRent && addresses[z] !== '');
+          images = images.filter((x, z) => addr.indexOf(addr[z]) === z && prices[z] !== 0 && prices[z] <= userRent && addresses[z] !== '');
+          prices = prices.filter((x, z) => addr.indexOf(addr[z]) === z && x !== 0 && x <= userRent && addresses[z] !== '');
+          //console.log('all 3:', addresses, prices);
+          addresses = addresses.slice(0, 5);
+          images = images.slice(0, 5);
+          prices = prices.slice(0, 5);
 
 
           const searchMaps = (homeAdd, x) => {
@@ -105,6 +116,7 @@ app.post('/zillow', (req, res) => {
               } else {
                 console.log(prices.length);
                 console.log('done');
+                console.log(addresses);
 
                 const obj = {
                   prices,
