@@ -16,10 +16,12 @@ export default class ResultList extends React.Component {
   }
 
   render() {
+    console.log(this.props.resultList.length);
+    console.log(this.props.resultList);
     return (
       <div className={style.resultList}>
         {this.props.resultList.map((result, i) => (
-          <Result result={result} key={i} userName={this.props.userName} showMarkerClick={this.handleClick} />
+          result.prices <= this.props.maxRent && parseInt(result.driving, 10) <= this.props.maxCom ? <Result result={result} key={i} userName={this.props.userName} showMarkerClick={this.handleClick} /> : <br />
           ))}
       </div>
     );

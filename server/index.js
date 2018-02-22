@@ -14,7 +14,6 @@ app.set('port', 8080);
 
 app.post('/zillow', (req, res) => {
   const inputZip = req.body.zip;
-  const userRent = Number(req.body.userRent);
   const workAddress = req.body.userAddress.split(' ').join('+');
   const url1 = `https://www.zipcodeapi.com/rest/TvLMhsVN7ex3zfw1VvaGyvSbQlFEgLxpbc4qhGC65f0k3qjh2H6HZmKzJwRWALVw/radius.json/${inputZip}/1/km`;
   request(url1, (error, response, dataa) => {
@@ -88,9 +87,9 @@ app.post('/zillow', (req, res) => {
 
 
           const addr = addresses.slice();
-          addresses = addresses.filter((x, z) => addr.indexOf(addr[z]) === z && prices[z] !== 0 && prices[z] <= userRent && addresses[z] !== '');
-          images = images.filter((x, z) => addr.indexOf(addr[z]) === z && prices[z] !== 0 && prices[z] <= userRent && addresses[z] !== '');
-          prices = prices.filter((x, z) => addr.indexOf(addr[z]) === z && x !== 0 && x <= userRent && addresses[z] !== '');
+          addresses = addresses.filter((x, z) => addr.indexOf(addr[z]) === z && prices[z] !== 0 && prices[z] <= 20000 && addresses[z] !== '');
+          images = images.filter((x, z) => addr.indexOf(addr[z]) === z && prices[z] !== 0 && prices[z] <= 20000 && addresses[z] !== '');
+          prices = prices.filter((x, z) => addr.indexOf(addr[z]) === z && x !== 0 && x <= 20000 && addresses[z] !== '');
           //console.log('all 3:', addresses, prices);
           addresses = addresses.slice(0, 5);
           images = images.slice(0, 5);
@@ -99,7 +98,7 @@ app.post('/zillow', (req, res) => {
 
           const searchMaps = (homeAdd, x) => {
             const homeAddress = String(homeAdd).split(' ').join('+');
-            let mapsUrl = `https://maps.googleapis.com/maps/api/directions/json?origin=${workAddress}&destination=${homeAddress}&key=AIzaSyD5SmRKpjDZNvGcjg5c1J-keD75Bnto5Us&mode=driving`
+            let mapsUrl = `https://maps.googleapis.com/maps/api/directions/json?origin=${workAddress}&destination=${homeAddress}&key=AIzaSyCxYMb0yg6OBzoXznjrSp2J7RQwFBViPtY&mode=driving`
             request(mapsUrl, (mapErr, mapResp, mapHtmlW) => {
               if (JSON.parse(mapHtmlW).routes[0] !== undefined) {
                 driving.push(JSON.parse(mapHtmlW).routes[0].legs[0].duration.text);

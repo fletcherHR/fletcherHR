@@ -6,21 +6,62 @@ export default class ResultControl extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      yoyo: 'yo',
+      activeResult: 1,
+      activeSort: 0,
     };
+    this.changeResult = this.changeResult.bind(this);
+    this.changeSort1 = this.changeSort1.bind(this);
+    this.changeSort2 = this.changeSort2.bind(this);
+    this.changeSort3 = this.changeSort3.bind(this);
+  }
+
+  changeResult() {
+    this.setState({
+      activeResult: this.state.activeResult === 1 ? 2 : 1,
+    });
+  }
+
+  changeSort1() {
+    this.setState({
+      activeSort: 1,
+    });
+    this.props.sortData(1);
+  }
+  changeSort2() {
+    this.setState({
+      activeSort: 2,
+    });
+    this.props.sortData(2);
+  }
+  changeSort3() {
+    this.setState({
+      activeSort: 3,
+    });
+    this.props.sortData(3);
   }
 
   render() {
     return (
-      <div>
+      <div className={style.resultControl}>
         <Button.Group
           fluid
           widths="2"
           size="big"
           className={[style.searchFav, style.control].join(' ')}
         >
-          <Button>Search Results</Button>
-          <Button>My Favorites</Button>
+          <Button
+            active={this.state.activeResult === 1}
+            onClick={this.changeResult}
+            loading={this.props.loading}
+          >
+            Search Results
+          </Button>
+          <Button
+            active={this.state.activeResult === 2}
+            onClick={this.changeResult}
+          >
+            My Favorites
+          </Button>
         </Button.Group>
         <Button.Group
           fluid
@@ -28,10 +69,24 @@ export default class ResultControl extends React.Component {
           size="small"
           className={[style.filter, style.control].join(' ')}
         >
-          <Button>Rent</Button>
-          <Button>Walking</Button>
-          <Button>Transit</Button>
-          <Button>Driving</Button>
+          <Button
+            active={this.state.activeSort === 1}
+            onClick={this.changeSort1}
+          >
+            Rent
+          </Button>
+          <Button
+            active={this.state.activeSort === 2}
+            onClick={this.changeSort2}
+          >
+            Transit
+          </Button>
+          <Button
+            active={this.state.activeSort === 3}
+            onClick={this.changeSort3}
+          >
+            Driving
+          </Button>
         </Button.Group>
       </div>
     );
