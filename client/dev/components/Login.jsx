@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input, Header, Button, Container } from 'semantic-ui-react';
+import { Input, Header, Button, Container, Segment, Divider } from 'semantic-ui-react';
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -103,51 +103,28 @@ export default class Login extends React.Component {
         </Container>
         <br />
         <Container>
-          <Button
-            disabled={false}
-            onClick={this.login}
-          >Login
-          </Button>
-          <Button
-            disabled={false}
-            onClick={this.signChange}
-          >Sign Up As New User
-          </Button>
-          <p>{this.state.message}</p>
+          <Segment padded>
+            <Button
+              disabled={false}
+              onClick={this.login}
+              fluid
+              action={{
+                color: 'teal'
+              }}
+              color="teal"
+              >Login
+            </Button>
+            <Divider horizontal>Or</Divider>
+            <Button
+              disabled={false}
+              secondary
+              fluid
+              onClick={this.signChange}
+              >Sign Up Now
+            </Button>
+          </Segment>
         </Container>
       </div>
     );
   }
 }
-
-// render() {
-//   return (
-//     <div>
-//       <Header as="h3">Fletcher Group Project Name - Landing Page</Header>
-//       <Input
-//         icon="user"
-//         type="text"
-//         label="Username"
-//         value={this.state.userName}
-//         onChange={this.userChange}
-//       />
-//       <br />
-//       <Input
-//         icon="key"
-//         type="password"
-//         label="Password"
-//         value={this.state.password}
-//         onChange={this.passChange}
-//       />
-//       <br />
-//       <Button
-//         disabled={this.state.loginButtonState}
-//         onClick={this.login}
-//       >Login
-//       </Button>
-//       <div><button onClick={this.login}>{this.state.logIn ? 'Login' : 'Sign Up'}</button></div>
-//       <div><button onClick={this.signChange}>{this.state.logIn ? 'Sign Up Now' : 'Back to Login'}</button></div>
-//       <p>{this.state.message}</p>
-//     </div>
-//   );
-// }
