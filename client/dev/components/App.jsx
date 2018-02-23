@@ -68,8 +68,8 @@ export default class App extends React.Component {
     this.handleRent = this.handleRent.bind(this);
     this.handleMarkerClick = this.handleMarkerClick.bind(this);
     this.handleUnFav = this.handleUnFav.bind(this);
-    //this.handleSearchList = this.handleSearchList.bind(this);
-    //this.handleFavList = this.handleFavList.bind(this);
+    this.handleSearchList = this.handleSearchList.bind(this);
+    this.handleFavList = this.handleFavList.bind(this);
     // this.toggleVisibility = this.toggleVisibility.bind(this);
   }
 
@@ -322,11 +322,7 @@ export default class App extends React.Component {
               </div>
 
               <ResultControl sortData={this.sortData} loading={this.state.loading} handleSearchList={this.handleSearchList} handleFavList={this.handleFavList}/>
-<<<<<<< HEAD
-              <ResultList handleFavorites={this.resetFavoriteState} maxCom={this.state.userCommute} maxRent={this.state.userRent} resultList={this.state.showFavs ? this.state.favList : this.state.resultList} userName={this.state.userName} handleListClick={this.handleListClick} />
-=======
-              <ResultList handleUnFav={this.handleUnFav} handleFavorites={this.resetFavoriteState} maxCom={this.state.userCommute} maxRent={this.state.userRent} resultList={this.state.resultList} userName={this.state.userName} handleListClick={this.handleListClick} />
->>>>>>> fbranch
+              <ResultList handleUnFav={this.handleUnFav} handleFavorites={this.resetFavoriteState} maxCom={this.state.userCommute} maxRent={this.state.userRent} resultList={this.state.showFavs ? this.state.favList : this.state.resultList} userName={this.state.userName} handleListClick={this.handleListClick} />
 
               <div className={style.map}>
                 <GoogleMaps
