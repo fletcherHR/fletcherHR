@@ -15,7 +15,7 @@ export default class App extends React.Component {
       resultList: [{
         prices: 2000,
         addresses: 'addresses',
-        images: 'https://cdn.pixabay.com/photo/2017/08/31/05/36/new-york-2699520_1280.jpg',
+        images: 'http://www.fordhamroadbid.org/wp-content/uploads/2015/11/New-York.jpg',
         walking: '5 minutes',
         driving: '3 minutes',
         transit: '4 minutes',
@@ -25,7 +25,7 @@ export default class App extends React.Component {
       {
         prices: 1500,
         addresses: 'addresses2',
-        images: 'https://cdn.pixabay.com/photo/2017/08/31/05/36/new-york-2699520_1280.jpg',
+        images: 'http://www.fordhamroadbid.org/wp-content/uploads/2015/11/New-York.jpg',
         walking: '10 minutes',
         driving: '4 minutes',
         transit: '6 minutes',
@@ -35,7 +35,7 @@ export default class App extends React.Component {
       {
         prices: 1500,
         addresses: 'addresses2',
-        images: 'https://cdn.pixabay.com/photo/2017/08/31/05/36/new-york-2699520_1280.jpg',
+        images: 'http://www.fordhamroadbid.org/wp-content/uploads/2015/11/New-York.jpg',
         walking: '10 minutes',
         driving: '4 minutes',
         transit: '6 minutes',
@@ -45,7 +45,7 @@ export default class App extends React.Component {
       {
         prices: 1500,
         addresses: 'addresses2',
-        images: 'https://cdn.pixabay.com/photo/2017/08/31/05/36/new-york-2699520_1280.jpg',
+        images: 'http://www.fordhamroadbid.org/wp-content/uploads/2015/11/New-York.jpg',
         walking: '10 minutes',
         driving: '4 minutes',
         transit: '6 minutes',
@@ -55,7 +55,7 @@ export default class App extends React.Component {
       {
         prices: 1700,
         addresses: 'addresses3',
-        images: 'https://cdn.pixabay.com/photo/2017/08/31/05/36/new-york-2699520_1280.jpg',
+        images: 'http://www.fordhamroadbid.org/wp-content/uploads/2015/11/New-York.jpg',
         walking: '15 minutes',
         driving: '6 minutes',
         transit: '8 minutes',
