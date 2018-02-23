@@ -37,21 +37,21 @@ export default class Search extends React.Component {
   render() {
     return (
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr 4fr', gridTemplateRows: '1fr 1fr 1fr' }}>
-        <Header size="huge" style={{ paddingTop: '20px', textAlign: 'center', gridColumn: '5' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr 4fr', gridTemplateRows: '4.166vh 4.166vh 4.166vh 4.166vh' }}>
+        <Header size="huge" style={{ color: 'white',  paddingTop: '10px', paddingRight: '5px', textAlign: 'center', gridColumn: '5', gridRow: '1', fontSize: '29px' }}>
           <Header.Content>
             Home To Work
           </Header.Content>
 
         </Header>
 
-          <Icon style={{ gridColumn: '3', gridRow: '1/4' }} size="huge" name="home" color="white" inverted="yes"/>
-          <Icon style={{ gridColumn: '4', gridRow: '1/4' }} size="huge" name="arrow right" color="white" inverted="yes"/>
-          <Icon style={{ gridColumn: '5', gridRow: '1/4' }} size="huge" name="building" color="white" inverted="yes"/>
+        <Icon style={{ gridColumn: '1', gridRow: '2' }} size="huge" name="home" color="white" inverted="yes"/>
+        <Icon style={{ gridColumn: '2', gridRow: '2' }} size="huge" name="arrow right" color="white" inverted="yes"/>
+        <Icon style={{ gridColumn: '3', gridRow: '2' }} size="huge" name="building" color="white" inverted="yes"/>
 
-        <div style={{ gridColumn: '5', gridRow: '3', paddingBottom: '5px' }}>
+        <div style={{ gridColumn: '5', gridRow: '3', marginBottom: '100px' }}>
           <Input
-            style={{ marginLeft: '15px' }}
+            style={{ marginRight: '15px' }}
             fluid
             action={
               <Button
