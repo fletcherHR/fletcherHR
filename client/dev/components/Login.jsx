@@ -77,7 +77,7 @@ export default class Login extends React.Component {
           as="h1"
           color="white"
           textAlign="center"
-        >Fletcher Group Project Name - Landing Page
+        >Home To Work
         </Header>
         <Container>
           <Input
