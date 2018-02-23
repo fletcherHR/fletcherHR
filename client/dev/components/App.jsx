@@ -117,7 +117,9 @@ export default class App extends React.Component {
   }
 
   handleSearch({ userAddress }) {
+    console.log('this is the userAddress: ', userAddress);
     const zip = (userAddress.slice(userAddress.length - 5, userAddress.length));
+    if (isNaN(parseFloat(zip))) return alert('Sorry, we can\'t use that address... Please include the zip code at the end!');
     this.setState({ loading: true });
     axios.post('/zillow', { zip, userAddress })
       .then((res) => {
