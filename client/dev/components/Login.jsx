@@ -89,7 +89,6 @@ export default class Login extends React.Component {
             onKeyPress={this.onKeyPress}
             label={
               <Label
-                fluid
                 icon="user"
                 content="Username"
                 color="teal"
@@ -108,7 +107,6 @@ export default class Login extends React.Component {
             onKeyPress={this.onKeyPress}
             label={
               <Label
-                fluid
                 icon="key"
                 content="Password"
                 color="teal"

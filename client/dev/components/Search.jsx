@@ -37,8 +37,8 @@ export default class Search extends React.Component {
   render() {
     return (
 
-      <div style={{ display: 'grid', gridTemplateColumns: '4fr 1fr 1fr 1fr 1fr', gridTemplateRows: '1fr 1fr 1fr' }}>
-        <Header size="huge" style={{ paddingTop: '20px', textAlign: 'center' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr 4fr', gridTemplateRows: '1fr 1fr 1fr' }}>
+        <Header size="huge" style={{ paddingTop: '20px', textAlign: 'center', gridColumn: '5' }}>
           <Header.Content>
             Home To Work
           </Header.Content>
@@ -49,8 +49,7 @@ export default class Search extends React.Component {
           <Icon style={{ gridColumn: '4', gridRow: '1/4' }} size="huge" name="arrow right" color="white" inverted="yes"/>
           <Icon style={{ gridColumn: '5', gridRow: '1/4' }} size="huge" name="building" color="white" inverted="yes"/>
 
-
-        <div style={{ gridColumn: '1', gridRow: '3', paddingBottom: '5px' }}>
+        <div style={{ gridColumn: '5', gridRow: '3', paddingBottom: '5px' }}>
           <Input
             style={{ marginLeft: '15px' }}
             fluid
