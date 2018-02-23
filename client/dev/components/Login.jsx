@@ -17,6 +17,13 @@ export default class Login extends React.Component {
     this.login = this.login.bind(this);
     this.signChange = this.signChange.bind(this);
     this.checkUserAndPasswordFields = this.checkUserAndPasswordFields.bind(this);
+    this.onKeyPress = this.onKeyPress.bind(this);
+  }
+
+  onKeyPress(e) {
+    if (e.key === 'Enter') {
+      this.login();
+    }
   }
 
   userChange(e) {
@@ -84,6 +91,7 @@ export default class Login extends React.Component {
             type="text"
             value={this.state.userName}
             onChange={this.userChange}
+            onKeyPress={this.onKeyPress}
           />
         </Container>
         <br />
@@ -100,6 +108,7 @@ export default class Login extends React.Component {
             type="password"
             value={this.state.password}
             onChange={this.passChange}
+            onKeyPress={this.onKeyPress}
           />
         </Container>
         <br />
