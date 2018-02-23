@@ -5,7 +5,7 @@ import Login from './Login.jsx';
 import ResultList from './ResultList.jsx';
 import ResultControl from './ResultControl.jsx';
 import axios from 'axios';
-import { Dimmer, Loader, Image, Segment } from 'semantic-ui-react';
+import { Dimmer, Loader, Image, Segment, Input } from 'semantic-ui-react';
 import style from '../styles/styles2.css';
 
 export default class App extends React.Component {
