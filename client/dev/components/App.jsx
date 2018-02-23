@@ -243,19 +243,24 @@ export default class App extends React.Component {
   }
 
   sortData(type) {
-    if (type === 1) {
-      this.setState({
-        resultList: this.state.resultList.sort((a, b) => a.prices - b.prices),
-      });
-    } else if (type === 2) {
-      this.setState({
-        resultList: this.state.resultList.sort((a, b) => parseInt(a.transit, 10) - parseInt(b.transit, 10)),
-      });
-    } else if (type === 3) {
-      this.setState({
-        resultList: this.state.resultList.sort((a, b) => parseInt(a.driving, 10) - parseInt(b.driving, 10)),
-      });
-    }
+    let list = this.state.resultList;
+    this.setState({
+      resultList: [],
+    }, () => {
+      if (type === 1) {
+        this.setState({
+          resultList: list.sort((a, b) => a.prices - b.prices),
+        });
+      } else if (type === 2) {
+        this.setState({
+          resultList: list.sort((a, b) => parseInt(a.transit, 10) - parseInt(b.transit, 10)),
+        });
+      } else if (type === 3) {
+        this.setState({
+          resultList: list.sort((a, b) => parseInt(a.driving, 10) - parseInt(b.driving, 10)),
+        });
+      }
+    });
   }
 
   handleRent(e) {
@@ -267,8 +272,16 @@ export default class App extends React.Component {
 
   handleSearchList() {
     //console.log('handleSearch being called', this.state.showFavs);
+    let list = this.state.resultList.slice();
+    console.log('HEEHHEHEHEHEH', list);
     this.setState({
       showFavs: false,
+      resultList: [],
+    }, () => {
+      console.log('HEEHHEHEHEHEH22222', list);
+      this.setState({
+        resultList: list,
+      });
     });
   }
 
@@ -295,11 +308,13 @@ export default class App extends React.Component {
           }
           tempFavList.push(tempFavObj)
         }
+        let list = this.state.resultList.slice();
         this.setState(
           {
+            resultList: [],
             favList: tempFavList,
           },
-          () => this.setState({ showFavs: true },
+          () => this.setState({ showFavs: true, resultList: list },
         ));
       })
       .catch((err) => {
@@ -355,6 +370,7 @@ export default class App extends React.Component {
                   mapList={this.state.showFavs ? this.state.fMapList : this.state.mapList}
                   latitude={this.state.latitude}
                   longitude={this.state.longitude}
+                  key="AIzaSyCxYMb0yg6OBzoXznjrSp2J7RQwFBViPtY"
                 />
               </div>
             </div> :
