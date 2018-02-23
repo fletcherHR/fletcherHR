@@ -31,7 +31,7 @@ app.post('/checkfavs', (req, res) => {
 app.post('/zillow', (req, res) => {
   const inputZip = req.body.zip;
   const workAddress = req.body.userAddress.split(' ').join('+');
-  const url1 = `https://www.zipcodeapi.com/rest/TvLMhsVN7ex3zfw1VvaGyvSbQlFEgLxpbc4qhGC65f0k3qjh2H6HZmKzJwRWALVw/radius.json/${inputZip}/1/km`;
+  const url1 = `https://www.zipcodeapi.com/rest/IYVMopKpmk4DbTEvhmk0AnYpUyZaryLwwKbkwHIbtPD0W3rNcnCMJZoKKoWze90R/radius.json/${inputZip}/1/km`;
   request(url1, (error, response, dataa) => {
     const data = JSON.parse(dataa);
     const zipCodes = data.zip_codes.map(x => x.zip_code);
