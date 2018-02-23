@@ -13,7 +13,7 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       resultList: [{
-        prices: 5000,
+        prices: 2000,
         addresses: 'addresses',
         images: 'http://www.fordhamroadbid.org/wp-content/uploads/2015/11/New-York.jpg',
         walking: '5 minutes',
@@ -23,7 +23,7 @@ export default class App extends React.Component {
         favorite: false,
       },
       {
-        prices: 5000,
+        prices: 2000,
         addresses: 'addresses2',
         images: 'http://www.fordhamroadbid.org/wp-content/uploads/2015/11/New-York.jpg',
         walking: '10 minutes',

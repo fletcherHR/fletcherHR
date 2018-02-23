@@ -108,9 +108,9 @@ app.post('/zillow', (req, res) => {
           images = images.filter((x, z) => addr.indexOf(addr[z]) === z && prices[z] !== 0 && prices[z] <= 20000 && addresses[z] !== '');
           prices = prices.filter((x, z) => addr.indexOf(addr[z]) === z && x !== 0 && x <= 20000 && addresses[z] !== '');
           //console.log('all 3:', addresses, prices);
-          addresses = addresses.slice(0, 5);
-          images = images.slice(0, 5);
-          prices = prices.slice(0, 5);
+          addresses = addresses.slice(0, 20);
+          images = images.slice(0, 20);
+          prices = prices.slice(0, 20);
 
           const searchMaps = (homeAdd, x) => {
             const homeAddress = String(homeAdd).split(' ').join('+');
