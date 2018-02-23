@@ -1,21 +1,67 @@
-CREATE DATABASE jobsearch;
+CREATE DATABASE IF NOT EXISTS search;
 
-USE jobsearch;
+USE search;
+-- ---
+-- Globals
+-- ---
 
-CREATE TABLE users (
-  ID int NOT NULL AUTO_INCREMENT,
-  username varchar(255) NOT NULL,
-  password varchar(45) NOT NULL,
-  address varchar(255) NOT NULL
-  PRIMARY KEY(ID)
+-- SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+-- SET FOREIGN_KEY_CHECKS=0;
+
+-- ---
+-- Table 'users'
+--
+-- ---
+
+DROP TABLE IF EXISTS `users`;
+
+CREATE TABLE `users` (
+  `id` INTEGER NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(255) NULL DEFAULT NULL,
+  `password` VARCHAR(255) NULL DEFAULT NULL,
+  `address` VARCHAR(255) NULL DEFAULT NULL,
+  UNIQUE (`username`),
+  PRIMARY KEY (`id`)
 );
 
-CREATE TABLE favorites (
-  ID int NOT NULL AUTO_INCREMENT,
-  jobTitle varchar(255) NOT NULL,
-  companyName varchar(255) NOT NULL,
-  commuteTime int NOT NULL,
-  userID int NOT NULL,
-  PRIMARY KEY(ID),
-  FOREIGN KEY(userID) REFERENCES users(ID)
+-- ---
+-- Table 'favorites'
+--
+-- ---
+
+DROP TABLE IF EXISTS `favorites`;
+
+CREATE TABLE `favorites` (
+  `id` INTEGER NOT NULL AUTO_INCREMENT,
+  `price` VARCHAR(50) NULL DEFAULT NULL,
+  `address` VARCHAR(255) NULL DEFAULT NULL,
+  `image` VARCHAR(255) NULL DEFAULT NULL,
+  `transit` VARCHAR(50) NULL DEFAULT NULL,
+  `driving` VARCHAR(50) NULL DEFAULT NULL,
+  `lat` VARCHAR(100) NULL DEFAULT NULL,
+  `lng` VARCHAR(100) NULL DEFAULT NULL,
+  `user_ID` INTEGER NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
 );
+
+-- ---
+-- Foreign Keys
+-- ---
+
+ALTER TABLE `favorites` ADD FOREIGN KEY (user_ID) REFERENCES `users` (`id`);
+
+-- ---
+-- Table Properties
+-- ---
+
+-- ALTER TABLE `users` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE `favorites` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- ---
+-- Test Data
+-- ---
+
+-- INSERT INTO `users` (`id`,`username`,`password`,`address`) VALUES
+-- ('','','','');
+-- INSERT INTO `favorites` (`id`,`address`,`user_ID`) VALUES
+-- ('','','');

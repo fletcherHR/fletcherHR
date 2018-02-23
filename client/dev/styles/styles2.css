@@ -1,0 +1,86 @@
+body {
+  font-family: sans-serif;
+  background-color: rgb(0,99,81);
+}
+
+.logged {
+  display: grid;
+  grid-template-columns: 8fr 4fr;
+  grid-template-rows: 16.66vh 16.66vh 16.66vh 16.66vh 16.66vh 16.66vh;
+  
+}
+
+.map {
+  grid-column: 1;
+  grid-row: 2/7; 
+}
+
+.resultList {
+  grid-row: 2/7;
+  grid-column: 2;
+  display: grid;
+  grid-auto-rows: 150px;
+  grid-row-gap: 5px;
+  overflow-y: auto;
+  background-color: rgb(224, 225, 226);
+}
+
+.result {
+  border: 1px solid black;
+  border-radius: 5px;
+  background-size: cover;
+  background-position: center;
+  display: grid;
+  grid-template-columns: 4fr 1fr 1fr;
+  grid-auto-rows: 10px;
+  color: white;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  line-height: 0px;
+}
+
+.comRentCont {
+  border: 1px solid black;
+  border-radius: 2%;
+  height: 30%;
+  font-size: 12px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background-color: rgb(224, 225, 226);
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.com {
+  grid-row: 1;
+  grid-column: 2;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 12px;
+}
+.rent {
+  grid-row: 1;
+  grid-column: 1;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 14px;
+}
+
+.resultControl {
+  grid-column: 2;
+}
+
+.searchFav {
+  height: 40%;
+}
+
+.control Button {
+  border: 1px solid black !important;
+}
+
+.filter {
+  height: 30%;
+}
+
+.slide {
+  width: 80%;
+}

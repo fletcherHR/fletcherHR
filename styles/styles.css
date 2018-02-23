@@ -1,0 +1,19 @@
+body {
+  font-family: 'sans-serif';
+}
+
+.logged {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 16.66vh 16.66vh 16.66vh 16.66vh 16.66vh 16.66vh;
+  color: black;
+}
+
+.ui.color1.button {
+  background-color: #734322 !important;
+  color: #fff !important;
+}
+
+.favorites {
+  background: yellow !important;
+}
