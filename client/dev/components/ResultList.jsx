@@ -31,9 +31,11 @@ export default class ResultList extends React.Component {
             <Result
               result={result}
               key={i}
+              i={i}
               userName={this.props.userName}
               showMarkerClick={this.handleClick}
               favorite={result.favorite}
+              handleUnFav={this.props.handleUnFav}
             /> : ''
           )}
         )}
