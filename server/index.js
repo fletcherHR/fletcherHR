@@ -210,7 +210,9 @@ app.post('/login', (req, res) => {
     allow: 1,
   };
   dbhelper.verifyExistingUserLogin(req.body.userName, (result) => {
-    if (req.body.password === result[0].password) {
+    if (result.length === 0) {
+      res.status(401).send();
+    } else if (req.body.password === result[0].password) {
       obj.userName = req.body.userName;
       res.status(200).send(obj);
     } else {
