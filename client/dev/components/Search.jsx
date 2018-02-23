@@ -1,4 +1,5 @@
 import React from 'react';
+import { Input, Button } from 'semantic-ui-react';
 
 export default class Search extends React.Component {
   constructor(props) {
@@ -23,20 +24,23 @@ export default class Search extends React.Component {
   render() {
     return (
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
         <div>
-          <input
+          <Input
+            fluid
+            action={
+              <Button
+                color="teal"
+                icon="search"
+                onClick={this.handleSubmit}
+              />
+            }
+            actionPosition="left"
             type="text"
             value={this.state.userAddress}
             onChange={this.handleAddress}
-            placeholder="your address"
+            placeholder="Search Address"
           />
-          <button
-            type="submit"
-            onClick={this.handleSubmit}
-            value={this.state.userAddress}
-          >Search
-          </button>
         </div>
       </div>
     );
