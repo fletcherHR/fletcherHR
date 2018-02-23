@@ -71,10 +71,11 @@ export default class Login extends React.Component {
 
   render() {
     return (
-      <div>
+      <div> 
         <Header
+          block="yes"
           as="h1"
-          color="teal"
+          color="white"
           textAlign="center"
         >Fletcher Group Project Name - Landing Page
         </Header>
@@ -117,7 +118,7 @@ export default class Login extends React.Component {
         </Container>
         <br />
         <Container>
-          <Segment padded>
+          <Segment>
             <Button
               disabled={this.state.loginButtonState}
               onClick={this.login}
