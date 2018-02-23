@@ -9,11 +9,24 @@ export default class Search extends React.Component {
     };
     this.handleAddress = this.handleAddress.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.onKeyPress = this.onKeyPress.bind(this);
+  }
+
+  onKeyPress(e) {
+    if (e.key === 'Enter') {
+      const searchQuery = {
+        target: {
+          value: this.state.userAddress,
+        },
+      };
+      this.handleSubmit(searchQuery);
+    }
   }
 
   handleAddress(e) {
     this.setState({ userAddress: e.target.value });
   }
+
   handleSubmit(e) {
     this.setState({
       userInput: e.target.value,
@@ -35,6 +48,7 @@ export default class Search extends React.Component {
                 onClick={this.handleSubmit}
               />
             }
+            onKeyPress={this.onKeyPress}
             actionPosition="left"
             type="text"
             value={this.state.userAddress}
