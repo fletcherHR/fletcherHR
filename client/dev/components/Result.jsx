@@ -14,13 +14,6 @@ export default class Result extends React.Component {
     this.showMarkerClick = this.showMarkerClick.bind(this);
   }
 
-  // componentDidMount() {
-  //   console.log('MOUNTING COMPONENT')
-  //   this.setState({
-  //     active: this.props.favorite,
-  //   })
-  // }
-
   handleButtonClick() {
     if (this.state.active) {
       this.props.handleUnFav(this.props.i, false);
@@ -55,8 +48,6 @@ export default class Result extends React.Component {
   }
 
   render() {
-    console.log('this is the props object in Result, props: ', this.props);
-    console.log('within render of Result, this.state.active: ', this.state.active);
     const imageURL = this.props.result.images;
     return (
       <div

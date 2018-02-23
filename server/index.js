@@ -14,10 +14,8 @@ app.set('port', 8080);
 
 app.post('/checkfavs', (req, res) => {
   const listings = req.body.data;
-  const username = req.body.username;
+  const { username } = req.body;
   dbhelper.checkFavs(username, (faves) => {
-    // console.log('these are the listings: ', listings);
-    // console.log('these are the faves: ', faves);
     for (let i = 0; i < listings.length; i += 1) {
       for (let j = 0; j < faves.length; j += 1) {
         if (listings[i].addresses === faves[j].address) {
@@ -224,24 +222,16 @@ app.post('/login', (req, res) => {
 
 
 app.post('/getFavs', (req, res) => {
-  console.log('this is req.body in app.get', req.body.username);
+  // console.log('this is req.body in app.get', req.body.username);
   dbhelper.getFavs(req.body.username, (results) => {
-    console.log('this is results in /favs after dbhelper', results);
-    res.send(results)
+    // console.log('this is results in /favs after dbhelper', results);
+    res.send(results);
   });
-})
+});
 
 app.post('/favs', (req, res) => {
-  // const price = req.body.price;
-  // const address = req.body.address;
-  // const image = req.body.image;
-  // const transit = req.body.transit;
-  // const driving = req.body.driving;
-  // const hLatLong = req.body.hLatLong;
-  // const userName = req.body.userName;
-
   const {
-    price, address, image, transit, driving, hLatLong, userName,
+    price, address, image, transit, driving, hLatLong, userName
   } = req.body;
 
   dbhelper.saveFavs(price, address, image, transit, driving, hLatLong, userName, (result) => {
