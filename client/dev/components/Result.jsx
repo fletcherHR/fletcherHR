@@ -22,6 +22,12 @@ export default class Result extends React.Component {
   // }
 
   handleButtonClick() {
+    if (this.state.active) {
+      this.props.handleUnFav(this.props.i, false);
+    } else {
+      this.props.handleUnFav(this.props.i, true);
+    }
+
     this.setState({
       active: !this.state.active,
     }, () => {

@@ -66,6 +66,7 @@ export default class App extends React.Component {
     this.handleCommute = this.handleCommute.bind(this);
     this.handleRent = this.handleRent.bind(this);
     this.handleMarkerClick = this.handleMarkerClick.bind(this);
+    this.handleUnFav = this.handleUnFav.bind(this);
     //this.handleSearchList = this.handleSearchList.bind(this);
     //this.handleFavList = this.handleFavList.bind(this);
     // this.toggleVisibility = this.toggleVisibility.bind(this);
@@ -245,6 +246,14 @@ export default class App extends React.Component {
 
   }
 
+  handleUnFav(i, should) {
+    const list = this.state.resultList;
+    list[i].favorite = should;
+    this.setState({
+      resultList: list,
+    }, () => console.log('res list', this.state.resultList));
+  }
+
   render() {
     return (
       <div>
@@ -277,7 +286,7 @@ export default class App extends React.Component {
               </div>
 
               <ResultControl sortData={this.sortData} loading={this.state.loading} handleSearchList={this.handleSearchList} handleFavList={this.handleFavList}/>
-              <ResultList handleFavorites={this.resetFavoriteState} maxCom={this.state.userCommute} maxRent={this.state.userRent} resultList={this.state.resultList} userName={this.state.userName} handleListClick={this.handleListClick} />
+              <ResultList handleUnFav={this.handleUnFav} handleFavorites={this.resetFavoriteState} maxCom={this.state.userCommute} maxRent={this.state.userRent} resultList={this.state.resultList} userName={this.state.userName} handleListClick={this.handleListClick} />
 
               <div className={style.map}>
                 <GoogleMaps
