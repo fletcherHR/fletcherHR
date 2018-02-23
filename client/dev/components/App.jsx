@@ -45,7 +45,7 @@ export default class App extends React.Component {
       // adding a list to show user's favorites
       favList: [],
       // setting state to show fav list vs result list
-      fMapList: [],
+      fMapList: [{ addresses: 'addresses', prices: 2000, hLatLong: { lat: 40.7484, lng: -73.9857 } }],
       showFavs: false,
       // default is HR right now maybe add more later
       latitude: 40.750611,
@@ -82,10 +82,6 @@ export default class App extends React.Component {
   }) {
     const temp = [];
     for (let i = 0; i < hLatLong.length; i += 1) {
-      // Can add additional conditions to filter results
-      //if (prices[i] < 20000) {
-      // passing down "id" into resultList to make handling them easier
-
       const obj = {
         id: i,
         prices: prices[i],
@@ -95,11 +91,7 @@ export default class App extends React.Component {
         hLatLong: hLatLong[i],
         favorite: false,
       };
-
       temp.push(obj);
-      // const mapObj = { id: i + 1, addresses: addresses[i], prices: prices[i], hLatLong: hLatLong[i] };
-      // mapTemp.push(mapObj);
-      //}
     }
 
     axios.post('/checkfavs', {
@@ -137,6 +129,7 @@ export default class App extends React.Component {
           {
             loading: false,
             mapList: temppArray,
+            fMapList: temppArray
           },
           () => {
             this.packData(res.data);
@@ -154,12 +147,13 @@ export default class App extends React.Component {
       addresses,
       prices,
       hLatLong,
-      vis: false,
+      vis: true,
+      favorite: this.state.showFavs ? this.state.showFavs : false,
     };
-    const anotherTempArray = this.state.mapList;
+    const anotherTempArray = this.state.showFavs ? this.state.fMapList : this.state.mapList;
     const found = { exist: false, index: null };
-    for (let i = 0; i < this.state.mapList.length; i += 1) {
-      if (this.state.mapList[i].addresses === tempObj.addresses) {
+    for (let i = 0; i < anotherTempArray.length; i += 1) {
+      if (anotherTempArray[i].addresses === tempObj.addresses) {
         found.exist = true;
         found.index = i;
       }
@@ -169,14 +163,32 @@ export default class App extends React.Component {
     } else {
       anotherTempArray.push(tempObj);
     }
-    this.setState({ mapList: anotherTempArray });
+    if (this.state.showFavs === true) {
+      console.log('the state is,', this.state.showFavs, 'so setting tempArray in handleFavClick to fMapList\n')
+      this.setState({ fMapList: anotherTempArray }, () => this.setState({ showFavs: this.state.showFavs }));
+    }
+    else if (this.state.showFavs === false) {
+      console.log('the state is,', this.state.showFavs, 'so setting tempArray to mapList');
+      this.setState({ mapList: anotherTempArray }, () => this.setState({ showFavs: this.state.showFavs }));
+    }
   }
+
 
   handleMarkerClick(i) {
     console.log('here');
-    const tempArray = this.state.mapList;
+    const tempArray = this.state.showFavs ? this.state.fMapList : this.state.mapList;
     tempArray[i].vis = !tempArray[i].vis;
-    this.setState({ mapList: tempArray });
+    if (this.state.showFavs) {
+      this.setState(
+        { fMapList: tempArray },
+        () => this.setState({ showFavs: this.state.showFavs })
+      );
+    } else {
+      this.setState(
+        { mapList: tempArray },
+        () => this.setState({ showFavs: this.state.showFavs })
+      );
+    }
   }
 
   login(userName, password, cb) {
@@ -270,8 +282,8 @@ export default class App extends React.Component {
             images: res.data[q].image,
             transit: res.data[q].transit,
             driving: res.data[q].driving,
-            hLatLong:{ lat: res.data[q].lat, lng: res.data[q].lng },
-            markerVis: false,
+            hLatLong:{ lat: parseFloat(res.data[q].lat), lng: parseFloat(res.data[q].lng) },
+            vis: false,
             favorite: true
           }
           tempFavList.push(tempFavObj)
@@ -279,7 +291,6 @@ export default class App extends React.Component {
         this.setState(
           {
             favList: tempFavList,
-            fMapList: tempFavList
           },
           () => this.setState({ showFavs: true },
         ));
@@ -353,7 +364,7 @@ export default class App extends React.Component {
                   loadingElement={<div style={{ height: '100%' }} />}
                   containerElement={<div style={{ height: '83.33vh' }} />}
                   mapElement={<div style={{ height: '100%' }} />}
-                  mapList={this.state.showFavs ? this.state.favList : this.state.mapList}
+                  mapList={this.state.showFavs ? this.state.fMapList : this.state.mapList}
                   latitude={this.state.latitude}
                   longitude={this.state.longitude}
                 />
