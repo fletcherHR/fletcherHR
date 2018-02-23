@@ -384,7 +384,7 @@ export default class App extends React.Component {
                   isMarkerShown
                   resultList={this.state.resultList}
                   handleMarkerClick={this.handleMarkerClick}
-                  googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxYMb0yg6OBzoXznjrSp2J7RQwFBViPtYv=3.exp&libraries=geometry,drawing,places"
+                  googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxYMb0yg6OBzoXznjrSp2J7RQwFBViPtY&v=3.exp&libraries=geometry,drawing,places"
                   loadingElement={<div style={{ height: '100%' }} />}
                   containerElement={<div style={{ height: '83.33vh' }} />}
                   mapElement={<div style={{ height: '100%' }} />}
