@@ -192,7 +192,6 @@ export default class App extends React.Component {
       })
         .then((res) => {
           if (res.data.allow) {
-            console.log(res.data, 'res.data');
             this.setState({
               loggedIn: 1,
               userName: res.data.userName,
@@ -200,6 +199,9 @@ export default class App extends React.Component {
           } else {
             cb('Inncorect Login Information');
           }
+        })
+        .catch((err) => {
+          console.log(err);
         });
     }
   }
