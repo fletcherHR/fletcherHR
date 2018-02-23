@@ -384,14 +384,14 @@ export default class App extends React.Component {
                   isMarkerShown
                   resultList={this.state.resultList}
                   handleMarkerClick={this.handleMarkerClick}
-                  googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.APIKEY}&v=3.exp&libraries=geometry,drawing,places`}
+                  googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxYMb0yg6OBzoXznjrSp2J7RQwFBViPtY&v=3.exp&libraries=geometry,drawing,places"
                   loadingElement={<div style={{ height: '100%' }} />}
                   containerElement={<div style={{ height: '83.33vh' }} />}
                   mapElement={<div style={{ height: '100%' }} />}
                   mapList={this.state.showFavs ? this.state.fMapList : this.state.mapList}
                   latitude={this.state.latitude}
                   longitude={this.state.longitude}
-                  // key="AIzaSyCxYMb0yg6OBzoXznjrSp2J7RQwFBViPtY"
+                  key="AIzaSyCxYMb0yg6OBzoXznjrSp2J7RQwFBViPtY"
                 />
               </div>
             </div> :
