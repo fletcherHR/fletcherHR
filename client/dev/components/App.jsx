@@ -92,6 +92,7 @@ export default class App extends React.Component {
         addresses: addresses[i],
         images: images[i],
         driving: driving[i],
+        transit: transit[i],
         hLatLong: hLatLong[i],
         favorite: false,
       };
@@ -107,19 +108,19 @@ export default class App extends React.Component {
       username: this.state.userName,
     })
       .then((res) => {
-        console.log('this is res.data within /checkfavs, res.data: ', res.data);
+        //console.log('this is res.data within /checkfavs, res.data: ', res.data);
         this.setState({
           resultList: [],
         }, () => {
           this.setState({
             resultList: res.data,
           }, () => {
-            console.log('the new state of result list after checking faves: ', this.state.resultList);
+            //console.log('the new state of result list after checking faves: ', this.state.resultList);
           });
-        })
-          .catch((err) => {
-            console.log('ERROR in POST to /checkfavs, error: ', err);
-          });
+        });
+      })
+      .catch((err) => {
+        //console.log('ERROR in POST to /checkfavs, error: ', err);
       });
   }
 
@@ -132,7 +133,7 @@ export default class App extends React.Component {
         const temppArray = [];
         temppArray.push(mapListObj);
         // make sure we are sending back data in an array
-        console.log(res.data);
+       // console.log(res.data);
         this.setState(
           {
             loading: false,
@@ -173,7 +174,7 @@ export default class App extends React.Component {
   }
 
   handleMarkerClick(i) {
-    console.log('here');
+    //console.log('here');
     const tempArray = this.state.mapList;
     tempArray[i].vis = !tempArray[i].vis;
     this.setState({ mapList: tempArray });
@@ -192,7 +193,7 @@ export default class App extends React.Component {
       })
         .then((res) => {
           if (res.data.allow) {
-            console.log(res.data, 'res.data');
+           // console.log(res.data, 'res.data');
             this.setState({
               loggedIn: 1,
               userName: res.data.userName,
@@ -246,22 +247,21 @@ export default class App extends React.Component {
   }
 
   handleSearchList() {
-    console.log('handleSearch being called', this.state.showFavs);
-    this.setState(
-      { showFavs: false },
-      () => console.log('this is after setting the state', this.state.showFavs)
-    );
+    //console.log('handleSearch being called', this.state.showFavs);
+    this.setState({
+      showFavs: false,
+    });
   }
 
   handleFavList() {
     const usernameObject = {
       username: this.state.userName,
     };
-    console.log('this is usernameObject', usernameObject);
-    console.log('handleFav being called', this.state.showFavs);
+    // console.log('this is usernameObject', usernameObject);
+    // console.log('handleFav being called', this.state.showFavs);
     axios.post('/getFavs', usernameObject)
       .then((res) => {
-        console.log('this is res.data inside axios call', res.data)
+        // console.log('this is res.data inside axios call', res.data)
         const tempFavList = [];
         for (let q = 0; q < res.data.length; q += 1) {
           const tempFavObj = {
@@ -279,7 +279,7 @@ export default class App extends React.Component {
         this.setState(
           {
             favList: tempFavList,
-            fMapList: tempFavList
+            fMapList: tempFavList,
           },
           () => this.setState({ showFavs: true },
         ));
@@ -294,7 +294,7 @@ export default class App extends React.Component {
     list[i].favorite = should;
     this.setState({
       resultList: list,
-    }, () => console.log('res list', this.state.resultList));
+    });
   }
 
   render() {
@@ -304,35 +304,16 @@ export default class App extends React.Component {
           this.state.loggedIn ?
             <div className={style.logged}>
               <Search triggerSearch={this.handleSearch} />
-              <div className={style.comRentCont}>
-                <div className={style.com}>
-                  <h4>commute: {this.state.userCommute}</h4>
-                  <input
-                    type="range"
-                    min="0"
-                    max="60"
-                    value={this.state.userCommute}
-                    onChange={this.handleCommute}
-                  />
-                </div>
-                <div className={style.rent}>
-                  <h4>rent: {this.state.userRent}</h4>
-                  <input
-                    type="range"
-                    min="0"
-                    max="6000"
-                    step="100"
-                    value={this.state.userRent}
-                    onChange={this.handleRent}
-                  />
-                </div>
-              </div>
 
               <ResultControl
                 sortData={this.sortData}
                 loading={this.state.loading}
                 handleSearchList={this.handleSearchList}
                 handleFavList={this.handleFavList}
+                handleCommute={this.handleCommute}
+                handleRent={this.handleRent}
+                userCommute={this.state.userCommute}
+                userRent={this.state.userRent}
               />
               <ResultList
                 handleUnFav={this.handleUnFav}
