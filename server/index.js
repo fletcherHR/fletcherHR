@@ -10,7 +10,9 @@ const app = express();
 app.use(parser.json());
 app.use(express.static(__dirname + '/../client/dist'));
 
-app.set('port', 8080);
+// app.set('port', 8080);
+
+
 
 app.post('/checkfavs', (req, res) => {
   const listings = req.body.data;
@@ -247,5 +249,14 @@ app.post('/dfavs', (req, res) => {
   });
 });
 
-app.listen(app.get('port'));
-console.log('Listening on port 8080.');
+let port = process.env.PORT || 3306;
+
+app.listen((process.env.PORT || 3306), () => {
+  console.log(`listening on port ${port}`);
+});
+
+
+
+
+
+module.exports.app = app;
