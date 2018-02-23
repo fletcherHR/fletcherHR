@@ -106,7 +106,7 @@ export default class App extends React.Component {
         id: i,
         prices: prices[i],
         addresses: addresses[i],
-        images: images[i],
+        images: (images[i].slice(0, 4) === 'http') ? images[i] : 'http://www.fordhamroadbid.org/wp-content/uploads/2015/11/New-York.jpg',
         driving: driving[i],
         transit: transit[i],
         hLatLong: hLatLong[i],
@@ -384,14 +384,14 @@ export default class App extends React.Component {
                   isMarkerShown
                   resultList={this.state.resultList}
                   handleMarkerClick={this.handleMarkerClick}
-                  googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxYMb0yg6OBzoXznjrSp2J7RQwFBViPtY&v=3.exp&libraries=geometry,drawing,places"
+                  googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3-8_spYvJMmom68UctglxB1Bftz_H8uw&v=3.exp&libraries=geometry,drawing,places"
                   loadingElement={<div style={{ height: '100%' }} />}
                   containerElement={<div style={{ height: '83.33vh' }} />}
                   mapElement={<div style={{ height: '100%' }} />}
                   mapList={this.state.showFavs ? this.state.fMapList : this.state.mapList}
                   latitude={this.state.latitude}
                   longitude={this.state.longitude}
-                  key="AIzaSyCxYMb0yg6OBzoXznjrSp2J7RQwFBViPtY"
+                  // key="AIzaSyCxYMb0yg6OBzoXznjrSp2J7RQwFBViPtY"
                 />
               </div>
             </div> :
