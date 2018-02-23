@@ -6,7 +6,6 @@ import style from '../styles/styles2.css';
 export default class Result extends React.Component {
   constructor(props) {
     super(props);
-    console.log('within constructor, this.props: ', this.props);
     this.state = {
       active: this.props.favorite,
     };
