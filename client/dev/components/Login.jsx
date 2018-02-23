@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input, Header, Button, Container, Segment, Divider } from 'semantic-ui-react';
+import { Input, Header, Icon, Button, Container, Segment, Divider, Label } from 'semantic-ui-react';
 import style from '../styles/styles2.css';
 
 export default class Login extends React.Component {
@@ -81,34 +81,38 @@ export default class Login extends React.Component {
         <Container>
           <Input
             fluid
-            action={{
-              color: 'teal',
-              labelPosition: 'left',
-              icon: 'user',
-              content: 'Username',
-               }}
-            actionPosition="left"
+            size="large"
             type="text"
             value={this.state.userName}
             onChange={this.userChange}
             onKeyPress={this.onKeyPress}
+            label={
+              <Label
+                fluid
+                icon="user"
+                content="Username"
+                color="teal"
+              />
+            }
           />
         </Container>
         <br />
         <Container>
           <Input
             fluid
-            action={{
-              color: 'teal',
-              labelPosition: 'left',
-              icon: 'key',
-              content: 'Password',
-            }}
-            actionPosition="left"
+            size="large"
             type="password"
             value={this.state.password}
             onChange={this.passChange}
             onKeyPress={this.onKeyPress}
+            label={
+              <Label
+                fluid
+                icon="key"
+                content="Password"
+                color="teal"
+              />
+            }
           />
         </Container>
         <br />
