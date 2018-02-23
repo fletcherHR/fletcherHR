@@ -45,13 +45,13 @@ export default class App extends React.Component {
       // adding a list to show user's favorites
       favList: [],
       // setting state to show fav list vs result list
-      fMapList: [{ addresses: 'addresses', prices: 2000, hLatLong: { lat: 40.7484, lng: -73.9857 } }],
+      fMapList: [{ addresses: 'addresses', prices: 2000, driving: 'Your Work', hLatLong: { lat: 40.7484, lng: -73.9857 }, vis: false }],
       showFavs: false,
       // default is HR right now maybe add more later
       latitude: 40.750611,
       longitude: -73.978641,
       hLatLong: [{ lat: 40.750611, lng: -73.978641 }],
-      mapList: [{ addresses: 'addresses', prices: 2000, hLatLong: { lat: 40.7484, lng: -73.9857 } }],
+      mapList: [{ addresses: 'addresses', prices: 2000, driving: 'Your Work', hLatLong: { lat: 40.7484, lng: -73.9857 }, vis: false }],
       userName: '',
       loggedIn: 0,
       loading: false,
@@ -145,12 +145,13 @@ export default class App extends React.Component {
   }
 
   // clicked list will render as a Marker on the google maps
-  handleListClick({ addresses, prices, hLatLong }) {
+  handleListClick({ addresses, prices, hLatLong, driving }) {
     const tempObj = {
       addresses,
       prices,
       hLatLong,
-      vis: true,
+      driving,
+      vis: false,
       favorite: this.state.showFavs ? this.state.showFavs : false,
     };
     const anotherTempArray = this.state.showFavs ? this.state.fMapList : this.state.mapList;
