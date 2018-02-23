@@ -106,7 +106,7 @@ export default class Login extends React.Component {
         <Container>
           <Segment padded>
             <Button
-              disabled={false}
+              disabled={this.state.loginButtonState}
               onClick={this.login}
               fluid
               action={{

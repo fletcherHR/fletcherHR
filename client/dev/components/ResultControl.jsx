@@ -34,7 +34,6 @@ export default class ResultControl extends React.Component {
       activeSort: 3,
     });
     this.props.sortData(3);
-
   }
 
   handleSearchList() {
