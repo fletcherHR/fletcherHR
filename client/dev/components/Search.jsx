@@ -42,12 +42,12 @@ export default class Search extends React.Component {
           <Header.Content>
             Home To Work
           </Header.Content>
+
         </Header>
 
-        <Icon style={{ gridColumn: '1', gridRow: '1/4' }} size="massive" name="home" />
-        <Icon style={{ gridColumn: '2', gridRow: '1/4' }} size="massive" name="arrow right" />
-        <Icon style={{ gridColumn: '3', gridRow: '1/4' }} size="massive" name="building" />
-
+          <Icon style={{ gridColumn: '3', gridRow: '1/4' }} size="huge" name="home" color="white" inverted="yes"/>
+          <Icon style={{ gridColumn: '4', gridRow: '1/4' }} size="huge" name="arrow right" color="white" inverted="yes"/>
+          <Icon style={{ gridColumn: '5', gridRow: '1/4' }} size="huge" name="building" color="white" inverted="yes"/>
 
         <div style={{ gridColumn: '5', gridRow: '3', paddingBottom: '5px' }}>
           <Input

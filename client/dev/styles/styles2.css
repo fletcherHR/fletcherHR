@@ -1,13 +1,13 @@
 body {
   font-family: sans-serif;
-  background-image: url(https://i.ytimg.com/vi/gKKYnNvfU1A/maxresdefault.jpg);
+  background-color: rgb(0,99,81);
 }
 
 .logged {
   display: grid;
   grid-template-columns: 8fr 4fr;
   grid-template-rows: 16.66vh 16.66vh 16.66vh 16.66vh 16.66vh 16.66vh;
-  background-color: rgba(224,225,226, 0.5);
+  
 }
 
 .map {
@@ -39,6 +39,8 @@ body {
 }
 
 .comRentCont {
+  border: 1px solid black;
+  border-radius: 2%;
   height: 30%;
   font-size: 12px;
   display: grid;

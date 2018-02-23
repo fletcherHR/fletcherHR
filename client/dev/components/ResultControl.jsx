@@ -63,12 +63,14 @@ export default class ResultControl extends React.Component {
             active={this.state.activeResult === 1}
             onClick={this.handleSearchList}
             loading={this.props.loading}
+            color="teal"
           >
             Search Results
           </Button>
           <Button
             active={this.state.activeResult === 2}
             onClick={this.handleFavList}
+            color="teal"
           >
             My Favorites
           </Button>
