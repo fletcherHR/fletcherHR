@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button} from 'semantic-ui-react';
+import GridRow, { Button } from 'semantic-ui-react';
 import style from '../styles/styles2.css';
 
 export default class ResultControl extends React.Component {
@@ -98,6 +98,33 @@ export default class ResultControl extends React.Component {
             Driving
           </Button>
         </Button.Group>
+        <div className={style.comRentCont}>
+          <div className={style.com}>
+            <span style={{ textAlign: 'center', gridColumn: '1', gridRow: '1' }}>Max Commute: {this.props.userCommute}mins</span>
+            <input
+              type="range"
+              min="0"
+              max="60"
+              value={this.props.userCommute}
+              onChange={this.props.handleCommute}
+              className={style.slide}
+              style={{ margin: 'auto', gridColumn: '1', gridRow: '2' }}
+            />
+          </div>
+          <div className={style.rent}>
+            <span style={{ textAlign: 'center', gridColumn: '1', gridRow: '1' }}>Max Rent: ${this.props.userRent}</span>
+            <input
+              type="range"
+              min="0"
+              max="6000"
+              step="100"
+              value={this.props.userRent}
+              onChange={this.props.handleRent}
+              className={style.slide}
+              style={{ margin: 'auto', gridColumn: '1', gridRow: '2' }}
+            />
+          </div>
+        </div>
       </div>
     );
   }

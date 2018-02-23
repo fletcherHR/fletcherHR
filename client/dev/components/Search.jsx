@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input, Header, Button, Container, Segment, Divider } from 'semantic-ui-react';
+import { Input, Button, Header, Icon } from 'semantic-ui-react';
 
 export default class Search extends React.Component {
   constructor(props) {
@@ -37,9 +37,21 @@ export default class Search extends React.Component {
   render() {
     return (
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
-        <div>
+      <div style={{ display: 'grid', gridTemplateColumns: '4fr 1fr 1fr 1fr 1fr', gridTemplateRows: '1fr 1fr 1fr' }}>
+        <Header size="huge" style={{ paddingTop: '20px', textAlign: 'center' }}>
+          <Header.Content>
+            Home To Work
+          </Header.Content>
+        </Header>
+
+        <Icon style={{ gridColumn: '3', gridRow: '1/4' }} size="massive" name="home" />
+        <Icon style={{ gridColumn: '4', gridRow: '1/4' }} size="massive" name="arrow right" />
+        <Icon style={{ gridColumn: '5', gridRow: '1/4' }} size="massive" name="building" />
+
+
+        <div style={{ gridColumn: '1', gridRow: '3', paddingBottom: '5px' }}>
           <Input
+            style={{ marginLeft: '15px' }}
             fluid
             action={
               <Button
@@ -53,7 +65,7 @@ export default class Search extends React.Component {
             type="text"
             value={this.state.userAddress}
             onChange={this.handleAddress}
-            placeholder="Search Address"
+            placeholder="Where Do You Work"
           />
         </div>
       </div>

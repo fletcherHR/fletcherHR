@@ -1,11 +1,13 @@
 body {
   font-family: sans-serif;
+  background-image: url(https://i.ytimg.com/vi/gKKYnNvfU1A/maxresdefault.jpg);
 }
 
 .logged {
   display: grid;
   grid-template-columns: 6.5fr 1.5fr 4fr;
   grid-template-rows: 16.66vh 16.66vh 16.66vh 16.66vh 16.66vh 16.66vh;
+  background-color: rgba(224,225,226, 0.5);
 }
 
 .map {
@@ -20,6 +22,7 @@ body {
   grid-auto-rows: 150px;
   grid-row-gap: 5px;
   overflow-y: auto;
+  background-color: rgb(224, 225, 226);
 }
 
 .result {
@@ -36,19 +39,26 @@ body {
 }
 
 .comRentCont {
-  border-left: 5px solid black;
+  height: 30%;
+  font-size: 12px;
   display: grid;
-  grid-template-columns: 1fr 5fr 1fr;
-  grid-template-rows: 8.33vh 8.33vh;
+  grid-template-columns: 1fr 1fr;
+  background-color: rgb(224, 225, 226);
 }
 
 .com {
   grid-row: 1;
   grid-column: 2;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 12px;
 }
 .rent {
-  grid-row: 2;
-  grid-column: 2;
+  grid-row: 1;
+  grid-column: 1;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 14px;
 }
 
 .resultControl {
@@ -56,7 +66,7 @@ body {
 }
 
 .searchFav {
-  height: 60%;
+  height: 40%;
 }
 
 .control Button {
@@ -64,9 +74,9 @@ body {
 }
 
 .filter {
-  height: 40%;
+  height: 30%;
 }
 
-.favorites {
-  background: yellow !important;
+.slide {
+  width: 80%;
 }
