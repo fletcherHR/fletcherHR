@@ -24,7 +24,6 @@ app.post('/checkfavs', (req, res) => {
         }
       }
     }
-    console.log('end of checkFavs, listings: ', listings);
     res.status(200).send(listings);
   });
 });
@@ -40,7 +39,6 @@ app.post('/zillow', (req, res) => {
   request(url1, (error, response, dataa) => {
     const data = JSON.parse(dataa);
     const zipCodes = data.zip_codes.map(x => x.zip_code);
-    console.log(zipCodes);
     // create all of the zillow urls for webscraping
     const urls = zipCodes.map(zip => `https://www.zillow.com/homes/${zip}_rb/`);
     let prices = [];
@@ -207,9 +205,7 @@ app.post('/login', (req, res) => {
 
 
 app.post('/getFavs', (req, res) => {
-  // console.log('this is req.body in app.get', req.body.username);
   dbhelper.getFavs(req.body.username, (results) => {
-    // console.log('this is results in /favs after dbhelper', results);
     res.send(results);
   });
 });
