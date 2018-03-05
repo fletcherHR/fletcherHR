@@ -7,7 +7,7 @@ const GoogleMaps = withScriptjs(withGoogleMap(props => (
     defaultZoom={13}
     defaultCenter={{ lat: props.mapList[0].hLatLong.lat, lng: props.mapList[0].hLatLong.lng }}
     center={{ lat: props.mapList[0].hLatLong.lat, lng: props.mapList[0].hLatLong.lng }}
-    key="AIzaSyCxYMb0yg6OBzoXznjrSp2J7RQwFBViPtY"
+    key="YOUR API KEY HERE"
   >
     {props.mapList.map((marker, i) => (
       <MarkerWithLabel
