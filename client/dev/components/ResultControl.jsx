@@ -17,6 +17,7 @@ export default class ResultControl extends React.Component {
     this.handleFavList = this.handleFavList.bind(this);
   }
 
+  // Change the sort order
   changeSort1() {
     this.setState({
       activeSort: 1,
@@ -36,6 +37,8 @@ export default class ResultControl extends React.Component {
     this.props.sortData(3);
   }
 
+  // Set the active state of the buttons
+  // Active is darker
   handleSearchList() {
     this.setState({
       activeResult: this.state.activeResult === 1,

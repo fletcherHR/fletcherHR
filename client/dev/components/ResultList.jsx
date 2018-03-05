@@ -25,17 +25,18 @@ export default class ResultList extends React.Component {
       <div className={style.resultList}>
         {this.props.resultList.map((result, i) => {
           return (
-          result.prices <= this.props.maxRent && parseInt(result.driving, 10) <= this.props.maxCom ?
-            <Result
-              result={result}
-              key={i}
-              i={i}
-              userName={this.props.userName}
-              showMarkerClick={this.handleClick}
-              favorite={result.favorite}
-              handleUnFav={this.props.handleUnFav}
-            /> : ''
-          )}
+            // render result if below max commute and max rent
+            result.prices <= this.props.maxRent && parseInt(result.driving, 10) <= this.props.maxCom ?
+              <Result
+                result={result}
+                key={i}
+                i={i}
+                userName={this.props.userName}
+                showMarkerClick={this.handleClick}
+                favorite={result.favorite}
+                handleUnFav={this.props.handleUnFav}
+              /> : ''
+            )}
         )}
       </div>
     );

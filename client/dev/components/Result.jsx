@@ -13,6 +13,7 @@ export default class Result extends React.Component {
     this.showMarkerClick = this.showMarkerClick.bind(this);
   }
 
+  // add or remove result from favorites
   handleButtonClick() {
     if (this.state.active) {
       this.props.handleUnFav(this.props.i, false);
@@ -42,6 +43,7 @@ export default class Result extends React.Component {
     });
   }
 
+  // Show marker for result on map
   showMarkerClick() {
     this.props.showMarkerClick(this.props.result);
   }
@@ -85,5 +87,3 @@ export default class Result extends React.Component {
     );
   }
 }
-// Transit:({this.props.result.transit})
-// Walking:({this.props.result.walking})
