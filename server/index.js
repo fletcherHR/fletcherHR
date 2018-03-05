@@ -169,7 +169,9 @@ app.post('/zillow', (req, res) => {
   });
 });
 
+// send a post request to database for a new user sign up
 app.post('/signUp', (req, res) => {
+  // obj.allow controls if a new user can sign up or not, since username is set as unique in the database
   const obj = {
     userName: '  ',
     allow: 1,
@@ -185,6 +187,7 @@ app.post('/signUp', (req, res) => {
   });
 });
 
+// send a post request to database to check login password, if not a match, set obj.allow to 0
 app.post('/login', (req, res) => {
   const obj = {
     userName: '  ',
