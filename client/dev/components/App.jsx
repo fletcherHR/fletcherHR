@@ -12,6 +12,8 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+
+      // resultList is populated with dummy data on loadup
       resultList: [{
         prices: 2000,
         addresses: 'addresses',
@@ -66,12 +68,16 @@ export default class App extends React.Component {
       favList: [],
       // setting state to show fav list vs result list
       fMapList: [{ addresses: 'addresses', prices: 2000, driving: 'Your Work', hLatLong: { lat: 40.7484, lng: -73.9857 }, vis: false }],
+      // fMapList is what the GoogleMaps.jsx uses to put markers on the map when the user in showing/looking at favorites
       showFavs: false,
       // default is HR right now maybe add more later
       latitude: 40.750611,
       longitude: -73.978641,
       hLatLong: [{ lat: 40.750611, lng: -73.978641 }],
       mapList: [{ addresses: 'addresses', prices: 2000, driving: 'Your Work', hLatLong: { lat: 40.7484, lng: -73.9857 }, vis: false }],
+      // mapList is what contains the values (lat and lng) necessary to render markers on the GoogleMaps.jsx
+      // index 0 of mapList will be the "center" for google maps, dummy data initially, but gets updated with
+      // users's work data once the user makes a search
       userName: '',
       loggedIn: 0,
       loading: false,
@@ -90,13 +96,16 @@ export default class App extends React.Component {
     this.handleUnFav = this.handleUnFav.bind(this);
     this.handleSearchList = this.handleSearchList.bind(this);
     this.handleFavList = this.handleFavList.bind(this);
-    // this.toggleVisibility = this.toggleVisibility.bind(this);
   }
 
   check() {
     console.log('something someting: ', this.state);
   }
 
+
+  // When search makes the call for data, the results from the API call are not in an ideal format
+  // before pack data, the data is an array of arrays, i.e. data = [[addresses], [lat], [prices] ... etc]
+  // All packData() does is make it so that data looks something like data = [{address1, lat1, price1}, {address2, lat2, price2}...]
   packData({
     prices, addresses, images, transit, driving, walking, hLatLong,
   }) {
@@ -120,19 +129,19 @@ export default class App extends React.Component {
       username: this.state.userName,
     })
       .then((res) => {
-        //console.log('this is res.data within /checkfavs, res.data: ', res.data);
+        // console.log('this is res.data within /checkfavs, res.data: ', res.data);
         this.setState({
           resultList: [],
         }, () => {
           this.setState({
             resultList: res.data,
           }, () => {
-            //console.log('the new state of result list after checking faves: ', this.state.resultList);
+            // console.log('the new state of result list after checking faves: ', this.state.resultList);
           });
         });
       })
       .catch((err) => {
-        //console.log('ERROR in POST to /checkfavs, error: ', err);
+        // console.log('ERROR in POST to /checkfavs, error: ', err);
       });
   }
 
@@ -144,10 +153,12 @@ export default class App extends React.Component {
     axios.post('/zillow', { zip, userAddress })
       .then((res) => {
         const mapListObj = { addresses: userAddress, prices: 'this is your work', hLatLong: res.data.jLatLong, vis: false };
+        // mapListObj is the user's "Work address", aka what the user inputs into the search bar
+        // temppArray then overwrites the dummy data in mapList and fMapList
+        // so that the user's work marker will always be showing
         const temppArray = [];
         temppArray.push(mapListObj);
-        // make sure we are sending back data in an array
-       // console.log(res.data);
+        // make sure we are sending back data in an array, send this array to pack data
         this.setState(
           {
             loading: false,
@@ -165,6 +176,10 @@ export default class App extends React.Component {
   }
 
   // clicked list will render as a Marker on the google maps
+  // mapList and fMapList are initially dummy data, as the user clicks to show markers,
+  // handleListClick function will push the clicked list entry's data as an object into
+  // either mapList of fMapList. If that object is already in mapList however, it will be spliced
+  // removing that marker from the map.
   handleListClick({ addresses, prices, hLatLong, driving }) {
     const tempObj = {
       addresses,
@@ -197,7 +212,7 @@ export default class App extends React.Component {
     }
   }
 
-
+  // see handleListClick, similar function, but for displaying marker data.
   handleMarkerClick(i) {
     console.log('here');
     const tempArray = this.state.showFavs ? this.state.fMapList : this.state.mapList;
@@ -294,24 +309,23 @@ export default class App extends React.Component {
   handleSearchList() {
     //console.log('handleSearch being called', this.state.showFavs);
     let list = this.state.resultList.slice();
-    console.log('HEEHHEHEHEHEH', list);
     this.setState({
       showFavs: false,
       resultList: [],
     }, () => {
-      console.log('HEEHHEHEHEHEH22222', list);
       this.setState({
         resultList: list,
       });
     });
   }
 
+  // handleFavList is when the user clicks to show their favorites list
+  // makes an axios call to the database, which returns all current favorites
+  // the favList state is then updated with this data and then shown to the user
   handleFavList() {
     const usernameObject = {
       username: this.state.userName,
     };
-    // console.log('this is usernameObject', usernameObject);
-    // console.log('handleFav being called', this.state.showFavs);
     axios.post('/getFavs', usernameObject)
       .then((res) => {
         // console.log('this is res.data inside axios call', res.data)
@@ -336,7 +350,7 @@ export default class App extends React.Component {
             favList: tempFavList,
           },
           () => this.setState({ showFavs: true, resultList: list },
-        ));
+          ));
       })
       .catch((err) => {
         console.log(err)
