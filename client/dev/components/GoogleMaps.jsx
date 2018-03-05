@@ -2,11 +2,15 @@ import React from 'react';
 import { withScriptjs, withGoogleMap, GoogleMap } from 'react-google-maps';
 import { MarkerWithLabel } from 'react-google-maps/lib/components/addons/MarkerWithLabel';
 
+// check documentation at https://tomchentw.github.io/react-google-maps/ on the following code
 const GoogleMaps = withScriptjs(withGoogleMap(props => (
   <GoogleMap
+    // defaultZoom determines how zoomed in or out you want. The bigger number, the more zoomed in
     defaultZoom={13}
+    // map's default center is set at the first item of the result list
     defaultCenter={{ lat: props.mapList[0].hLatLong.lat, lng: props.mapList[0].hLatLong.lng }}
     center={{ lat: props.mapList[0].hLatLong.lat, lng: props.mapList[0].hLatLong.lng }}
+    // apply a new key and use your own
     key="AIzaSyCxYMb0yg6OBzoXznjrSp2J7RQwFBViPtY"
   >
     {props.mapList.map((marker, i) => (

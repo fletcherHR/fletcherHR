@@ -11,6 +11,7 @@
   "author": "team-Fletcher",
   "license": "null",
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-core": "^6.23.1",
     "babel-eslint": "^8.2.2",
     "babel-loader": "^6.3.2",
