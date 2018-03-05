@@ -98,11 +98,6 @@ export default class App extends React.Component {
     this.handleFavList = this.handleFavList.bind(this);
   }
 
-  check() {
-    console.log('something someting: ', this.state);
-  }
-
-
   // When search makes the call for data, the results from the API call are not in an ideal format
   // before pack data, the data is an array of arrays, i.e. data = [[addresses], [lat], [prices] ... etc]
   // All packData() does is make it so that data looks something like data = [{address1, lat1, price1}, {address2, lat2, price2}...]
@@ -129,24 +124,20 @@ export default class App extends React.Component {
       username: this.state.userName,
     })
       .then((res) => {
-        // console.log('this is res.data within /checkfavs, res.data: ', res.data);
         this.setState({
           resultList: [],
         }, () => {
           this.setState({
             resultList: res.data,
-          }, () => {
-            // console.log('the new state of result list after checking faves: ', this.state.resultList);
           });
         });
       })
       .catch((err) => {
-        // console.log('ERROR in POST to /checkfavs, error: ', err);
+        console.log('ERROR in POST to /checkfavs, error: ', err);
       });
   }
 
   handleSearch({ userAddress }) {
-    console.log('this is the userAddress: ', userAddress);
     const zip = (userAddress.slice(userAddress.length - 5, userAddress.length));
     if (isNaN(parseFloat(zip))) return alert('Sorry, we can\'t use that address... Please include the zip code at the end!');
     this.setState({ loading: true });
@@ -203,18 +194,14 @@ export default class App extends React.Component {
       anotherTempArray.push(tempObj);
     }
     if (this.state.showFavs === true) {
-      console.log('the state is,', this.state.showFavs, 'so setting tempArray in handleFavClick to fMapList\n')
       this.setState({ fMapList: anotherTempArray }, () => this.setState({ showFavs: this.state.showFavs }));
-    }
-    else if (this.state.showFavs === false) {
-      console.log('the state is,', this.state.showFavs, 'so setting tempArray to mapList');
+    } else if (this.state.showFavs === false) {
       this.setState({ mapList: anotherTempArray }, () => this.setState({ showFavs: this.state.showFavs }));
     }
   }
 
   // see handleListClick, similar function, but for displaying marker data.
   handleMarkerClick(i) {
-    console.log('here');
     const tempArray = this.state.showFavs ? this.state.fMapList : this.state.mapList;
     tempArray[i].vis = !tempArray[i].vis;
     if (this.state.showFavs) {
@@ -269,15 +256,15 @@ export default class App extends React.Component {
             userName: res.data.userName,
           });
         } else {
-          console.log('User Name Taken');
           cb('User Name Taken');
         }
       })
       .catch((err) => {
-        console.log(err)
+        console.log(err);
       });
   }
 
+  // Sort the results based on what sort button was clicked
   sortData(type) {
     let list = this.state.resultList;
     this.setState({
@@ -299,6 +286,7 @@ export default class App extends React.Component {
     });
   }
 
+  // Update changes to the max rent and commute sliders
   handleRent(e) {
     this.setState({ userRent: e.target.value });
   }
@@ -306,9 +294,10 @@ export default class App extends React.Component {
     this.setState({ userCommute: e.target.value });
   }
 
+  // Handle switching back from favorites to results
   handleSearchList() {
-    //console.log('handleSearch being called', this.state.showFavs);
-    let list = this.state.resultList.slice();
+    const list = this.state.resultList.slice();
+    // resultList is set to empty before being set back to list because this made the rendering work...
     this.setState({
       showFavs: false,
       resultList: [],
@@ -328,7 +317,6 @@ export default class App extends React.Component {
     };
     axios.post('/getFavs', usernameObject)
       .then((res) => {
-        // console.log('this is res.data inside axios call', res.data)
         const tempFavList = [];
         for (let q = 0; q < res.data.length; q += 1) {
           const tempFavObj = {
@@ -339,11 +327,12 @@ export default class App extends React.Component {
             driving: res.data[q].driving,
             hLatLong:{ lat: parseFloat(res.data[q].lat), lng: parseFloat(res.data[q].lng) },
             vis: false,
-            favorite: true
-          }
-          tempFavList.push(tempFavObj)
+            favorite: true,
+          };
+          tempFavList.push(tempFavObj);
         }
         let list = this.state.resultList.slice();
+        // favList is set to empty before being set back to list because this made the rendering work...
         this.setState(
           {
             resultList: [],
@@ -385,7 +374,6 @@ export default class App extends React.Component {
               />
               <ResultList
                 handleUnFav={this.handleUnFav}
-                handleFavorites={this.resetFavoriteState}
                 maxCom={this.state.userCommute}
                 maxRent={this.state.userRent}
                 resultList={this.state.showFavs ? this.state.favList : this.state.resultList}

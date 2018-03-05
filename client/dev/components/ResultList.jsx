@@ -15,12 +15,7 @@ export default class ResultList extends React.Component {
     this.props.handleListClick(result);
   }
 
-  handleFavoritesReset() {
-    this.props.handleFavorites();
-  }
-
   render() {
-    console.log('this is resultList', this.props.resultList);
     return (
       <div className={style.resultList}>
         {this.props.resultList.map((result, i) => {
