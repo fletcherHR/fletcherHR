@@ -13,7 +13,6 @@ app.use(express.static(__dirname + '/../client/dist'));
 // app.set('port', 8080);
 
 
-
 app.post('/checkfavs', (req, res) => {
   const listings = req.body.data;
   const { username } = req.body;
@@ -30,14 +29,19 @@ app.post('/checkfavs', (req, res) => {
   });
 });
 
+// This gets all of the data from API calls and web scraping
 app.post('/zillow', (req, res) => {
   const inputZip = req.body.zip;
   const workAddress = req.body.userAddress.split(' ').join('+');
-  const url1 = `https://www.zipcodeapi.com/rest/IYVMopKpmk4DbTEvhmk0AnYpUyZaryLwwKbkwHIbtPD0W3rNcnCMJZoKKoWze90R/radius.json/${inputZip}/1/km`;
+  const url1 = `https://www.zipcodeapi.com/rest/${INSERT API KEY HERE}/radius.json/${inputZip}/1/km`;
+  // Request to the zipcode api to get all zipcodes within a certain radius
+  // Need to update the key in url1 every day
+  // Or get your own key but it will only give 50 searches a day
   request(url1, (error, response, dataa) => {
     const data = JSON.parse(dataa);
     const zipCodes = data.zip_codes.map(x => x.zip_code);
     console.log(zipCodes);
+    // create all of the zillow urls for webscraping
     const urls = zipCodes.map(zip => `https://www.zillow.com/homes/${zip}_rb/`);
     let prices = [];
     let addresses = [];
@@ -47,9 +51,11 @@ app.post('/zillow', (req, res) => {
     const transit = [];
     let jLatLong;
     const hLatLong = [];
-
+    // function for each zillow.com request
     const searchUrl = (i) => {
       request(urls[i], (err, resp, html) => {
+        // cheerio is used to webscrape
+        // selects elements from the downloaded html similarly to jquery
         const $ = cheerio.load(html);
         const imgs = $("div[class='zsg-photo-card-img'] img");
         const price = $("div[class='zsg-photo-card-caption']");
@@ -67,9 +73,11 @@ app.post('/zillow', (req, res) => {
           images.push($(img).attr('src'));
         });
 
+        // perform next zillow search or move on if last one
         if (i < urls.length - 1) {
           searchUrl(i + 1);
         } else {
+          // data refactoring
           prices = prices.map(p => String(p));
           prices = prices.map((p) => {
             let start = false;
@@ -102,19 +110,21 @@ app.post('/zillow', (req, res) => {
             }).join(' ');
           });
 
-
+          // data filtering to only get good results
           const addr = addresses.slice();
           addresses = addresses.filter((x, z) => addr.indexOf(addr[z]) === z && prices[z] !== 0 && prices[z] <= 20000 && addresses[z] !== '');
           images = images.filter((x, z) => addr.indexOf(addr[z]) === z && prices[z] !== 0 && prices[z] <= 20000 && addresses[z] !== '');
           prices = prices.filter((x, z) => addr.indexOf(addr[z]) === z && x !== 0 && x <= 20000 && addresses[z] !== '');
-          //console.log('all 3:', addresses, prices);
-          addresses = addresses.slice(0, 11);
-          images = images.slice(0, 11);
-          prices = prices.slice(0, 11);
+          // slicing data to only get the first 10 results, reduce to 5 for faster testing
+          addresses = addresses.slice(0, 10);
+          images = images.slice(0, 10);
+          prices = prices.slice(0, 10);
 
+          // function for googlemaps api calls
           const searchMaps = (homeAdd, x) => {
             const homeAddress = String(homeAdd).split(' ').join('+');
-            let mapsUrl = `https://maps.googleapis.com/maps/api/directions/json?origin=${workAddress}&destination=${homeAddress}&key=AIzaSyCxYMb0yg6OBzoXznjrSp2J7RQwFBViPtY&mode=driving`
+            let mapsUrl = `https://maps.googleapis.com/maps/api/directions/json?origin=${workAddress}&destination=${homeAddress}&key=${INSERT API KEY HERE}&mode=driving`
+            // first request for driving time
             request(mapsUrl, (mapErr, mapResp, mapHtmlW) => {
               if (JSON.parse(mapHtmlW).routes[0] !== undefined) {
                 driving.push(JSON.parse(mapHtmlW).routes[0].legs[0].duration.text);
@@ -126,25 +136,23 @@ app.post('/zillow', (req, res) => {
                 driving.push('error');
                 hLatLong.push('error');
               }
-              mapsUrl = `https://maps.googleapis.com/maps/api/directions/json?origin=${workAddress}&destination=${homeAddress}&key=AIzaSyCxYMb0yg6OBzoXznjrSp2J7RQwFBViPtY&mode=transit`
+              mapsUrl = `https://maps.googleapis.com/maps/api/directions/json?origin=${workAddress}&destination=${homeAddress}&key=${INSERT API KEY HERE}&mode=transit`
+              // second request for transit time
               request(mapsUrl, (mapErr, mapResp, mapHtmlD) => {
                 if (JSON.parse(mapHtmlD).routes[0] !== undefined) {
                   transit.push(JSON.parse(mapHtmlD).routes[0].legs[0].duration.text);
                 } else {
                   transit.push('error');
                 }
+                // move on to next address if any left
                 if (x < addresses.length - 1) {
                   searchMaps(addresses[x + 1], x + 1);
                 } else {
-                  console.log(prices.length);
-                  console.log('done');
-                  console.log(addresses);
-
+                  // send all data back to client
                   const obj = {
                     prices,
                     addresses,
                     images,
-                    //walking,
                     driving,
                     transit,
                     jLatLong,
@@ -154,33 +162,6 @@ app.post('/zillow', (req, res) => {
                 }
               });
             });
-            //   mapsUrl = `https://maps.googleapis.com/maps/api/directions/json?origin=${workAddress}&destination=${homeAddress}&key=AIzaSyCxYMb0yg6OBzoXznjrSp2J7RQwFBViPtY&mode=transit`
-            //   request(mapsUrl, (mapErr, mapResp, mapHtmlT) => {
-            //     if (JSON.parse(mapHtmlT).routes[0] !== undefined) {
-            //       transit.push(JSON.parse(mapHtmlT).routes[0].legs[0].duration.text);
-            //     } else {
-            //       transit.push('error');
-            //     }
-            // if (x < addresses.length - 1) {
-            //   searchMaps(addresses[x + 1], x + 1);
-            // } else {
-            //   console.log(prices.length);
-            //   console.log('done');
-            //   console.log(walking);
-            //   const obj = {
-            //     prices,
-            //     addresses,
-            //     images,
-            //     walking,
-            //     driving,
-            //     transit,
-            //     jLatLong,
-            //     hLatLong,
-            //   };
-            //   res.status(200).send(obj);
-            // }
-            //   });
-            // });
           };
           searchMaps(addresses[0], 0);
         }
